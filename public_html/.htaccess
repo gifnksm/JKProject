@@ -1,1 +1,1 @@
-# Apacheの設定ファイル
+DirectoryIndex index.html index.php
