@@ -5,3 +5,7 @@
 /public_html - 実際に公開されるディレクトリ
 /sql_util - SQLデータベース用のバッチファイルなど
 /php_lib - PHPの外部ライブラリ
+
+public_html以下にはなるべく余分なものを置かない！
+たとえば，他のファイルから呼び出されるだけで直接アクセスされないPHPファイルはpublic_html以下ではなく，
+php_lib以下に置き，phpのロードパスにphp_libを設定しておく
