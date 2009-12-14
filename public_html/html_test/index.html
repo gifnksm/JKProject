@@ -6,27 +6,10 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="content-style-type" content="text/css" />
     <meta http-equiv="content-script-type" content="text/javascript" />
-    <link href="resource/css/base.css" rel="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="resource/js/jquery.js"></script>
+    <link href="/resource/css/base.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/resource/js/jquery.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAwuxyTnL1fS926XQF61aiexRfXkSGhHHcUf9slCl3BmkBaWtZ2BT0V4mty60hKMaM4-naWDakVHaycQ"></script>
-    <script type="text/javascript">
-      google.load("maps", "2");
-      google.setOnLoadCallback(function() {
-      var map = new google.maps.Map2(document.getElementById("map"));
-      map.setCenter(new google.maps.LatLng(35.60709019396141,139.6853256225586),19);
-      map.addControl(new GLargeMapControl());
-      map.addControl(new GMapTypeControl());
-      map.addControl(new GOverviewMapControl());
-      map.setMapType(G_NORMAL_MAP);
-
-      var blueIcon = new GIcon(G_DEFAULT_ICON);
-      blueIcon.image = "http://www.openspc2.org/Google/Maps/marker/color/0x6af.png";//6a a5 fd
-
-      map.addOverlay(new GMarker(new GPoint(139.68549862504005, 35.60725592797462), {icon: blueIcon}));
-      map.addOverlay(new GMarker(new GPoint(139.68528673052788, 35.607098916812774), {}));
-
-      });
-    </script>
+    <script type="text/javascript" src="index.js"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/base.css" />
     <title>バリアフリーマップ検索</title>
   </head>
