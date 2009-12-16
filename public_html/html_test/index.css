@@ -1,0 +1,31 @@
+#list {
+    float: left;
+    width: 250px;
+    height: 500px;
+    overflow: auto;
+    border: 1px solid gray;
+}
+
+#list div.item {
+    widh: 100%;
+    border-bottom: 1px solid gray;
+}
+
+#list div.item h2 {
+    font-size: 1.2em;
+    margin: 0;
+}
+#list div.item div.desc {
+    font-size: 0.8em;
+}
+
+#map {
+    float: left;
+    width: 500px;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+}
+
+    <div id="list" style="float: left; border: 1px solid gray; width: 250px; height: 500px; overflow: auto;"></div>
+    <div id="map" style="width:500px; height:500px; margin:0px; padding:0px; float: left;">
