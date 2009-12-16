@@ -1,3 +1,11 @@
+#search_form {
+    text-align: center;
+}
+#search {
+    font-size: 1.2em;
+    margin: 10px auto;
+}
+
 #list {
     float: left;
     width: 250px;
@@ -9,10 +17,20 @@
 #list div.item {
     widh: 100%;
     border-bottom: 1px solid gray;
+    padding: 2px 3px;
 }
 
+#list div.item.suited {
+    background-color: #ccf;
+}
+#list div.item.unknown {
+    background-color: #ffc;
+}
+#list div.item.unsuited {
+    background-color: #fcc;
+}
 #list div.item h2 {
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0;
 }
 #list div.item div.desc {
@@ -26,6 +44,3 @@
     margin: 0;
     padding: 0;
 }
-
-    <div id="list" style="float: left; border: 1px solid gray; width: 250px; height: 500px; overflow: auto;"></div>
-    <div id="map" style="width:500px; height:500px; margin:0px; padding:0px; float: left;">

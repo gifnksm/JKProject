@@ -1,5 +1,20 @@
 google.load("maps", "2");
 
+function createIcon(color, alphabet) {
+  var icon = new GIcon(G_DEFAULT_ICON);
+  if (alphabet === undefined)
+    alphabet = 'dot';
+  if (color === undefined)
+    color = 'red';
+  icon.image = '/resource/image/marker/' + alphabet + '.' + color + '.png';
+  // icon.shadow = 'http://www.google.com/mapfiles/gadget/shadow50Small80.png';
+  // icon.iconSize = new GSize(32, 32);
+  // icon.shadowSize = new GSize(30, 28);
+  // icon.iconAnchor = new GPoint(8, 27);
+  // icon.infoWindowAnchor = new GPoint(5, 1);
+  return icon;
+}
+
 $(document).ready(
   function() {
     google.setOnLoadCallback(
@@ -12,13 +27,9 @@ $(document).ready(
         map.addControl(new GOverviewMapControl());
         map.setMapType(G_NORMAL_MAP);
 
-        var redIcon = new GIcon(G_DEFAULT_ICON);
-        redIcon.image = "http://www.openspc2.org/Google/Maps/marker/color/0xf77.png";
-
-        var blueIcon = new GIcon(G_DEFAULT_ICON);
-        blueIcon.image = "http://www.openspc2.org/Google/Maps/marker/color/0x6af.png";
-        var yellowIcon = new GIcon(G_DEFAULT_ICON);
-        yellowIcon.image = "http://www.openspc2.org/Google/Maps/marker/color/0xff0.png";
+        var redIcon = createIcon('red', 'dot');
+        var blueIcon = createIcon('blue', 'dot');
+        var yellowIcon = createIcon('yellow', 'dot');
 
         points.forEach(function(pt) {
                          var opt = {};
@@ -44,6 +55,7 @@ $(document).ready(
           );
         }
 
+        var alpha = 'A';
         $('#search').focus();
         $('form').submit(
           function(event) {
@@ -60,16 +72,30 @@ $(document).ready(
                       var point = new GLatLng(place.Point.coordinates[1],
                                               place.Point.coordinates[0]);
                       var showWindow = function() {
-                        showInfoWindow(response.name, place, point, marker);
+                        showInfoWindow(response.name, place, point, marker, alpha);
+                        marker.mem_zIndex = -1;
                       };
 
-                      var marker = new GMarker(point);
+                      var color;
+                      switch ((alpha.charCodeAt(0) - 'A'.charCodeAt(0)) % 3) {
+                      case 0: color = 'red'; break;
+                      case 1: color = 'yellow'; break;
+                      case 2: color = 'blue'; break;
+                      }
+                      var marker = new GMarker(point, {icon: createIcon(color, alpha)});
                       map.addOverlay(marker);
                       GEvent.addListener(marker, 'click', showWindow);
                       list.append(
                         $('<div>')
                           .addClass('item')
-                          .append($('<h2>').append(
+                          .addClass(color == 'red'
+                                    ? 'unsuited'
+                                    : color == 'yellow'
+                                    ? 'unknown'
+                                    : 'suited')
+                          .append($('<h2>')
+                                  .append(alpha + ': ')
+                                  .append(
                                     $('<a>')
                                       .attr('href', 'javascript: void(0);')
                                       .append(response.name)
@@ -81,6 +107,7 @@ $(document).ready(
                               .append('<strong>Lng:</strong> ' + point.lng())
                               .append('<br />')
                               .append('<strong>Addr:</strong> ' + place.address)));
+                      alpha = String.fromCharCode(alpha.charCodeAt(0) + 1);
                     });
                 }
               });
