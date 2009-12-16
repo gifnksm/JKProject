@@ -53,11 +53,10 @@ $(document).ready(
               function(response) {
                 console.log('response: %o', response);
                 if (!response || response.Status.code != 200) {
-                  alert('見つからなかった');
+                  alert('"' + response.name + '" は見つかりませんでした');
                 } else {
                   response.Placemark.forEach(
-                    function(place){
-                      var place = response.Placemark[0];
+                    function(place) {
                       var point = new GLatLng(place.Point.coordinates[1],
                                               place.Point.coordinates[0]);
                       var showWindow = function() {
@@ -67,7 +66,6 @@ $(document).ready(
                       var marker = new GMarker(point);
                       map.addOverlay(marker);
                       GEvent.addListener(marker, 'click', showWindow);
-                      showWindow();
                       list.append(
                         $('<div>')
                           .addClass('item')
@@ -88,15 +86,15 @@ $(document).ready(
               });
           });
 
-        $('#search').val('美濃加茂市山之上町');
+        $('#search').val('美濃加茂市山之上町 飲食店');
         $('form').submit();
-        $('#search').val('可児市');
+        $('#search').val('飲食店 可児市 おいしい');
         $('form').submit();
-        $('#search').val('犬山市');
+        $('#search').val('犬山市 犬山城');
         $('form').submit();
-        $('#search').val('大岡山');
+        $('#search').val('大岡山 四川屋台');
         $('form').submit();
-        $('#search').val('武蔵小杉');
+        $('#search').val('武蔵小杉タワープレイス');
         $('form').submit();
       });
   });

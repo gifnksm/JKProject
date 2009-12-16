@@ -16,8 +16,8 @@
   </head>
   <body>
     <h1>バリアフリーマップ検索</h1>
+    <p>適当に住所を打ち込んでエンターを押すと検索してくれます．あと左のメニューに項目が追加されます．</p>
     <div>
-      <h2>検索フォーム</h2>
       <form>
         <input type="text" id="search" size="80" />
       </form>
@@ -26,12 +26,25 @@
     <div id="map" style="width:500px; height:500px; margin:0px; padding:0px; float: left;">
     </div>
     <h1 style="clear: left;">実装メモ</h1>
+    <h2>流れ</h2>
     <ol>
       <li>キーワード・住所を入力</li>
       <li>Google Maps APIで住所に該当する地点に移動</li>
       <li>対応する地点のGPSアドレスおよび，zoomレベルより，地図に表示される範囲を導出</li>
-      <li>サーバにクエリを投げる (逆ジオコーディングを使って，入力文字中の住所に該当する部分を除去？)</li>
+      <li>サーバにクエリを投げる (住所・キーワードを分離しておく)</li>
       <li>周辺地域を優先的に表示 (周辺にない施設も与えられる．)</li>
     </ol>
+    <h2>問題点</h2>
+    <ul>
+      <li>
+        「キーワード 住所」形式の検索だと住所が参照できない<br />
+        <h3>解決策</h3>
+        <ol>
+          <li>キーワードを削って再検索</li>
+          <li>GlocalSearch (Google AJAX Search API)を使う</li>
+          <li>住所入力欄とキーワード欄を分ける</li>
+        </ol>
+     </li>
+    </ul>
   </body>
 </html>
