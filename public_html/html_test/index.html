@@ -11,6 +11,7 @@
     <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAwuxyTnL1fS926XQF61aiexRfXkSGhHHcUf9slCl3BmkBaWtZ2BT0V4mty60hKMaM4-naWDakVHaycQ"></script>
     <script type="text/javascript" src="index.js"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
     <title>バリアフリーマップ検索</title>
   </head>
   <body>
@@ -18,10 +19,19 @@
     <div>
       <h2>検索フォーム</h2>
       <form>
-        <input type="text" size="80" />
+        <input type="text" id="search" size="80" />
       </form>
     </div>
-    <div id="map" style="width:500px; height:500px; margin:0px; padding:0px;"></div>
-    <p>検索だよー</p>
+    <div id="list" style="float: left; border: 1px solid gray; width: 250px; height: 500px; overflow: auto;"></div>
+    <div id="map" style="width:500px; height:500px; margin:0px; padding:0px; float: left;">
+    </div>
+    <h1 style="clear: left;">実装メモ</h1>
+    <ol>
+      <li>キーワード・住所を入力</li>
+      <li>Google Maps APIで住所に該当する地点に移動</li>
+      <li>対応する地点のGPSアドレスおよび，zoomレベルより，地図に表示される範囲を導出</li>
+      <li>サーバにクエリを投げる (逆ジオコーディングを使って，入力文字中の住所に該当する部分を除去？)</li>
+      <li>周辺地域を優先的に表示 (周辺にない施設も与えられる．)</li>
+    </ol>
   </body>
 </html>
