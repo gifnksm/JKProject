@@ -1,0 +1,280 @@
+html, body {
+   margin: 0;
+   padding: 0;
+   border: none;
+   overflow: hidden;
+   background-color: #eeeeee;
+   font-family: sans-serif;
+}
+
+#header {
+   padding: 10px 0 5px;
+}
+h1 {
+   font-size: 1em;
+   margin: 0 0 0 10px;
+   padding: 0;
+   text-align: center;
+}
+
+#search-form {
+   margin: 0;
+   padding: 10px 0;
+   text-align: center;
+}
+#search-form table {
+   width: 100%;
+}
+#search, #search-button {
+   font-size: 1.2em;
+}
+#search {
+   width: 100%;
+}
+input.empty {
+   color: gray;
+}
+input.empty:focus {
+   color: black;
+}
+
+#list-container {
+   background-color: white;
+}
+
+#list-container .pager .highlight {
+   color: black;
+   font-weight: bolder;
+   text-decoration: none;
+}
+
+#list-container .pager .disabled {
+   color: transparent;
+   text-decoration: none;
+}
+
+#list-container .header,
+      #list-container .footer,
+      #map-container .header,
+      #map-container .footer {
+         padding: 3px 5px;
+         line-height: 1.2;
+      }
+
+#list-container .header {
+   text-align: left;
+   background-color: #e8ecf9;
+}
+#list-container .footer {
+   text-align: center;
+   background-color: #e8ecf9;
+}
+#map-container .header,
+#map-container .footer {
+   text-align: right;
+   background-color: #d5ddf3;
+}
+
+#list-container .header,
+#map-container .header {
+   border-bottom: 1px solid gray;
+}
+
+#list-container .footer,
+#map-container .footer {
+   height: 1.5em;
+   border-top: 1px solid gray;
+}
+
+#list {
+   margin: 0 0 0 10px;
+   font-size: smaller;
+}
+#list .item td {
+   padding-top: 10px;
+   vertical-align: top;
+}
+#list .item .name {
+   margin-left: 5px;
+   font-size: larger;
+}
+#list .item .list-image {
+   width: 85px;
+   height: 60px;
+   background: #fff none no-repeat scroll center center;
+   float: left;
+   margin: 5px;
+   border: 1px solid blue;
+}
+
+#list .item .detail .tel {
+   white-space: nowrap;
+}
+#list .item .detail .tel img {
+   vertical-align: text-top;
+   margin: 0 4px 0 6px;
+}
+
+/*
+* LAYOUT RESIZERS & TOGGLERS
+*/
+
+.ui-layout-resizer-sliding {
+   opacity: 0.1;
+   filter: alpha(opacity=10);
+   background-color: #999;
+}
+.ui-layout-resizer-sliding:hover {
+   opacity: 1;
+   filter: alpha(opacity=100);
+}
+
+/* north-pane is not resizable*/
+.ui-layout-resizer-north-dragging ,
+.ui-layout-resizer-north:hover {
+   background: url(/resource/image/resizable-n.gif) repeat-x center;
+}
+.ui-layout-resizer-south-dragging ,
+.ui-layout-resizer-south:hover {
+   background: url(/resource/image/resizable-s.gif) repeat-x center;
+}
+
+.ui-layout-resizer-west-dragging ,
+.ui-layout-resizer-west-open:hover {
+   background: url(/resource/image/resizable-w.gif) repeat-y center;
+}
+.ui-layout-resizer-east-dragging ,
+.ui-layout-resizer-east-open:hover {
+   background: url(/resource/image/resizable-e.gif) repeat-y center;
+}
+
+/* IE6 * HACK - always show resizer graphics because IE6 cannot understand elem:hover */
+html .ui-layout-resizer-north {
+   background: url(../resource/image/resizable-n.gif) repeat-x center !important;
+}
+* html .ui-layout-resizer-south {
+   background: url(/resource/image/resizable-s.gif) repeat-x center  !important;
+}
+* html .ui-layout-resizer-west-open {
+   background: url(/resource/image/resizable-w.gif) repeat-y center  !important;
+}
+* html .ui-layout-resizer-east-open {
+   background: url(/resource/image/resizable-e.gif) repeat-y center  !important;
+}
+
+
+.ui-layout-center {
+   background-color: white;
+}
+
+/* 'CONTENTS' TOC TOGGLER BUTTON */
+.ui-layout-resizer-west-closed {
+   background-color: #DDD;
+   border: 1px solid #677;
+   border-width: 0;
+   border-bottom: 1px solid #677;
+   border-left: 1px solid #677;
+}
+.ui-layout-resizer-west-closed:hover {
+   background-color: #E6E6E6;
+}
+.ui-layout-resizer-west-closed:hover .content {
+   color: #C30;
+}
+.ui-layout-toggler-west-closed {
+   background-color: #EEE;
+   border-top: 1px solid #FFF;
+   border-left: 1px solid #FFF;
+   border-bottom: 1px solid #677;
+}
+.ui-layout-toggler-west-closed:hover {
+   background-color: #F6F6F6;
+}
+.ui-layout-toggler-west-closed .content {
+   color: #033;
+   font-size: 12px !important;
+   font-weight: bold;
+   text-transform: uppercase;
+   text-align: center;
+   padding-right: 1px;
+}
+
+.ui-layout-north {
+   border-bottom: none;
+   background-color: white;
+}
+
+.ui-layout-west {
+   background-color: #e8e8ff;
+   border: 1px solid #677;
+   border-width: 1px 1px 0 0;
+   overflow: auto;
+}
+
+.ui-layout-center {
+   background-color: #fff;
+   border: 1px solid #677;
+   border-width: 1px 0 0 0;
+   overflow: auto;
+}
+
+
+span.ui-layout-button-pin,
+   span.ui-layout-button-close,
+      span.ui-layout-button-open {
+         position: absolute;
+         top: 0;
+         width:  20px;
+         height: 20px;
+         z-index: 2;
+         display: block;
+         cursor:  pointer;
+      }
+#west-closer { right: 0; }
+#west-opener { left: 0; }
+
+span.ui-layout-button-open-east,
+   span.ui-layout-button-close-west {
+      background: url(/resource/image/go-lt-off.gif) no-repeat center;
+   }
+span.ui-layout-button-open-east:hover,
+   span.ui-layout-button-close-west:hover {
+      background: url(/resource/image/go-lt-on.gif)  no-repeat center;
+   }
+span.ui-layout-button-open-west,
+   span.ui-layout-button-close-east {
+      background: url(/resource/image/go-rt-off.gif) no-repeat center;
+   }
+span.ui-layout-button-open-west:hover,
+   span.ui-layout-button-close-east:hover {
+      background: url(/resource/image/go-rt-on.gif)  no-repeat center;
+   }
+
+.tooltip {
+   font-size: smaller;
+   background-color: #ffffd5;
+   boder: 1px solid silver;
+   padding: 3px;
+   max-width: 20em;
+   -moz-box-shadow: 2px 2px 6px gray;
+   white-space: nowrap;
+}
+
+.info-window {
+   font-size: smaller;
+}
+.info-window h2 {
+   font-size: 1.2em;
+   margin: 0;
+   padding: 0;
+}
+.info-window ul {
+   margin: 0;
+   padding: 0 0 0 10px;
+}
+.info-window td {
+   vertical-align: top;
+}
+.info-window a {
+   color: green;
+}

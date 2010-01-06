@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" dir="ltr">
+  <head>
+    <!-- Content Type -->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+
+    <!-- Style Sheet -->
+    <link href="/resource/css/base.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+
+    <!-- Library -->
+    <script type="text/javascript" src="/resource/js/jquery.js"></script>
+    <script type="text/javascript" src="/resource/js/jquery.ui.all.js"></script>
+    <script type="text/javascript" src="/resource/js/jquery.layout.js"></script>
+    <script type="text/javascript" src="/resource/js/jquery-jtemplates.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="/resource/js/tooltip.js"></script>
+
+    <!-- Original Script -->
+    <script type="text/javascript" src="pager.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+
+    <title>バリアフリーマップ検索</title>
+  </head>
+  <body>
+    <div id="header" class="ui-layout-north">
+      <form id="search-form">
+        <table><tr><td>
+              <h1>バリアフリーマップ検索</h1>
+            </td><td style="text-align: right;">
+              <input type="text" id="search" size="80" title="検索したい施設名・キーワードを入力してください" />
+            </td><td>
+              <input type="submit" id="search-button" value="検索"/>
+        </td></tr></table>
+      </form>
+    </div>
+    <div id="list-container" class="ui-layout-west">
+      <div class="header">header</div>
+      <div id="list" class="ui-layout-content"></div>
+      <div class="footer"></div>
+    </div>
+    <div id="map-container" class="ui-layout-center">
+      <div class="header">
+        <a href="/static/about.html">この地図について</a>
+      </div>
+      <div id="map" class="ui-layout-content"></div>
+      <div class="footer">
+        <form id="location-form">
+          <input type="text" id="location" size="30" title="住所・地名を入力してください"/>
+          <input type="submit" id="location-button" value="移動"/>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -63,7 +63,6 @@ $(document).ready(
             geocoder.getLocations(
               $('#search').val(),
               function(response) {
-                console.log('response: %o', response);
                 if (!response || response.Status.code != 200) {
                   alert('"' + response.name + '" は見つかりませんでした');
                 } else {
