@@ -18,7 +18,7 @@
     <script type="text/javascript" src="/resource/js/jquery.layout.js"></script>
     <script type="text/javascript" src="/resource/js/jquery-jtemplates.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="/resource/js/tooltip.js"></script>
+    <script type="text/javascript" src="/resource/js/gmap.tooltip.js"></script>
 
     <!-- Original Script -->
     <script type="text/javascript" src="pager.js"></script>
@@ -29,7 +29,7 @@
   <body>
     <div id="header" class="ui-layout-north">
       <form id="search-form">
-        <table><tr><td>
+        <table><tr><td style="width: 12em;">
               <h1>バリアフリーマップ検索</h1>
             </td><td style="text-align: right;">
               <input type="text" id="search" size="80" title="検索したい施設名・キーワードを入力してください" />
@@ -39,7 +39,7 @@
       </form>
     </div>
     <div id="list-container" class="ui-layout-west">
-      <div class="header">header</div>
+      <div class="header">検索結果</div>
       <div id="list" class="ui-layout-content"></div>
       <div class="footer"></div>
     </div>

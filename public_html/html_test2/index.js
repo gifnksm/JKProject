@@ -1,5 +1,5 @@
 function num2alph(num) {
-  return String.fromCharCode(num + 'A'.charCodeAt(0));
+  return String.fromCharCode(Number(num) + 'A'.charCodeAt(0));
 }
 
 var Layout = {
@@ -261,7 +261,6 @@ TextBox.prototype = {
 };
 
 var SearchBox = new TextBox('search');
-SearchBox._first = true;
 SearchBox.submit = function(term) {
   if (term == '')
     return;
@@ -278,9 +277,7 @@ SearchBox.submit = function(term) {
           },
           cache: true,
           success: function(data) {
-            if (self._first)
-              Layout.layout.open('west');
-            self._first = false;
+            Layout.layout.open('west');
             GMap.setData(data);
             List.setData(data);
             self.enable();
