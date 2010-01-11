@@ -172,6 +172,29 @@
        },
        "score": "blue",
        "scoreDetail": "詳細いろいろ"
+     },
+     {
+       "id": 8,
+       "name": "ヒンメル",
+       "lat": 35.606704,
+       "lng": 139.686074,
+       "addr": "日本東京都大田区北千束３丁目２８－４アンシャンテ大岡山?",
+       "tel": "03-6431-0970",
+       "url": "http://www.himmelbrot.com/",
+       "infoImage": {
+         url: "images/8.info.jpg",
+         width: 90,
+         height: 68
+       },
+       "images": [
+         {
+           url: "images/8.0.jpg",
+           width: 120,
+           height: 90
+         }
+       ],
+       "score": "blue",
+       "scoreDetail": "hoge"
      }
   ]
 }
