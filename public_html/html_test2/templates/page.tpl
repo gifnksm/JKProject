@@ -11,7 +11,7 @@
       <td>
         <div>
           <span class="name">
-            <a href="javascript: GMap.showInfoWindow({$T.item$index});">
+            <a href="javascript: GMap.showInfoWindow({$T.item.id});">
               {$T.item.name}
             </a>
           </span>
