@@ -200,6 +200,7 @@ var GMap = {
                GMap._markers[id].setMap(null);
            });
     GMap._markers = {};
+    GMap.showInfoWindow(null);
     $.each(data, function(i, d) {
              var gm = google.maps;
              var marker = GMap._markers[d.id] = new gm.Marker(
@@ -226,7 +227,8 @@ var GMap = {
   },
   showInfoWindow: function(id) {
     $.each(GMap._infoWindows, function(i, w) { w.close(); });
-    GMap._infoWindows[id].open(GMap.map, GMap._markers[id] || GMap._dots[id]);
+    if (id in GMap._infoWindows)
+      GMap._infoWindows[id].open(GMap.map, GMap._markers[id] || GMap._dots[id]);
   }
 };
 
