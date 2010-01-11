@@ -25,6 +25,9 @@ h1 {
 #search-form table {
    width: 100%;
 }
+#search-form table td {
+   vertical-align: top;
+}
 #search, #search-button {
    font-size: 1.2em;
 }
@@ -36,6 +39,57 @@ input.empty {
 }
 input.empty:focus {
    color: black;
+}
+
+#detail-condition-form {
+   display: none;
+   position: absolute;
+   width: 40em;
+   z-index: 2;
+   overflow: auto;
+   border: 1px solid gray;
+   background-color: white;
+   color: black;
+}
+#detail-condition-form dl {
+   margin: 10px;
+}
+#detail-condition-form dt {
+   margin: 10px 0 0;
+   font-weight: bolder;
+   background-color: white;
+   color: black;
+}
+#detail-condition-form dt img {
+   border: none;
+   vertical-align: middle;
+}
+#detail-condition-form dd {
+   margin: 0 0 0 35px;
+   padding: 0;
+}
+#detail-condition-form dd div {
+   margin: 3px;
+   padding: 5px;
+   background-color: #e8ecf9;
+}
+#detail-condition-form dd div:first-of-type {
+   -moz-border-radius-topleft: 10px;
+   -moz-border-radius-topright: 10px;
+   border-top: none;
+}
+#detail-condition-form dd div:last-of-type {
+   -moz-border-radius-bottomleft: 10px;
+   -moz-border-radius-bottomright: 10px;
+   border-bottom: none;
+}
+#detail-condition-form em {
+   font-style: normal;
+   text-decoration: underline;
+   margin: 3px;
+}
+#detail-condition-form .weak {
+   font-size: smaller;
 }
 
 #list-container {

@@ -34,6 +34,16 @@
             </td><td style="text-align: right;">
               <input type="text" id="search" size="80"
                      title="検索したい施設名・キーワードを入力してください" />
+              <label>
+                検索条件：
+                <select name="search-condition">
+                  <option value="personal-0">1人で出かける</option>
+                  <option value="personal-1">付き添いの人と出かける</option>
+                  <option value="personal-2">車で出かける</option>
+                  <option value="custom">カスタム</option>
+                </select>
+              </label>
+              <a href="javascript: void(0);" id="detail-condition-link">詳細設定</a>
             </td><td>
               <input type="submit" id="search-button" value="検索"/>
         </td></tr></table>
@@ -57,5 +67,8 @@
         </form>
       </div>
     </div>
+    <form id="detail-condition-form">
+      読み込み中
+    </form>
   </body>
 </html>

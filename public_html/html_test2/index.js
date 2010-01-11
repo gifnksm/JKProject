@@ -262,32 +262,87 @@ TextBox.prototype = {
   disable: function() { this._allElems.attr('disabled', 'disabled'); }
 };
 
-var SearchBox = new TextBox('search');
-SearchBox.submit = function(term) {
-  if (term == '')
-    return;
-  var center = GMap.map.getCenter();
-  this.disable();
-  var self = this;
-  $.ajax({type: 'post',
-          url: 'response.php',
-          dataType: 'json',
-          data: {
-            searchTerm: term,
-            lat: center.lat(),
-            lng: center.lng()
-          },
-          cache: true,
-          success: function(data) {
-            Layout.layout.open('west');
-            GMap.setData(data);
-            List.setData(data);
-            self.enable();
-          },
-          error: function() {
-            self.enable();
+var SearchForm = {
+  searchBox: new TextBox('search'),
+  _dcf: null,
+  _dcfTmpl: $.createTemplateURL('templates/detail-condition-form.tpl'),
+  _condTypes: null,
+  init: function() {
+    this.searchBox.init();
+    var self = this;
+    this.searchBox.submit = function(term) { self.submit(term); };
+    this._dcf = $('#detail-condition-form');
+    $('#detail-condition-link').click(
+      function() {
+        var $$ = $(this);
+        if (self._dcf.is(':hidden')) {
+          var o = $$.offset(), top = (o.top + $$.height() + 3);
+          self._dcf.css({ top: top,
+                          left: (o.left + $$.width() - self._dcf.width()),
+                          maxHeight: $(window).height() - top - 3
+                  }).slideDown('fast');
+          if (self._condTypes == null) {
+            $.getJSON('cond-type.json', function(data) {
+                        self._condTypes = data;
+                        self._updateDCForm();
+                      });
+          } else {
+            self._updateDCForm();
           }
-         });
+        } else {
+          self._dcf.slideUp('fast');
+        }
+      });
+  },
+  _updateDCForm: function() {
+    this._dcf.html(this._dcfTmpl.get(this._condTypes.conditions));
+    var dl = this._dcf.children('dl');
+    $('dd:not(:first)', dl).hide();
+    $('dt a', dl).click(function() {
+                          var e = $(this).parent().next();
+                          if (e.is(':visible')) {
+                            e.slideUp('fast');
+                          } else {
+                            $('dd', dl).slideUp('fast');
+                            e.slideDown('fast');
+                          }
+                          return false;
+                        });
+    // $('dt a', dl).click(function() {
+    //                       var e = $(this).parent().next();
+    //                       if (e.is(':hidden'))
+    //                         e.slideDown('fast');
+    //                       else
+    //                         e.slideUp('fast');
+    //                       return false;
+    //                     });
+  },
+  submit: function(term) {
+    if (term == '')
+      return;
+    var center = GMap.map.getCenter();
+    this.disable();
+    var self = this;
+    $.ajax({ type: 'post',
+             url: 'response.php',
+             dataType: 'json',
+             cache: true,
+             data: {
+               searchTerm: term,
+               lat: center.lat(),
+               lng: center.lng()
+             },
+             success: function(data) {
+               Layout.layout.open('west');
+               GMap.setData(data);
+               List.setData(data);
+               self.enable();
+             },
+             error: function() { self.enable(); }
+           });
+  },
+  enable: function() { this.searchBox.enable(); },
+  disable: function() { this.searchBox.disable(); }
 };
 
 var LocationBox = new TextBox('location');
@@ -296,18 +351,20 @@ LocationBox.submit = function(val) {
     return;
   this.disable();
   var self = this;
-  GMap.goToAddr(val, function(success, results) {
-                  if (success) self.reset();
-                  else self.element.focus();
-                  self.enable();
-                });
+  GMap.goToAddr(
+    val,
+    function(success, results) {
+      if (success) self.reset();
+      else self.element.focus();
+      self.enable();
+    });
 };
 
 
 $(function() {
     Layout.init();
     List.init();
-    SearchBox.init();
+    SearchForm.init();
     LocationBox.init();
     GMap.init($('#map'));
 
