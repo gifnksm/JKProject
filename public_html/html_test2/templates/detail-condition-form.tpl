@@ -1,4 +1,7 @@
 {#template MAIN}
+<div id="detail-condition-header">
+<a href="javascript: void(0);" id="detail-condition-complete-link">条件指定完了</a>
+</div>
 <dl>
   {#foreach $T as c}
     <dt><a href="javascript: void(0);">

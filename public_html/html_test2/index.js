@@ -278,24 +278,36 @@ var SearchForm = {
         if (self._dcf.is(':hidden')) {
           var o = $$.offset(), top = (o.top + $$.height() + 3);
           self._dcf.css({ top: top,
-                          left: (o.left + $$.width() - self._dcf.width()),
-                          maxHeight: $(window).height() - top - 3
+                          left: (o.left + $$.width() - self._dcf.width())
                   }).slideDown('fast');
+          var getMH = function() {
+            return $(window).height() - top
+              - (self._dcf.innerHeight() - self._dcf.height())
+              - $('#detail-condition-header').height()
+              - 10;
+          };
           if (self._condTypes == null) {
             $.getJSON('cond-type.json', function(data) {
                         self._condTypes = data;
-                        self._updateDCForm();
+                        self._createDCForm();
+                        $('dl', self._dcf).css({ maxHeight: getMH() });
                       });
           } else {
             self._updateDCForm();
+            $('dl', self._dcf).css({ maxHeight: getMH() });
           }
         } else {
           self._dcf.slideUp('fast');
         }
       });
   },
-  _updateDCForm: function() {
+  _createDCForm: function() {
     this._dcf.html(this._dcfTmpl.get(this._condTypes.conditions));
+    $('#detail-condition-complete-link').click(
+      function() {
+        $('#detail-condition-link').click();
+        return false;
+      });
     var dl = this._dcf.children('dl');
     $('dd:not(:first)', dl).hide();
     $('dt a', dl).click(function() {
@@ -316,6 +328,10 @@ var SearchForm = {
     //                         e.slideUp('fast');
     //                       return false;
     //                     });
+    this._updateDCForm();
+  },
+  _updateDCForm: function() {
+
   },
   submit: function(term) {
     if (term == '')

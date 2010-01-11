@@ -46,16 +46,19 @@ input.empty:focus {
    position: absolute;
    width: 40em;
    z-index: 2;
-   overflow: auto;
    border: 1px solid gray;
    background-color: white;
    color: black;
 }
+#detail-condition-header{
+   text-align: right;
+}
 #detail-condition-form dl {
-   margin: 10px;
+   margin: 0;
+   overflow: auto;
 }
 #detail-condition-form dt {
-   margin: 10px 0 0;
+   margin: 10px 10px 0;
    font-weight: bolder;
    background-color: white;
    color: black;
@@ -65,7 +68,7 @@ input.empty:focus {
    vertical-align: middle;
 }
 #detail-condition-form dd {
-   margin: 0 0 0 35px;
+   margin: 0 10px 0 35px;
    padding: 0;
 }
 #detail-condition-form dd div {
