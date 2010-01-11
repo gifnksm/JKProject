@@ -98,6 +98,9 @@ input.empty:focus {
    margin-left: 5px;
    font-size: larger;
 }
+#list .item .pin {
+   border: none;
+}
 #list .item .list-image {
    width: 85px;
    height: 60px;

@@ -3,8 +3,10 @@
   {#foreach $T as item}
     <tr class="item">
       <td>
-        <img src="/resource/image/pin/{num2alph($T.item$index)}.{$T.item.score}.png"
-             width="20" height="34" class="pin" />
+        <a href="javascript: GMap.showInfoWindow({$T.item.id});">
+          <img src="/resource/image/pin/{num2alph($T.item$index)}.{$T.item.score}.png"
+               width="20" height="34" class="pin" />
+        </a>
       </td>
       <td>
         <div>
