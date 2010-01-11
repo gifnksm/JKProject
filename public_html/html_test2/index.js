@@ -7,9 +7,9 @@ var Layout = {
   westCloser: null,
   layout: null,
   init: function() {
-    Layout.westOpener = $('<span id="west-opener"></span>')
+    Layout.westOpener = $('<a id="west-opener" href="javascript: void(0);"></a>')
       .prependTo($('#map-container .header'));
-    Layout.westCloser = $('<span id="west-closer"></span>')
+    Layout.westCloser = $('<a id="west-closer" href="javascript: void(0);"></a>')
       .prependTo('#list-container .header');
 
     Layout.layout = $('body').layout(Layout.options);

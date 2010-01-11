@@ -219,9 +219,9 @@ html .ui-layout-resizer-north {
 }
 
 
-span.ui-layout-button-pin,
-   span.ui-layout-button-close,
-      span.ui-layout-button-open {
+.ui-layout-button-pin,
+   .ui-layout-button-close,
+      .ui-layout-button-open {
          position: absolute;
          top: 0;
          width:  20px;
@@ -233,20 +233,20 @@ span.ui-layout-button-pin,
 #west-closer { right: 0; }
 #west-opener { left: 0; }
 
-span.ui-layout-button-open-east,
-   span.ui-layout-button-close-west {
+.ui-layout-button-open-east,
+   .ui-layout-button-close-west {
       background: url(/resource/image/go-lt-off.gif) no-repeat center;
    }
-span.ui-layout-button-open-east:hover,
-   span.ui-layout-button-close-west:hover {
+.ui-layout-button-open-east:hover,
+   .ui-layout-button-close-west:hover {
       background: url(/resource/image/go-lt-on.gif)  no-repeat center;
    }
-span.ui-layout-button-open-west,
-   span.ui-layout-button-close-east {
+.ui-layout-button-open-west,
+   .ui-layout-button-close-east {
       background: url(/resource/image/go-rt-off.gif) no-repeat center;
    }
-span.ui-layout-button-open-west:hover,
-   span.ui-layout-button-close-east:hover {
+.ui-layout-button-open-west:hover,
+   .ui-layout-button-close-east:hover {
       background: url(/resource/image/go-rt-on.gif)  no-repeat center;
    }
 
