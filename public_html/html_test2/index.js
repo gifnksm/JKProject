@@ -338,6 +338,9 @@ var SearchForm = {
       return;
     var center = GMap.map.getCenter();
     this.disable();
+    if (this._dcf !== null && this._dcf.is(':not(:hidden)'))
+      this._dcf.slideUp('fast');
+
     var self = this;
     $.ajax({ type: 'post',
              url: 'response.php',
