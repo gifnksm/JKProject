@@ -264,10 +264,29 @@ TextBox.prototype = {
 
 var SearchForm = {
   searchBox: new TextBox('search'),
+  _needInit: false,
+  _loaded: false,
+  _personalJSON: $.getJSON('personal-conf.json', function(data) {
+                     SearchForm._personalData = data;
+                     SearchForm._loaded = true;
+                     if (SearchForm._needInit)
+                       SearchForm.init();
+                   }),
+  _personalData: null,
   _dcf: null,
   _dcfTmpl: $.createTemplateURL('templates/detail-condition-form.tpl'),
   _condTypes: null,
+
   init: function() {
+    if (!this._loaded) {
+      this._needInit = true;
+      return;
+    }
+    this._needInit = false;
+    $('#search-condition').append(
+      $.map(this._personalData, function(d) {
+            return new Option(d.title, d.name);
+          }));
     this.searchBox.init();
     var self = this;
     this.searchBox.submit = function(term) { self.submit(term); };
