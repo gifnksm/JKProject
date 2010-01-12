@@ -1,0 +1,20 @@
+[{"name": "personal-0",
+  "title": "一人で出かける",
+  "values": {
+    "parking": "non-parking",
+    "entrance-dansa": "without-dansa"
+  }
+ },
+ {"name": "personal-1",
+  "title": "付き添いの人と出かける",
+  "values": {
+    "parking": "non-parking"
+  }
+ },
+ {"name": "personal-2",
+  "title": "車で出かける",
+  "values": {
+    "parking": "over-350cm"
+  }
+ }
+]

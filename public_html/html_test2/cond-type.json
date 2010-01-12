@@ -1,4 +1,4 @@
-{"conditions": [
+[
    {"title": "駐車場",
     "icon": "/resource/image/icon/parking.png",
     "items": [
@@ -204,13 +204,4 @@
       }
     ]
    }
- ],
- "personal-data": [
-   {"name": "personal-0",
-    "values": {
-      "parking": "over-350cm",
-      "entrance-dansa": "without-dansa"
-    }
-   }
  ]
-}
