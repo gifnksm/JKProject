@@ -343,11 +343,10 @@ var SearchForm = {
              url: 'response.php',
              dataType: 'json',
              cache: true,
-             data: {
-               searchTerm: term,
-               lat: center.lat(),
-               lng: center.lng()
-             },
+             data: 'searchTerm=' + encodeURIComponent(term) + '&' +
+             'lat=' + encodeURIComponent(center.lat()) + '&' +
+             'lng=' + encodeURIComponent(center.lng()) + '&' +
+             $('#detail-condition-form').serialize(),
              success: function(data) {
                Layout.layout.open('west');
                GMap.setData(data);
