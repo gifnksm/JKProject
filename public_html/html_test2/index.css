@@ -8,7 +8,14 @@ html, body {
 }
 
 #header {
-   padding: 10px 0 5px;
+   padding: 0 0 5px;
+}
+#login-message {
+   text-align: right;
+   margin: 0;
+   padding: 0 3px;
+   border-bottom: 1px solid silver;
+   font-size: 0.8em;
 }
 h1 {
    font-size: 1em;

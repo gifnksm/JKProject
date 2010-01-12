@@ -208,7 +208,8 @@
  "personal-data": [
    {"name": "personal-0",
     "values": {
-      "parking": "over-350cm"
+      "parking": "over-350cm",
+      "entrance-dansa": "without-dansa"
     }
    }
  ]
