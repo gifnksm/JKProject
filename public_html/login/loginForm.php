@@ -15,7 +15,7 @@
        </tr>
        <tr>
 	<td colspan="2">
-	    <input type="submit" value"ログイン" />
+	    <input type="submit" value="ログイン" />
 	</td>
        </tr>
 </table>
