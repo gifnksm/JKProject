@@ -10,12 +10,17 @@ html, body {
 #header {
    padding: 0 0 5px;
 }
-#login-message {
-   text-align: right;
+#page-header {
    margin: 0;
    padding: 0 3px;
    border-bottom: 1px solid silver;
    font-size: 0.8em;
+}
+#header-links {
+    float: left;
+}
+#login-message {
+    text-align: right;
 }
 h1 {
    font-size: 1em;
