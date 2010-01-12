@@ -375,6 +375,26 @@ LocationBox.submit = function(val) {
     });
 };
 
+var LoginMessage = {
+  _needInit: false,
+  _loaded: false,
+  _json: $.getJSON('login_dummy.php', function(data) {
+                     LoginMessage._data = data;
+                     LoginMessage._loaded = true;
+                     if (LoginMessage._needInit)
+                       LoginMessage.init();
+                   }),
+  _data: null,
+  _messageTmpl: $.createTemplateURL('templates/login-message.tpl'),
+  init: function() {
+    if (!LoginMessage._loaded) {
+      LoginMessage._needInit = true;
+      return;
+    }
+    LoginMessage._needInit = false;
+    $('#login-message').html(this._messageTmpl.get(this._data));
+  }
+};
 
 $(function() {
     Layout.init();
@@ -382,6 +402,7 @@ $(function() {
     SearchForm.init();
     LocationBox.init();
     GMap.init($('#map'));
+    LoginMessage.init();
 
     // var marker = new google.maps.Marker(
     //   $.extend({ position: GMap.defaultLatLng,
