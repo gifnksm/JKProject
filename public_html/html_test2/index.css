@@ -53,7 +53,7 @@ input.empty:focus {
     color: black;
 }
 
-#detail-condition-form {
+#search-condition {
     display: none;
     position: absolute;
     width: 40em;
@@ -63,12 +63,15 @@ input.empty:focus {
     color: black;
     padding: 0 0 5px;
 }
-#detail-condition-header{
+#search-condition-header {
     text-align: right;
 }
+#search-condition-forms {
+    overflow: auto;
+}
+
 #detail-condition-form dl {
     margin: 0;
-    overflow: auto;
 }
 #detail-condition-form dt {
     margin: 3px 10px 0;

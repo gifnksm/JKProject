@@ -21,6 +21,7 @@
     <script type="text/javascript" src="/resource/js/gmap.tooltip.js"></script>
 
     <!-- Original Script -->
+    <script type="text/javascript" src="json-loader.js"></script>
     <script type="text/javascript" src="pager.js"></script>
     <script type="text/javascript" src="index.js"></script>
 
@@ -49,10 +50,11 @@
               <div>
                 <label>
                   検索条件：
-                  <select id="search-condition" name="search-condition">
+                  <select id="search-condition-name"
+                          name="search-condition-name">
                   </select>
                 </label>
-                <a href="javascript: void(0);" id="detail-condition-link">詳細設定</a>
+                <a href="javascript: void(0);" id="search-condition-link">その他の検索条件</a>
               </div>
             </td><td>
               <input type="submit" id="search-button" value="検索"/>
@@ -75,8 +77,18 @@
       <div id="map" class="ui-layout-content"></div>
       <div class="footer"></div>
     </div>
-    <form id="detail-condition-form">
-      読み込み中
-    </form>
+    <div id="search-condition">
+      <div id="search-condition-header">
+        <a href="javascript: void(0);" id="search-condition-complete-link">条件指定完了</a>
+      </div>
+      <div id="search-condition-forms">
+        <form id="additional-condition-form">
+          読み込み中
+        </form>
+        <form id="detail-condition-form">
+          読み込み中
+        </form>
+      </div>
+    </div>
   </body>
 </html>
