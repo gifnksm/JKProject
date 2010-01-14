@@ -1,0 +1,12 @@
+登録しておく個人情報
+
+キー            INT NOT NULL PRIMARY KEY AUTO_INCREMENT UNSIGNED
+ユーザID        CHAR(64)[ASCII] NOT NULL
+名前            CHAR(64)[UNICODE] NOT NULL
+メールアドレス  CHAR(128)[ASCII] NOT NULL
+携帯アドレス    CHAR(128)[ASCII]
+パスワード      CHAR(64)[ASCII] NOT NULL
+性別            ENUM('M', 'F') NOT NULL
+生年月日        DATE
+都道府県        ENUM('北海道', '青森県', ...)
+市区町村        CHAR(64)
