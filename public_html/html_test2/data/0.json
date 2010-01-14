@@ -22,7 +22,21 @@
          }
        ],
        "score": "red",
-       "scoreDetail": "これがだめ。あれがだめ。詳細いろいろ"
+       "scoreDetail": {
+         "parking": "red",
+         "entrance-dansa: "yellow",
+         "load-to-entrance": "blue",
+         "in-store": "red",
+         "help": "red",
+         "guide": "red",
+         "toilet": "yellow",
+         "stair": "red",
+         "elevator": "red",
+         "for-baby": "red",
+         "enterprise": "red",
+         "commu-equip": "red",
+         "others": "red"
+       }
      },
      {
        "id": 1,
