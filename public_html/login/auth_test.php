@@ -9,8 +9,8 @@ function loginFormHtml($username = null, $status = null)
 <BODY>
 
 <H2>ログインしてください</H2>
-pp<DIV align="center">
-    <FORM method="post" action="auth2.php">
+<DIV align="center">
+    <FORM method="post" action="auth_test2.php">
         ユーザ名: <INPUT type="text" name="username"><BR>
         パスワード: <INPUT type="password" name="password"><BR>
         <INPUT type="submit">
