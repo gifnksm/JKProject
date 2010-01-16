@@ -262,72 +262,21 @@ TextBox.prototype = {
   disable: function() { this._allElems.attr('disabled', 'disabled'); }
 };
 
-var SearchForm = {
-  searchBox: new TextBox('search'),
-  _needInit: false,
-  _loaded: false,
-  _personalJSON: $.getJSON('personal-conf.json', function(data) {
-                     SearchForm._personalData = data;
-                     SearchForm._loaded = true;
-                     if (SearchForm._needInit)
-                       SearchForm.init();
-                   }),
-  _personalData: null,
-  _dcf: null,
-  _dcfTmpl: $.createTemplateURL('templates/detail-condition-form.tpl'),
-  _condTypes: null,
-
+var ConditionForm = function(id) {
+  this.id = id;
+  this._tmpl = $.createTemplateURL('templates/' + id + '-form.tpl');
+};
+ConditionForm.prototype = {
+  form: null,
+  _tmpl: null,
+  created: false,
   init: function() {
-    if (!this._loaded) {
-      this._needInit = true;
-      return;
-    }
-    this._needInit = false;
-    $('#search-condition').append(
-      $.map(this._personalData, function(d) {
-            return new Option(d.title, d.name);
-          }));
-    this.searchBox.init();
-    var self = this;
-    this.searchBox.submit = function(term) { self.submit(term); };
-    this._dcf = $('#detail-condition-form');
-    $('#detail-condition-link').click(
-      function() {
-        var $$ = $(this);
-        if (self._dcf.is(':hidden')) {
-          var o = $$.offset(), top = (o.top + $$.height() + 3);
-          self._dcf.css({ top: top,
-                          left: (o.left + $$.width() - self._dcf.width())
-                  }).slideDown('fast');
-          var getMH = function() {
-            return $(window).height() - top
-              - (self._dcf.innerHeight() - self._dcf.height())
-              - $('#detail-condition-header').height()
-              - 10;
-          };
-          if (self._condTypes == null) {
-            $.getJSON('cond-type.json', function(data) {
-                        self._condTypes = data;
-                        self._createDCForm();
-                        $('dl', self._dcf).css({ maxHeight: getMH() });
-                      });
-          } else {
-            self._updateDCForm();
-            $('dl', self._dcf).css({ maxHeight: getMH() });
-          }
-        } else {
-          self._dcf.slideUp('fast');
-        }
-      });
+    this.form = $('#' + this.id + '-form');
   },
-  _createDCForm: function() {
-    this._dcf.html(this._dcfTmpl.get(this._condTypes));
-    $('#detail-condition-complete-link').click(
-      function() {
-        $('#detail-condition-link').click();
-        return false;
-      });
-    var dl = this._dcf.children('dl');
+  _createContent: function(data) {
+    this.created = true;
+    this.form.html(this._tmpl.get(data));
+    var dl = this.form.children('dl');
     $('dd:not(:first)', dl).hide();
     $('dt a', dl).click(function() {
                           var e = $(this).parent().next();
@@ -347,28 +296,87 @@ var SearchForm = {
     //                         e.slideUp('fast');
     //                       return false;
     //                     });
-    this._updateDCForm();
+    this.show();
   },
-  _updateDCForm: function() {
+  show: function() {
+    if (!this.created) {
+      var self = this;
+      JSONLoader.addHandler('cond-type.json', function(data) {
+                              self._createContent(data);
+                            });
+    }
+    this.form.show();
+  },
+  hide: function() { this.form.hide(); },
+  setValue: function(data) {
 
+  },
+  serialize: function() { return this.form.serialize(); }
+};
+
+var SearchForm = {
+  searchBox: new TextBox('search'),
+  dcf: new ConditionForm('detail-condition'),
+  acf: new ConditionForm('additional-condition'),
+  init: function(personalData) {
+    this._personalData = personalData;
+    $('#search-condition-name').append(
+      $.map(this._personalData, function(d) {
+            return new Option(d.title, d.name);
+          }));
+
+    this.searchBox.init();
+    var self = this;
+    this.searchBox.submit = function(term) { self.submit(term); };
+    this.dcf.init();
+    this.acf.init();
+    this._sc = $('#search-condition');
+    this._scl = $('#search-condition-link')
+      .click(
+        function() {
+          if (self._sc.is(':hidden')) {
+            self.acf.hide();
+            self.dcf.show();
+            self._sc.slideDown('fast');
+            self._updateSCPosition();
+          } else {
+            self._sc.slideUp('fast');
+          }
+        });
+    $('#search-condition-complete-link').click(
+      function() {
+        self._scl.click();
+        return false;
+      });
+  },
+  _updateSCPosition: function() {
+    var o = this._scl.offset(), top = o.top + this._scl.height() + 3;
+    this._sc.css({ top: top,
+                   left: (o.left + this._scl.width() - this._sc.width()) });
+    var mh = $(window).height() - top
+      - (this._sc.innerHeight() - this._sc.height())
+      - $('#search-condition-header').height()
+      - 10;
+    $('#search-condition-forms').css({ maxHeight: mh });
   },
   submit: function(term) {
     if (term == '')
       return;
     var center = GMap.map.getCenter();
     this.disable();
-    if (this._dcf !== null && this._dcf.is(':not(:hidden)'))
-      this._dcf.slideUp('fast');
+    if (this._sc !== null && this._sc.is(':not(:hidden)'))
+      this._sc.slideUp('fast');
 
     var self = this;
     $.ajax({ type: 'post',
              url: 'response.php',
              dataType: 'json',
              cache: true,
-             data: 'searchTerm=' + encodeURIComponent(term) + '&' +
-             'lat=' + encodeURIComponent(center.lat()) + '&' +
-             'lng=' + encodeURIComponent(center.lng()) + '&' +
-             $('#detail-condition-form').serialize(),
+             data: ['searchTerm=' + encodeURIComponent(term),
+                    'lat=' + encodeURIComponent(center.lat()),
+                    'lng=' + encodeURIComponent(center.lng()),
+                    this.dcf.serialize()
+                   ].join('&'),
              success: function(data) {
                Layout.layout.open('west');
                GMap.setData(data);
@@ -398,39 +406,25 @@ LocationBox.submit = function(val) {
 };
 
 var LoginMessage = {
-  _needInit: false,
-  _loaded: false,
-  _json: $.getJSON('login_dummy.php', function(data) {
-                     LoginMessage._data = data;
-                     LoginMessage._loaded = true;
-                     if (LoginMessage._needInit)
-                       LoginMessage.init();
-                   }),
   _data: null,
   _messageTmpl: $.createTemplateURL('templates/login-message.tpl'),
-  init: function() {
-    if (!LoginMessage._loaded) {
-      LoginMessage._needInit = true;
-      return;
-    }
-    LoginMessage._needInit = false;
-    $('#login-message').html(this._messageTmpl.get(this._data));
+  init: function(data) {
+    $('#login-message').html(this._messageTmpl.get(this._data = data));
   }
 };
+
+JSONLoader.preload('login_dummy.php', 'personal-conf.json');
 
 $(function() {
     Layout.init();
     List.init();
-    SearchForm.init();
+    JSONLoader.addHandler('personal-conf.json', function(data) {
+                            SearchForm.init(data);
+                          });
     LocationBox.init();
     GMap.init($('#map'));
-    LoginMessage.init();
-
-    // var marker = new google.maps.Marker(
-    //   $.extend({ position: GMap.defaultLatLng,
-    //              map: GMap.map,
-    //              zIndex: 100
-    //            }, GMap.createIcon('red', 'A')));
+    JSONLoader.addHandler('login_dummy.php', function(data) {
+                            LoginMessage.init(data); });
   });
 
 
