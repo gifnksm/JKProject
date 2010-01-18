@@ -2,6 +2,7 @@
 <HEAD><TITLE>アカウント新規登録</TITLE></HEAD>
 <BODY>
 
+<DIV align="center">
 <?php
 
 require_once 'HTML/QuickForm.php';
@@ -111,7 +112,7 @@ if ($form->getSubmitValue('Status') != 'confirm')
 <!--HOME link-->
 <p><a href="/../html_test2/index.html?no=1">HOME</a></p>
 
-
+</DIV>
 </BODY>
 </HTML>
 
