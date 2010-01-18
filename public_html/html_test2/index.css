@@ -69,6 +69,13 @@ input.empty:focus {
 #search-condition-forms {
     overflow: auto;
 }
+#search-condition-selector {
+    font-size: 1.2em;
+}
+#search-condition-name,
+#search-condition-name option {
+   font-size: 1em;
+}
 
 #detail-condition-form dl {
     margin: 0;
