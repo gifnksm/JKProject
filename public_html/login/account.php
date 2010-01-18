@@ -45,64 +45,6 @@ $form->addElement('select', 'prefecture','都道府県',$pref);
 ////////////
 $form->addElement('header', null, '障害情報');
 $form->addElement('text', 'width', '通れる幅','cm','size=15');
-$form->addElement('text', 'dump1', '乗り越えられる段差','size=15');
-$form->addElement('text','dump2', '乗り越えられる段差(付き添いあり)','size=15');
-
-$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"引き戸","slide-door");
-$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"開き戸","double-door");
-$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"自動ドア","auto-door");
-$form->addGroup($group, 'door', 'ドア:', ',&nbsp;');
-
-$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"障害者用エレベーター","large-ev");
-$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"エレベーター","normal-ev");
-$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"なし","without-ev");
-<HTML>
-<HEAD><TITLE>アカウント新規登録</TITLE></HEAD>
-<BODY>
-
-<DIV align="center">
-<?php
-
-require_once 'HTML/QuickForm.php';
-
-
-
-//*****************************************************
-//
-//登録情報
-//
-//*****************************************************
-$form = new HTML_QuickForm('myForm','POST','confirm.php');
-
-//include file
-$pref="";
-require("./select1.php");
-
-////////////
-//個人情報//
-////////////
-$form->addElement('header', null, '個人の情報');
-$form->addElement('text', 'Name', '名前', 'size=15');
-$form->addElement('password', 'Pass', 'パスワード', 'size=15');
-$form->addElement('text', 'email1', 'メールアドレス', 'size=25');
-$form->addElement('text', 'email2', 'メールアドレスもう一度', 'size=25');
-$form->addElement('text', 'mail1', '携帯メールアドレス', 'size=25');
-$form->addElement('text', 'mail2', '携帯メールアドレスもう一度', 'size=25');
-
-$sex = array();
-$sex[] =& $form->createElement("radio", "0", NULL, "未回答", "0");
-$sex[] =& $form->createElement("radio", "0", NULL, "男性",   "1");
-$sex[] =& $form->createElement("radio", "0", NULL, "女性",   "2");
-$form->addGroup($sex,"sex","性別：");
-
-$form->addElement('date', 'Date', '日付', 'size=25');
-$form->addElement('select', 'prefecture','都道府県',$pref);
-
-////////////
-//障害情報//
-////////////
-$form->addElement('header', null, '障害情報');
-$form->addElement('text', 'width', '通れる幅','cm','size=15');
 $form->addElement('text', 'rank1', '乗り越えられる段差','size=15');
 $form->addElement('text','rank2', '乗り越えられる段差(付き添いあり)','size=15');
 
