@@ -52,16 +52,39 @@ input.empty {
 input.empty:focus {
     color: black;
 }
-
+#additional-condition-form table {
+   margin: 5px 0 0;
+   border: 1px solid gray;
+   border-width: 1px 0;
+   width: 100%;
+   padding: 0;
+   border-collapse: collapse;
+}
+#additional-condition-form tr {
+   border: 1px solid gray;
+   border-width: 1px 0;
+}
+#additional-condition-form tr:nth-of-type(even) {
+   background-color: #e8e8ff;
+}
+#additional-condition-form th {
+   text-align: left;
+   padding: 5px;
+   border-right: 1px solid gray;
+}
+#additional-condition-form th img {
+   vertical-align: middle;
+}
 #search-condition {
     display: none;
     position: absolute;
-    width: 40em;
+    width: 80%;
     z-index: 2;
     border: 1px solid gray;
     background-color: white;
     color: black;
     padding: 0 0 5px;
+    -moz-box-shadow:3px 3px 10px black;
 }
 #search-condition-header {
     text-align: right;

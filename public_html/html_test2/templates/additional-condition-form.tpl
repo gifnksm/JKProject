@@ -1,32 +1,38 @@
 {#template MAIN}
-<dl>
+<table><tbody>
   {#foreach $T as c}
-    <dt><a href="javascript: void(0);">
+    <tr>
+    <th>
       <img src="{$T.c.icon}" width="32" height="32" alt=""/>
       {$T.c.title}
-    </a></dt>
-    <dd>
+    </th>
+    <td>
     {#foreach $T.c.items as i}
-      {#if $T.i.type == 'radio'}
-        <div>
-        {#foreach $T.i.selections as s}
-          {#if $T.s$index != 0}<br/>{#/if}
-          <label>
-            <input type="radio" name="{$T.i.name}" value="{$T.s.value}"
-                   {$T.i.defaultValue == $T.s.value ? 'checked="checked"' : '""'}/>
-            {$T.s.title}
-          </label>
-        {#/for}
-        </div>
-      {#elseif $T.i.type == 'checkbox'}
-        <div><label>
-        <input type="checkbox" name="{$T.i.name}" value="true"
-               {$T.i.checked ? 'checked="checked"' : '""'}/>
-        {$T.i.title}
-        </label></div>
-      {#/if}
+      {#include input root=$T.i}
     {#/for}
-    </dd>
+    </td>
+    </tr>
   {#/for}
-</dl>
+</tbody></table>
 {#/template MAIN}
+
+{#template input}
+  {#if $T.type == 'radio'}
+    <div>
+    {#foreach $T.selections as s}
+      {#if $T.s$index != 0 && !$T.notBreak}<br/>{#/if}
+      <label>
+        <input type="radio" name="{$T.name}" value="{$T.s.value}"
+               {$T.defaultValue == $T.s.value ? 'checked="checked"' : '""'}/>
+        {$T.s.title}
+      </label>
+    {#/for}
+    </div>
+  {#elseif $T.type == 'checkbox'}
+    <div><label>
+    <input type="checkbox" name="{$T.name}" value="true"
+           {$T.checked ? 'checked="checked"' : '""'}/>
+    {$T.title}
+    </label></div>
+  {#/if}
+{#/template input}

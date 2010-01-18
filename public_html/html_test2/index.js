@@ -265,10 +265,12 @@ TextBox.prototype = {
 var ConditionForm = function(id) {
   this.id = id;
   this._tmpl = $.createTemplateURL('templates/' + id + '-form.tpl');
+  this._condURL = id + '-type.json';
 };
 ConditionForm.prototype = {
   form: null,
   _tmpl: null,
+  _condURL: null,
   created: false,
   init: function() {
     this.form = $('#' + this.id + '-form');
@@ -301,7 +303,7 @@ ConditionForm.prototype = {
   show: function() {
     if (!this.created) {
       var self = this;
-      JSONLoader.addHandler('cond-type.json', function(data) {
+      JSONLoader.addHandler(this._condURL, function(data) {
                               self._createContent(data);
                             });
     }
@@ -335,8 +337,8 @@ var SearchForm = {
       .click(
         function() {
           if (self._sc.is(':hidden')) {
-            self.acf.hide();
-            self.dcf.show();
+            self.acf.show();
+            self.dcf.hide();
             self._sc.slideDown('fast');
             self._updateSCPosition();
           } else {
