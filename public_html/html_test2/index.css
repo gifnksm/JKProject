@@ -84,7 +84,7 @@ input.empty:focus {
     background-color: white;
     color: black;
     padding: 0 0 5px;
-    -moz-box-shadow:3px 3px 10px black;
+    -moz-box-shadow: 3px 3px 10px black;
 }
 #search-condition-header {
    background-color: navy;
