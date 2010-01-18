@@ -1,0 +1,119 @@
+[
+   {"title": "幅",
+    "icon": "/resource/image/icon/width.png",
+    "items": [
+      {"type": "number",
+       "name": "width",
+       "nullable": true,
+       "unit": "cm",
+       "defaultValue": null
+      }
+    ]},
+  {"title": "段差",
+   "icon": "/resource/image/icon/bump.png",
+   "items": [
+     {"type": "number",
+      "name": "bunp2",
+      "nullable": true,
+      "unit": "cm",
+      "defaultValue": null
+     }
+   ]
+  },
+  {"title": "出入り口",
+   "icon": "/resource/image/icon/entrance.png",
+   "items": [
+     {"type": "checkbox",
+      "title": "引き戸が開けられる",
+      "name": "slide-door",
+      "checked": false },
+     {"type": "checkbox",
+      "title": "開き戸が開けられる",
+      "name": "double-door",
+      "checked": false},
+     {"type": "checkbox",
+      "title": "自動ドア",
+      "name": "auto-door",
+      "checked": false}
+   ]
+  },
+  {"title": "エレベーター",
+   "icon": "/resource/image/icon/elevator.png",
+   "items": [
+     {"type": "radio",
+      "name": "elevator",
+      "defaultValue": "without-ev",
+      "selections": [
+        {"title": "車いす対応エレベーターがある<br /><span class=\"weak\">（出入口幅80cm以上、制御装置高1メートル程度、定員11人乗り程度以上）</span>",
+         "value": "large-ev"},
+        {"title": "エレベーターがある",
+         "value": "normal-ev"},
+        {"title": "エレベーターの有無にはこだわらない",
+         "value": "without-ev"}
+      ]
+     }
+   ]
+  },
+  {"title": "階段",
+   "icon": "/resource/image/icon/stair.png",
+   "items": [
+     {"type": "radio",
+      "name": "elevator",
+      "defaultValue": "without-ev",
+      "selections": [
+        {"title": "手すりがあれば上れる",
+         "value": "with-banister"},
+        {"title": "上れない",
+         "value": "cannnot-climb"}
+      ]
+     }
+   ]
+  },
+  {"title": "トイレ",
+   "icon": "/resource/image/icon/toilet.png",
+   "items": [
+      {"type": "radio",
+       "name": "toilet-type",
+       "defaultValue": "normal-toilet",
+       "selections": [
+         {"title": "障害者用トイレ（男女別）がある",
+          "value": "disabled-toilet-separate"},
+         {"title": "障害者用トイレ（男女共用）がある",
+          "value": "disabled-toilet-unisexed"},
+         {"title": "トイレの種類にはこだわらない",
+          "value": "normal-toilet"}
+       ]
+      }
+   ]
+  },
+  {"title": "ベビー",
+   "icon": "/resource/image/icon/for-baby.png",
+   "items": [
+      {"type": "radio",
+       "name": "baby-type",
+       "defaultValue": "without-baby",
+       "selections": [
+         {"title": "赤ちゃんを連れて行く",
+          "value": "with-baby"},
+         {"title": "赤ちゃんを連れて行かない",
+          "value": "without-baby"}
+       ]
+      }
+   ]
+  },
+  {"title": "駐車場",
+   "icon": "/resource/image/icon/parking.png",
+   "items": [
+      {"type": "radio",
+       "name": "parking",
+       "defaultValue": "non-parking",
+       "selections": [
+         {"title": "駐車場がある",
+          "value": "for-normal"},
+         {"title": "駐車場の有無にはこだわらない",
+          "value": "non-parking"}
+       ]
+      }
+   ]
+  }
+]
