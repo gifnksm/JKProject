@@ -1,5 +1,5 @@
 <HTML>
-<HEAD><TITLE>ƒAƒJƒEƒ“ƒgV‹K“o˜^</TITLE></HEAD>
+<HEAD><TITLE>ã‚¢ã‚«ã‚¦ãƒ³ãƒˆæ–°è¦ç™»éŒ²</TITLE></HEAD>
 <BODY>
 
 <?php
@@ -10,7 +10,7 @@ require_once 'HTML/QuickForm.php';
 
 //*****************************************************
 //
-//“o˜^î•ñ
+//ç™»éŒ²æƒ…å ±
 //
 //*****************************************************
 $form = new HTML_QuickForm('myForm','POST','/../html_test2/index.html');
@@ -20,85 +20,85 @@ $pref="";
 require("./select1.php");
 
 ////////////
-//ŒÂlî•ñ//
+//å€‹äººæƒ…å ±//
 ////////////
-$form->addElement('header', null, 'ŒÂl‚Ìî•ñ');
-$form->addElement('text', 'Name', '–¼‘O', 'size=15');
-$form->addElement('password', 'Pass', 'ƒpƒXƒ[ƒh', 'size=15');
-$form->addElement('text', 'email1', 'ƒ[ƒ‹ƒAƒhƒŒƒX', 'size=25');
-$form->addElement('text', 'email2', 'ƒ[ƒ‹ƒAƒhƒŒƒX‚à‚¤ˆê“x', 'size=25');
-$form->addElement('text', 'mail1', 'Œg‘Ñƒ[ƒ‹ƒAƒhƒŒƒX', 'size=25');
-$form->addElement('text', 'mail2', 'Œg‘Ñƒ[ƒ‹ƒAƒhƒŒƒX‚à‚¤ˆê“x', 'size=25');
+$form->addElement('header', null, 'å€‹äººã®æƒ…å ±');
+$form->addElement('text', 'Name', 'åå‰', 'size=15');
+$form->addElement('password', 'Pass', 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰', 'size=15');
+$form->addElement('text', 'email1', 'ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹', 'size=25');
+$form->addElement('text', 'email2', 'ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚‚ã†ä¸€åº¦', 'size=25');
+$form->addElement('text', 'mail1', 'æºå¸¯ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹', 'size=25');
+$form->addElement('text', 'mail2', 'æºå¸¯ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚‚ã†ä¸€åº¦', 'size=25');
 
 $sex = array();
-$sex[] =& $form->createElement("radio", "0", NULL, "–¢‰ñ“š", "0");
-$sex[] =& $form->createElement("radio", "0", NULL, "’j«",   "1");
-$sex[] =& $form->createElement("radio", "0", NULL, "—«",   "2");
-$form->addGroup($sex,"sex","«•ÊF");
+$sex[] =& $form->createElement("radio", "0", NULL, "æœªå›ç­”", "0");
+$sex[] =& $form->createElement("radio", "0", NULL, "ç”·æ€§",   "1");
+$sex[] =& $form->createElement("radio", "0", NULL, "å¥³æ€§",   "2");
+$form->addGroup($sex,"sex","æ€§åˆ¥ï¼š");
 
-$form->addElement('date', 'Date', '“ú•t', 'size=25');
-$form->addElement('select', 'prefecture','“s“¹•{Œ§',$pref);
+$form->addElement('date', 'Date', 'æ—¥ä»˜', 'size=25');
+$form->addElement('select', 'prefecture','éƒ½é“åºœçœŒ',$pref);
 
 ////////////
-//áŠQî•ñ//
+//éšœå®³æƒ…å ±//
 ////////////
-$form->addElement('header', null, 'áŠQî•ñ');
-$form->addElement('text', 'width', '’Ê‚ê‚é•','cm','size=15');
-$form->addElement('text', 'rank1', 'æ‚è‰z‚¦‚ç‚ê‚é’i·','size=15');
-$form->addElement('text','rank2', 'æ‚è‰z‚¦‚ç‚ê‚é’i·(•t‚«“Y‚¢‚ ‚è)','size=15');
+$form->addElement('header', null, 'éšœå®³æƒ…å ±');
+$form->addElement('text', 'width', 'é€šã‚Œã‚‹å¹…','cm','size=15');
+$form->addElement('text', 'rank1', 'ä¹—ã‚Šè¶Šãˆã‚‰ã‚Œã‚‹æ®µå·®','size=15');
+$form->addElement('text','rank2', 'ä¹—ã‚Šè¶Šãˆã‚‰ã‚Œã‚‹æ®µå·®(ä»˜ãæ·»ã„ã‚ã‚Š)','size=15');
 
-$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"ˆø‚«ŒË","0");
-$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"ŠJ‚«ŒË","1");
-$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"©“®ƒhƒA","2");
-$form->addGroup($group, 'door', 'ƒhƒA:', ',&nbsp;');
+$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"å¼•ãæˆ¸","0");
+$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"é–‹ãæˆ¸","1");
+$group[] =& HTML_QuickForm::createElement('advcheckbox', "0",NULL,"è‡ªå‹•ãƒ‰ã‚¢","2");
+$form->addGroup($group, 'door', 'ãƒ‰ã‚¢:', ',&nbsp;');
 
-$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"áŠQÒ—pƒGƒŒƒx[ƒ^[","0");
-$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ƒGƒŒƒx[ƒ^[","1");
-$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"‚È‚µ","2");
-$form->addGroup($group1, 'elevater', 'ƒGƒŒƒx[ƒ^[:', ',&nbsp;');
+$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"éšœå®³è€…ç”¨ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼","0");
+$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼","1");
+$group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ãªã—","2");
+$form->addGroup($group1, 'elevater', 'ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼:', ',&nbsp;');
 
-$group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"è ‚ ‚ê‚Îã‚ê‚é","0");
-$group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"è ‚È‚­‚Ä‚àã‚ê‚é","1");
-$group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ã‚ê‚È‚¢","2");
-$form->addGroup($group2, 'step', 'ŠK’i:', ',&nbsp;');
+$group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"æ‰‹æ‘ºã‚ã‚Œã°ä¸Šã‚Œã‚‹","0");
+$group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"æ‰‹æ‘ºãªãã¦ã‚‚ä¸Šã‚Œã‚‹","1");
+$group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ä¸Šã‚Œãªã„","2");
+$form->addGroup($group2, 'step', 'éšæ®µ:', ',&nbsp;');
 
-$group3[] =& HTML_QuickForm::createElement('radio', "0",NULL,"áŠQÒ—pƒgƒCƒŒ‚ ‚è","0");
-$group3[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ƒgƒCƒŒ‚ ‚è","1");
-$group3[] =& HTML_QuickForm::createElement('radio', "0",NULL,"‚È‚µ","2");
-$form->addGroup($group3, 'toilet', 'ƒgƒCƒŒ:', ',&nbsp;');
+$group3[] =& HTML_QuickForm::createElement('radio', "0",NULL,"éšœå®³è€…ç”¨ãƒˆã‚¤ãƒ¬ã‚ã‚Š","0");
+$group3[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ãƒˆã‚¤ãƒ¬ã‚ã‚Š","1");
+$group3[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ãªã—","2");
+$form->addGroup($group3, 'toilet', 'ãƒˆã‚¤ãƒ¬:', ',&nbsp;');
 
-$group4[] =& HTML_QuickForm::createElement('radio', "0",NULL,"‚ ‚è","0");
-$group4[] =& HTML_QuickForm::createElement('radio', "0",NULL,"‚È‚µ","1");
-$form->addGroup($group4, 'baby', 'ƒxƒr[ŠÖŒW:', ',&nbsp;');
+$group4[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ã‚ã‚Š","0");
+$group4[] =& HTML_QuickForm::createElement('radio', "0",NULL,"ãªã—","1");
+$form->addGroup($group4, 'baby', 'ãƒ™ãƒ“ãƒ¼é–¢ä¿‚:', ',&nbsp;');
 
 
 //////////////
-//•s”õ‚ÌŠm”F//
+//ä¸å‚™ã®ç¢ºèª//
 //////////////
 $form->addElement('submit', null, 'home');
-$form->addRule('Name', '–¼‘O‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢', 'required');
-$form->addRule('Address', 'ZŠ‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢', 'required');
-$form->addRule('Address', 'ZŠ‚Í3•¶šˆÈã‚Æ’è‚ß‚ç‚ê‚Ä‚¢‚Ü‚·', 'minlength', 3);
-$form->addRule('Mail1', '³‚µ‚¢ƒ[ƒ‹ƒAƒhƒŒƒX‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢', 'email');
-$form->addRule(array('Mail1', 'Mail2'), 'ƒ[ƒ‹ƒAƒhƒŒƒX‚ªˆê’v‚µ‚Ü‚¹‚ñ', 'compare', '==');
+$form->addRule('Name', 'åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„', 'required');
+$form->addRule('Address', 'ä½æ‰€ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„', 'required');
+$form->addRule('Address', 'ä½æ‰€ã¯3æ–‡å­—ä»¥ä¸Šã¨å®šã‚ã‚‰ã‚Œã¦ã„ã¾ã™', 'minlength', 3);
+$form->addRule('Mail1', 'æ­£ã—ã„ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„', 'email');
+$form->addRule(array('Mail1', 'Mail2'), 'ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒä¸€è‡´ã—ã¾ã›ã‚“', 'compare', '==');
 
-$form->setRequiredNote('<span style="color: #ff0000;">*</span>‚Í•K{€–Ú‚Å‚·');
+$form->setRequiredNote('<span style="color: #ff0000;">*</span>ã¯å¿…é ˆé …ç›®ã§ã™');
 
 //////////////////
-//ƒoƒŠƒf[ƒVƒ‡ƒ“//
+//ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³//
 //////////////////
 if ($form->validate())
 {
 	if ($form->getSubmitValue('Status') == 'confirm')
 	{
-		echo '<h2>—¹‰ğF' . $form->exportValue('Name') . '‚É”­‘—‚µ‚Ü‚·</h2>';
-		echo '”­‘—æZŠF@' . $form->exportValue('Address') . '<BR>';
-		echo '˜A—æF@' . $form->exportValue('Mail1') . '<BR>';
+		echo '<h2>äº†è§£ï¼š' . $form->exportValue('Name') . 'ã«ç™ºé€ã—ã¾ã™</h2>';
+		echo 'ç™ºé€å…ˆä½æ‰€ï¼šã€€' . $form->exportValue('Address') . '<BR>';
+		echo 'é€£çµ¡å…ˆï¼šã€€' . $form->exportValue('Mail1') . '<BR>';
 	}
 	else
 	{
 		$form->addElement('hidden', 'Status', 'confirm');
-		// ª<input type="hidden" name="Status" value="confirm" />
+		// â†‘<input type="hidden" name="Status" value="confirm" />
 		$form->freeze();
 	}
 }
@@ -114,3 +114,4 @@ if ($form->getSubmitValue('Status') != 'confirm')
 
 </BODY>
 </HTML>
+
