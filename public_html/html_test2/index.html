@@ -17,6 +17,7 @@
     <script type="text/javascript" src="/resource/js/jquery.ui.all.js"></script>
     <script type="text/javascript" src="/resource/js/jquery.layout.js"></script>
     <script type="text/javascript" src="/resource/js/jquery-jtemplates.js"></script>
+    <script type="text/javascript" src="/resource/js/jquery-spin.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="/resource/js/gmap.tooltip.js"></script>
 
@@ -79,7 +80,10 @@
     </div>
     <div id="search-condition">
       <div id="search-condition-header">
-        <a href="javascript: void(0);" id="search-condition-complete-link">条件指定完了</a>
+        その他の検索条件 (簡易検索)
+        <a href="javascript: void(0);" id="search-condition-close-link">
+          × 閉じる
+        </a>
       </div>
       <div id="search-condition-forms">
         <form id="additional-condition-form">
@@ -88,6 +92,14 @@
         <form id="detail-condition-form">
           読み込み中
         </form>
+      </div>
+      <div id="search-condition-footer">
+        <button id="search-condition-detail-link">
+          さらに詳細な条件を指定
+        </button>
+        <button id="search-condition-complete-link">
+          条件指定完了
+        </button>
       </div>
     </div>
   </body>

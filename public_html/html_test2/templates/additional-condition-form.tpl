@@ -1,5 +1,11 @@
 {#template MAIN}
 <table><tbody>
+  <tr>
+    <td colspan="2"
+        style="text-align: center; font-size: 1.2em; color: red; font-weight: bolder;">
+      できること・必要なものを選択してください
+    </td>
+  </tr>
   {#foreach $T as c}
     <tr>
     <th>
@@ -34,5 +40,18 @@
            {$T.checked ? 'checked="checked"' : '""'}/>
     {$T.title}
     </label></div>
+  {#elseif $T.type == 'number'}
+    <div>
+      <label>
+        <input type="checkbox" name="{$T.name + '-check'}" value="true"
+                {$T.checked ? 'checked="checked"' : '""'}/>
+        {$T.message}
+      </label>
+      <label>
+        <input class="spin" name="{$T/name}"
+               value="{$T.defaultValue}" size="3" />
+        [{$T.unit}]
+      </label>
+    </div>
   {#/if}
 {#/template input}

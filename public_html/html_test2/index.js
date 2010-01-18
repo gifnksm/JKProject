@@ -1,3 +1,5 @@
+$.spin.imageBasePath = '/resource/image/spin1/';
+
 function num2alph(num) {
   return String.fromCharCode(Number(num) + 'A'.charCodeAt(0));
 }
@@ -278,6 +280,7 @@ ConditionForm.prototype = {
   _createContent: function(data) {
     this.created = true;
     this.form.html(this._tmpl.get(data));
+    $('input.spin', this.form).spin();
     var dl = this.form.children('dl');
     $('dd:not(:first)', dl).hide();
     $('dt a', dl).click(function() {
@@ -345,7 +348,7 @@ var SearchForm = {
             self._sc.slideUp('fast');
           }
         });
-    $('#search-condition-complete-link').click(
+    $('#search-condition-complete-link, #search-condition-close-link').click(
       function() {
         self._scl.click();
         return false;
@@ -358,7 +361,8 @@ var SearchForm = {
     var mh = $(window).height() - top
       - (this._sc.innerHeight() - this._sc.height())
       - $('#search-condition-header').height()
-      - 10;
+      - $('#search-condition-footer').height()
+      - 20;
     $('#search-condition-forms').css({ maxHeight: mh });
   },
   submit: function(term) {
