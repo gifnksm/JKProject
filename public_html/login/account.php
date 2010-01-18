@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <HTML>
 <HEAD><TITLE>アカウント新規登録</TITLE></HEAD>
 <BODY>
