@@ -348,11 +348,30 @@ var SearchForm = {
             self._sc.slideUp('fast');
           }
         });
-    $('#search-condition-complete-link, #search-condition-close-link').click(
+    $('#search-condition-complete-button, #search-condition-close-link').click(
       function() {
         self._scl.click();
         return false;
       });
+    var detailFlag = false;
+    $('#search-condition-detail-button').click(
+      function() {
+        var $$ = $(this);
+        if (detailFlag) {
+          if (!confirm('簡易設定モードに移行すると，詳細設定で設定した内容が消えてしまいます。\n簡易設定モードに移行しますか？'))
+            return false;
+          self.acf.show();
+          self.dcf.hide();
+          $$.text('さらに詳細な条件を指定');
+        } else {
+          self.acf.hide();
+          self.dcf.show();
+          $$.text('簡易条件指定に切り替える');
+        }
+        detailFlag = !detailFlag;
+        return false;
+      }
+    );
   },
   _updateSCPosition: function() {
     var o = this._scl.offset(), top = o.top + this._scl.height() + 3;
