@@ -6,14 +6,14 @@ function loginFormHtml($username = null, $status = null)
 {
     echo <<<LOGINFORM
 <HTML>
-<HEAD><TITLE>ƒƒOƒCƒ“ƒtƒH[ƒ€</TITLE></HEAD>
+<HEAD><TITLE>ãƒ­ã‚°ã‚¤ãƒ³ãƒ•ã‚©ãƒ¼ãƒ </TITLE></HEAD>
 <BODY>
 
-<H2>ƒƒOƒCƒ“‚µ‚Ä‚­‚¾‚³‚¢</H2>
+<H2>ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ãã ã•ã„</H2>
 <DIV align="center">
     <FORM method="post" action="">
-        ƒ†[ƒU–¼: <INPUT type="text" name="username"><BR>
-        ƒpƒXƒ[ƒh: <INPUT type="password" name="password"><BR>
+        ãƒ¦ãƒ¼ã‚¶å: <INPUT type="text" name="username"><BR>
+        ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰: <INPUT type="password" name="password"><BR>
         <INPUT type="submit">
     </FORM>
 </DIV>
@@ -38,11 +38,11 @@ if ($auth->checkAuth())
     echo <<<LOGGEDIN
 <HTML>
 <HEAD>
-<TITLE>—á</TITLE>
+<TITLE>ä¾‹</TITLE>
 </HEAD>
 <BODY>
 
-<H3>ƒƒOƒCƒ“¬Œ÷</H3>
+<H3>ãƒ­ã‚°ã‚¤ãƒ³æˆåŠŸ</H3>
 <BR>
 
 </BODY>
