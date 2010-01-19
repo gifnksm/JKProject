@@ -20,7 +20,7 @@
         </div>
         {#if $T.item.images }
           <div>
-            <a href="javascript: GMap.showInfoWindow({$T.item$index});">
+            <a href="javascript: GMap.showInfoWindow({$T.item.id});">
               <span class="list-image"
                    style="background-image: url({$T.item.images[0].url})"></span>
             </a>
