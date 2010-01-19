@@ -26,7 +26,7 @@
    <div class="category-icons">
      {#foreach $P.category.ids as cid
      }{#param name=cat value=$T.score.detail[$T.cid]
-     }<img src="/resource/image/icon/{$T.cid}_{$P.cat.color.charAt(0)}.png"
+     }<img src="/resource/image/icon/{$T.cid}.{$P.cat.color}.png"
            alt="{$P.category.names[$T.cid]}: {$P.cat.color}"
            />{#/for}
      </div>
