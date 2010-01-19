@@ -50,6 +50,16 @@ foreach ($building_data as &$building) { /* &をつけてループ内で代入�
                              'detail' => $detail);
 }
 
+/* スコア順にソート */
+function building_cmp($a, $b) {
+  $av = $a['score']['value'];
+  $bv = $b['score']['value'];
+  if ($av == $bv)
+    return 0;
+  return $av < $bv ? 1 : -1;
+}
+usort($building_data, "building_cmp");
+
 $result_data = array('searchTerm' => $_POST['searchTerm'],
                      'category' =>
                      array('ids' => $cat_ids,
