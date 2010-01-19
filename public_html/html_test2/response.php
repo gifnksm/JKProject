@@ -39,7 +39,8 @@ foreach ($building_data as &$building) { /* &をつけてループ内で代入�
     elseif($score > 10) $score = 10;
 
     $detail[$id] = array('color' => get_score_name($score),
-                         'value' => $score);
+                         'value' => $score,
+                         'message' => 'これがだめ。あれがだめ。判定の詳細');
     $score_arr[] = $score;
   }
   /* 各カテゴリスコアの最悪値 (最小値) で施設のスコアを決定 */

@@ -40,6 +40,7 @@
           }{#param name=cat value=$T.item.score.detail[$T.cid]
           }<img src="/resource/image/icon/{$T.cid}.{$P.cat.color}.png"
                 alt="{$P.category.names[$T.cid]}: {$P.cat.color}"
+                title="{$P.category.names[$T.cid]}: {$P.cat.message || ''}"
           />{#/for}
         </div>
       </td>
