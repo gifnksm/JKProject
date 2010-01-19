@@ -23,5 +23,10 @@
           width="{$T.infoImage.width}" height="{$T.infoImage.height}" />
    {#/if}
    </td></tr></table>
+   <div class="category-icons">
+     {#foreach $T.scoreDetail as cat}<img
+       src="/resource/image/icon/{$T.cat$key}_{$T.cat.charAt(0)}.png"
+       />{#/for}
+     </div>
    </div>
 {#/template MAIN}

@@ -23,19 +23,14 @@
        ],
        "score": "red",
        "scoreDetail": {
-         "parking": "red",
-         "entrance-dansa": "yellow",
-         "load-to-entrance": "blue",
-         "in-store": "red",
-         "help": "red",
-         "guide": "red",
-         "toilet": "yellow",
-         "stair": "red",
+         "width": "red",
+         "bump": "yellow",
+         "entrance": "blue",
          "elevator": "red",
-         "for-baby": "red",
-         "enterprise": "red",
-         "commu-equip": "red",
-         "others": "red"
+         "stair": "red",
+         "toilet": "red",
+         "for-baby": "yellow",
+         "parking": "red"
        }
      },
      {
@@ -81,7 +76,7 @@
          }
        ],
        "score": "yellow",
-       "scoreDetail": "hoge"
+       "scoreDetail": {}
      },
      {
        "id": 3,
@@ -103,7 +98,7 @@
          }
        ],
        "score": "yellow",
-       "scoreDetail": "hoge"
+       "scoreDetail": {}
      },
      {
        "id": 4,
@@ -125,7 +120,7 @@
          }
        ],
        "score": "red",
-       "scoreDetail": "hoge"
+       "scoreDetail": {}
      },
      {
        "id": 5,
@@ -147,7 +142,7 @@
          }
        ],
        "score": "yellow",
-       "scoreDetail": "hoge"
+       "scoreDetail": {}
      },
      {
        "id": 6,
@@ -170,7 +165,7 @@
          }
        ],
        "score": "blue",
-       "scoreDetail": "hoge"
+       "scoreDetail": {}
      },
      {
        "id": 7,
@@ -208,7 +203,7 @@
          }
        ],
        "score": "blue",
-       "scoreDetail": "hoge"
+       "scoreDetail": {}
      }
   ]
 }

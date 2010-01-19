@@ -241,6 +241,9 @@ input.empty:focus {
     vertical-align: text-top;
     margin: 0 4px 0 6px;
 }
+#list .item .category-icons {
+   clear: left;
+}
 
 /*
  * LAYOUT RESIZERS & TOGGLERS

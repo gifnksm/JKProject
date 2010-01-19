@@ -35,6 +35,11 @@
             </span>
           {#/if}
         </div>
+        <div class="category-icons">
+          {#foreach $T.item.scoreDetail as cat}<img
+            src="/resource/image/icon/{$T.cat$key}_{$T.cat.charAt(0)}.png"
+          />{#/for}
+        </div>
       </td>
     </tr>
   {#/for}
