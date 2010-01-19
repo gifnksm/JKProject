@@ -54,6 +54,7 @@ var List = {
   },
   setData: function(data) {
     List._data = data;
+    List._pageTmpl.setParam('category', data.category);
     List._pager.updateItems(data.result);
   },
   updatePage: function(page) {
@@ -181,6 +182,7 @@ var GMap = {
     GMap._tooltips = {};
     GMap._infoWindows = {};
     GMap._allIDs = [];
+    GMap._infoWindowTmpl.setParam('category', data.category);
     $.each(data.result, function(i, d) {
              var gm = google.maps;
              GMap._allIDs.push(d.id);
@@ -188,7 +190,7 @@ var GMap = {
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
                           map: GMap.map,
                           zIndex: 0
-                        }, GMap.createDot(d.score)));
+                        }, GMap.createDot(d.score.color)));
              GMap._tooltips[d.id]
                = new Tooltip(dot, GMap._tooltipTmpl.get(d), 5, GMap.map);
              GMap._infoWindows[d.id] =
@@ -209,7 +211,7 @@ var GMap = {
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
                           map: GMap.map,
                           zIndex: 100
-                        }, GMap.createIcon(d.score, num2alph(i))));
+                        }, GMap.createIcon(d.score.color, num2alph(i))));
              GMap._addEvents(marker, d.id);
            });
   },

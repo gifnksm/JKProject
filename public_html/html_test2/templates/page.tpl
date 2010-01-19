@@ -4,7 +4,7 @@
     <tr class="item">
       <td>
         <a href="javascript: GMap.showInfoWindow({$T.item.id});">
-          <img src="/resource/image/pin/{num2alph($T.item$index)}.{$T.item.score}.png"
+          <img src="/resource/image/pin/{num2alph($T.item$index)}.{$T.item.score.color}.png"
                width="20" height="34" class="pin" />
         </a>
       </td>
@@ -36,8 +36,10 @@
           {#/if}
         </div>
         <div class="category-icons">
-          {#foreach $T.item.scoreDetail as cat}<img
-            src="/resource/image/icon/{$T.cat$key}_{$T.cat.charAt(0)}.png"
+          {#foreach $P.category.ids as cid
+          }{#param name=cat value=$T.item.score.detail[$T.cid]
+          }<img src="/resource/image/icon/{$T.cid}_{$P.cat.color.charAt(0)}.png"
+                alt="{$P.category.names[$T.cid]}: {$P.cat.color}"
           />{#/for}
         </div>
       </td>

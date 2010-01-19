@@ -24,9 +24,11 @@
    {#/if}
    </td></tr></table>
    <div class="category-icons">
-     {#foreach $T.scoreDetail as cat}<img
-       src="/resource/image/icon/{$T.cat$key}_{$T.cat.charAt(0)}.png"
-       />{#/for}
+     {#foreach $P.category.ids as cid
+     }{#param name=cat value=$T.score.detail[$T.cid]
+     }<img src="/resource/image/icon/{$T.cid}_{$P.cat.color.charAt(0)}.png"
+           alt="{$P.category.names[$T.cid]}: {$P.cat.color}"
+           />{#/for}
      </div>
    </div>
 {#/template MAIN}
