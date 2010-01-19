@@ -34,9 +34,11 @@
       "height": 67
     },
     "images": [
-      {"url": "images/1.0.jpg",
-       "width": 120,
-       "height": 90}
+      {
+        "url": "images/1.0.jpg",
+        "width": 120,
+        "height": 90
+      }
     ]
   },
   {
@@ -52,9 +54,11 @@
       "height": 90
     },
     "images": [
-      {"url": "images/2.0.jpg",
-       "width": 90,
-       "height": 120}
+      {
+        "url": "images/2.0.jpg",
+        "width": 90,
+        "height": 120
+      }
     ]
   },
   {
@@ -156,7 +160,7 @@
     "name": "ヒンメル",
     "lat": 35.606704,
     "lng": 139.686074,
-    "addr": "日本東京都大田区北千束３丁目２８－４アンシャンテ大岡山?",
+    "addr": "東京都大田区北千束３丁目２８－４アンシャンテ大岡山",
     "tel": "03-6431-0970",
     "url": "http://www.himmelbrot.com/",
     "infoImage": {
@@ -167,6 +171,67 @@
     "images": [
       {
         "url": "images/8.0.jpg",
+        "width": 120,
+        "height": 90
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "カフェキッチン林",
+    "lat": 35.606615,
+    "lng": 139.685951,
+    "addr": "東京都大田区北千束３丁目２８－６",
+    "tel": "03-3720-5131?",
+    "infoImage": {
+      "url": "images/8.info.jpg",
+      "width": 90,
+      "height": 68
+    },
+    "images": [
+      {
+        "url": "images/9.0.jpg",
+        "width": 120,
+        "height": 90
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "上海台所 味庵",
+    "lat": 35.606449,
+    "lng": 139.68594,
+    "addr": "東京都大田区北千束3-29-15",
+    "tel": "03-5754-6074",
+    "infoImage": {
+      "url": "images/10.info.jpg",
+      "width": 90,
+      "height": 90
+    },
+    "images": [
+      {
+        "url": "images/10.0.jpg",
+        "width": 120,
+        "height": 120
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "シッダールタインドネパールカレーレストラン",
+    "lat": 35.607182,
+    "lng": 139.686299,
+    "addr": "東京都大田区北千束３丁目２６－１２大岡山スターハイム",
+    "tel": "03-6410-6424",
+    "url": "",
+    "infoImage": {
+      "url": "images/11.info.jpg",
+      "width": 90,
+      "height": 68
+    },
+    "images": [
+      {
+        "url": "images/11.0.jpg",
         "width": 120,
         "height": 90
       }
