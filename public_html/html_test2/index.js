@@ -312,11 +312,18 @@ ConditionForm.prototype = {
                               self._createContent(data);
                             });
     }
+    if (this._setData)
+      this.setValue(this._setData);
     this.form.show();
   },
   hide: function() { this.form.hide(); },
   setValue: function(data) {
-
+    var form = this.form;
+    this._setData = data;
+    form[0].reset();
+    $.each(data, function(name, value) {
+             $('input[name="'+name+'"]', form).val([value]);
+           });
   },
   serialize: function() { return this.form.serialize(); }
 };
@@ -327,16 +334,37 @@ var SearchForm = {
   acf: new ConditionForm('additional-condition'),
   init: function(personalData) {
     this._personalData = personalData;
-    $('#search-condition-name').append(
-      $.map(this._personalData, function(d) {
-            return new Option(d.title, d.name);
-          }));
-
+    var pdHash = this._phHash = {};
+    $(this._personalData).each(function (i, d) { pdHash[d.name] = d.values; });
     this.searchBox.init();
-    var self = this;
     this.searchBox.submit = function(term) { self.submit(term); };
     this.dcf.init();
     this.acf.init();
+
+    var self = this;
+    var scn = $('#search-condition-name').append(
+      $.map(this._personalData, function(d) {
+            return new Option(d.title, d.name);
+            })).change(
+              function() {
+                var $$ = $(this);
+                if ($$.val() in pdHash) {
+                  self.acf.setValue(pdHash[$$.val()]);
+                }
+              }).change();
+    $([this.dcf.form[0], this.acf.form[0]]).change(
+      function() {
+        var $$ = $(this);
+        if (!(custom_name in pdHash)) {
+          scn.append(new Option('カスタム', custom_name));
+        }
+        scn.val([custom_name]);
+        pdHash[custom_name] = {};
+        $($$.serializeArray()).each(function(i, o) {
+                                 pdHash[custom_name][o.name] = o.value;
+                               });
+      });
+
     this._sc = $('#search-condition');
     this._scl = $('#search-condition-link')
       .click(
@@ -350,6 +378,8 @@ var SearchForm = {
             self._sc.slideUp('fast');
           }
         });
+    $(window).resize(function() { self._updateSCPosition(); });
+    var custom_name = 'custom';
     $('#search-condition-complete-button, #search-condition-close-link').click(
       function() {
         self._scl.click();
@@ -365,10 +395,12 @@ var SearchForm = {
           self.acf.show();
           self.dcf.hide();
           $$.text('さらに詳細な条件を指定');
+          $('#search-status').text('(簡易検索)');
         } else {
           self.acf.hide();
           self.dcf.show();
           $$.text('簡易条件指定に切り替える');
+          $('#search-status').text('(詳細検索)');
         }
         detailFlag = !detailFlag;
         return false;

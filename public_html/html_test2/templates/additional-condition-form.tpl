@@ -48,7 +48,7 @@
         {$T.message}
       </label>
       <label>
-        <input class="spin" name="{$T/name}"
+        <input class="spin" name="{$T.name}"
                value="{$T.defaultValue}" size="3" />
         [{$T.unit}]
       </label>
