@@ -12,7 +12,7 @@ require_once 'HTML/QuickForm.php';
 
 //$form = new HTML_QuickForm('myForm','POST','confirm.php');
 
-function loginFormHtml($username = null, $status = null)
+function loginFormHtml($username = null, $password = null, $status = null)
 {
     echo <<<LOGINFORM
 <HTML>
@@ -26,7 +26,7 @@ function loginFormHtml($username = null, $status = null)
 		</td><td style="text-align: right;">
 
 <H2>ここから先はログインが必要です</H2>
-    <FORM method="post" action="">
+    <FORM method="post" action="login2.php">
         ユーザ名: <INPUT type="text" name="username"><BR>
         パスワード: <INPUT type="password" name="password"><BR>
         <INPUT type="submit">
@@ -36,6 +36,7 @@ function loginFormHtml($username = null, $status = null)
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <p><a href="account.php">new account</a></p>
 <p><a href="/../html_test2/index.html">HOME</a></p>
+<A Href="javascript:history.go(-1)">1つ前に戻る</A> 
 
 </DIV>
 
@@ -57,6 +58,19 @@ $auth->start();
 
 if ($auth->checkAuth()) 
 {
+
+//セッション開始
+session_start();
+
+if(isSet($_SESSION['visisted']))
+{
+	$visited = $_SESSION['visited'];
+}
+else
+{
+	echo "noda";
+}
+
     echo <<<LOGGEDIN
 <HTML>
 <HEAD>
@@ -68,7 +82,7 @@ if ($auth->checkAuth())
 <BR>
 
 <p><a href="/../html_test2/index.html">HOME</a></p>
-
+<A Href="javascript:history.go(-1)">1つ前に戻る</A> 
 
 </BODY>
 </HTML>
