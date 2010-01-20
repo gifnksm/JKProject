@@ -14,7 +14,7 @@
    "icon": "/resource/image/icon/bump.png",
    "items": [
      {"type": "number",
-      "name": "bunp",
+      "name": "bump",
       "message": "越えられる段差の高さを考慮する：",
       "unit": "cm",
       "checked": false,
