@@ -364,14 +364,15 @@ var SearchForm = {
                                  pdHash[custom_name][o.name] = o.value;
                                });
       });
-
     this._sc = $('#search-condition');
     this._scl = $('#search-condition-link')
+      .one('click', function() {
+              self.acf.show();
+              self.dcf.hide();
+            })
       .click(
         function() {
           if (self._sc.is(':hidden')) {
-            self.acf.show();
-            self.dcf.hide();
             self._sc.slideDown('fast');
             self._updateSCPosition();
           } else {
