@@ -2,8 +2,8 @@ SQLの初期設定
 
 # ユーザの追加
 mysql> CREATE DATABASE login_db;
-mysql> GRANT ALL PRIVILEGES ON lohin_db.*
-> TO jkp@jkproject.localhost IDENTIFIED BY 'jkproject';
+mysql> GRANT ALL PRIVILEGES ON login_db.*
+    -> TO jkp@jkproject.localhost IDENTIFIED BY 'jkproject';
 
 # データのエクスポート
 $ mysqldump login_db > login_db.sql -u jkp -p
