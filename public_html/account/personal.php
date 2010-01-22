@@ -10,9 +10,9 @@ if ($login) {
   $personal1["name"] = "personal-0";
   $personal1["title"] = "一人で出かける";
   $personal1["values"] =
-    array("width-check" => true,
+    array("width-check" => "true",
           "width" => 80,
-          "bump-check" => true,
+          "bump-check" => "true",
           "bump" => 2);
   $data[] = $personal1;
 
@@ -20,9 +20,9 @@ if ($login) {
   $personal2["name"] = "personal-1";
   $personal2["title"] = "付き添いの人と出かける";
   $personal2["values"] =
-    array("width-check" => true,
+    array("width-check" => "true",
           "width" => 80,
-          "bump-check" => true,
+          "bump-check" => "true",
           "bump" => 5);
   $data[] = $personal2;
 
