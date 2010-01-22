@@ -473,12 +473,12 @@ var LoginMessage = {
   }
 };
 
-JSONLoader.preload('login_dummy.php', 'personal-conf.json');
+JSONLoader.preload('login_dummy.php', '/account/personal.php');
 
 $(function() {
     Layout.init();
     List.init();
-    JSONLoader.addHandler('personal-conf.json', function(data) {
+    JSONLoader.addHandler('/account/personal.php', function(data) {
                             SearchForm.init(data);
                           });
     LocationBox.init();
