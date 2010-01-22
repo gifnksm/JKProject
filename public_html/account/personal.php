@@ -6,32 +6,33 @@ $login = ($_SESSION['n'] != "" || $_SESSION['p'] != "");
 $data = array();
 
 if ($login) {
-  $personal1 = array();
-  $personal1["name"] = "personal-0";
-  $personal1["title"] = "一人で出かける";
-  $personal1["values"] =
+  $p0 = array();
+  $p0["name"] = "personal-0";
+  $p0["title"] = "一人で出かける";
+  $p0["values"] =
     array("width-check" => "true",
           "width" => 80,
           "bump-check" => "true",
           "bump" => 2);
-  $data[] = $personal1;
+  $data[] = $p0;
 
-  $personal2 = array();
-  $personal2["name"] = "personal-1";
-  $personal2["title"] = "付き添いの人と出かける";
-  $personal2["values"] =
+  $p1 = array();
+  $p1["name"] = "personal-1";
+  $p1["title"] = "付き添いの人と出かける";
+  $p1["values"] =
     array("width-check" => "true",
           "width" => 80,
           "bump-check" => "true",
           "bump" => 5);
-  $data[] = $personal2;
+  $data[] = $p1;
 
-  $personal3 = array();
-  $personal3["name"] = "personal-2";
-  $personal3["title"] = "車で出かける";
-  $personal3["values"] =
-    array("parking" => "for-normal");
-  $data[] = $personal3;
+  /* personal1の駐車場データだけ変更したものにする */
+  $p3 = array();
+  $p3["name"] = "personal-2";
+  $p3["title"] = "車で出かける";
+  $p3["values"] = $p0["values"];
+  $p3["values"]["parking"] = "for-normal";
+  $data[] = $p3;
 }
 
 echo json_encode($data);
