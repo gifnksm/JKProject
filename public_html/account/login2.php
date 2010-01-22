@@ -1,8 +1,6 @@
 <?php
 $namae = $_POST['username'];
 $pass = $_POST['password'];
-echo "$namae";
-echo "$pass";
 
 //********************************************
 //ログインできない時
@@ -16,7 +14,7 @@ echo <<<EOT
 <body>
 <DIV align="center">
 ユーザー名もしくはパスワードが正しくありません。
-<p><a href="/../html_test2/index.html">HOME</a></p>
+<p><a href="/../html_test2/index.html">ホーム</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A>
 </DIV>
 EOT;
@@ -77,10 +75,12 @@ $_SESSION['p'] = $pass;
 <TITLE>確認</TITLE>
 </HEAD>
 <BODY>
-<H3>ログイン成功</H3>
-<BR>
-<p><a href="/../html_test2/index.html">HOME</a></p>
-<A Href="javascript:history.go(-1)">1つ前に戻る</A>
+<DIV align="center"> 
+<H3>ログインしました。</H3>
+<H2>自動的にトップページに戻ります</H2>
+<meta http-equiv="Refresh" content="2; URL=/../html_test2/index.html">
+<p><a href="/../html_test2/index.html">ホーム</a></p>
+</DIV>
 </BODY>
 </HTML>
 LOGGEDIN;
