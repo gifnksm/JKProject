@@ -17,14 +17,13 @@
 
 require_once 'HTML/QuickForm.php';
 
-
-
+ 
 //*****************************************************
 //
 //登録情報
 //
 //*****************************************************
-$form = new HTML_QuickForm('myForm','POST','./confirm2.php');
+$form = new HTML_QuickForm('myForm','POST','confirm2.php');
 
 //include file
 $pref="";
@@ -66,7 +65,7 @@ $form->addGroup($group, 'door', 'ドア:', ',&nbsp;');
 $group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"障害者用エレベーター","large-ev");
 $group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"エレベーター","normal-ev");
 $group1[] =& HTML_QuickForm::createElement('radio', "0",NULL,"なし","without-ev");
-$form->addGroup($group1, 'elevater', 'エレベーター:', ',&nbsp;');
+$form->addGroup($group1, 'elevator', 'エレベーター:', ',&nbsp;');
 
 $group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"手摺あれば上れる","with-banister");
 $group2[] =& HTML_QuickForm::createElement('radio', "0",NULL,"上れない","cannot-climb");
@@ -87,7 +86,7 @@ $form->addElement('submit', null, '送信');
 //不備の確認//
 //////////////
 $form->addRule('username', '名前を入力してください', 'required');
-//$form->addRule('password', 'パスワードを入力してください', 'required');
+$form->addRule('password', 'パスワードを入力してください', 'required');
 //$form->addRule('Address', '住所は3文字以上と定められています', 'minlength', 3);
 $form->addRule('email', '正しいメールアドレスを入力してください', 'required');
 $form->addRule('email_2', '正しいメールアドレスを入力してください', 'required');
@@ -95,31 +94,29 @@ $form->addRule(array('email', 'email_2'), 'メールアドレスが一致しま�
 
 $form->setRequiredNote('<span style="color: #ff0000;">*</span>は必須項目です');
 
-<!--
 //////////////////
 //バリデーション//
 //////////////////
-if ($form->validate())
+if($form->validate())
 {
-	if ($form->getSubmitValue('Status') == 'confirm')
-	{
-		echo '<h2>了解：' . $form->exportValue('username') . 'に発送します</h2>';
-		echo '発送先住所：　' . $form->exportValue('password') . '<BR>';
-		echo '連絡先：　' . $form->exportValue('email') . '<BR>';
-	}
-	else
-	{
+//*************************
+//password 受け渡し
+//*************************
+$pass = $_POST['password'];
+$form->addElement('hidden','password_x',"$pass");
+
 		$form->addElement('hidden', 'Status', 'confirm');
-		// ↑<input type="hidden" name="Status" value="confirm" />
+		//↑<input type="hidden" name="Status" value="confirm" />
 		$form->freeze();
-	}
 }
 if ($form->getSubmitValue('Status') != 'confirm')
 {
 	$form->display();
 }
--->
 ?>
+<form name="form1" action="confirm2.php" method="POST">
+      <input type = "hidden" name = "password" value = "$_POST['password']">
+</form>
 <!--HOME link-->
 <p><a href="/../html_test2/index.html?no=1">HOME</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A>

@@ -1,6 +1,6 @@
 <!--
 ***********************************************
-**  DBに書き込む画面
+**  DBに登録
 **
 **                                  by ohno
 **                                  2010/01/20
@@ -8,79 +8,52 @@
 -->
 <HTML>
 <HEAD>
-<TITLE>DBにかきこむ</TITLE>
+<TITLE>DBに登録</TITLE>
 </HEAD>
 <BODY>
-
+<DIV align="center">
 <?php
 require 'DB.php';
-
-
-/*
-$sql = <<<SQL
-    SELECT c.id,c.name,c.age,g.name,c.prefecture,c.telephone,c.company 
-    FROM main_customer AS c,gender AS g 
-    WHERE c.gender=g.id 
-        AND c.age BETWEEN ? AND ?
-SQL;
-
-$ageLow = $_POST['ageLow'];
-$ageHigh = $_POST['ageHigh'];
-*/
 
 
 $db = DB::connect("mysql://jkp:jkproject@jkproject.localhost/login_db");
 $db->query("SET NAMES 'utf-8'");
 
-/*
+
 if (DB::isError($db))
 {
-    echo "error to open\n<BR>";
+    echo "データベースにアクセスできませんm(__)m";
 }
 else
 {
-    $stmt = $db->prepare($sql);
 
-    $rs = $db->execute($stmt, array($ageLow, $ageHigh));
-    while ($row = $rs->fetchRow())
-    {
-        echo    'id: ' . $row[0] . 
-                ' name: ' . $row[1] . 
-                ' age: ' . $row[2] . 
-                ' gender: ' . $row[3] . 
-                ' pref: ' . $row[4] . 
-                ' tel: ' . $row[5] . 
-                ' company: ' . $row[6] . 
-                "<BR/>\n";
-    }
-}
-*/
 
 /*
 ***************************************************
 ** confirm.phpから値を読み取り変数に代入
 ***************************************************
 */
-
 $username_ = $_POST['username'];
-$password_ = $_POST['password'];
-echo $password;
+$password_ = $_POST['password_x'];
 $email_ = $_POST['email'];
 $mobilemail_ = $_POST['mobilemail'];
-$gender_ = $_POST['gender[0]'];
-$birthdate_ = $_POST['date[Y]'];
+$gender_ = $_POST["gender"][0];
+$birthdate_y = $_POST["date"][Y];
+$birthdate_m = $_POST["date"][M];
+$birthdate_d = $_POST["date"][d];
+$birthdate_ = "$birthdate_y"."/" ."$birthdate_m". "/"."$birthdate_d";
 $prefecture_ = $_POST['prefecture'];
 //$city_ = $_POST['city'];
 $width_ = $_POST['width'];
 $rank1_ = $_POST['rank1'];
 $rank2_ = $_POST['rank2'];
-$slide_door = $_POST['door[0]'];
-$double_door = $_POST['door[1]'];
-$auto_door = $_POST['door[2]'];
-$elevator_ = $_POST['elevator[0]'];
-$step_ = $_POST['step[0]'];
-$toilet_ = $_POST['toilet[0]'];
-$baby_ = $_POST['baby[0]'];
+$slide_door = $_POST["door"][0];
+$double_door = $_POST["door"][1];
+$auto_door = $_POST["door"][2];
+$elevator_ = $_POST["elevator"][0];
+$step_ = $_POST["step"][0];
+$toilet_ = $_POST["toilet"][0];
+$baby_ = $_POST["baby"][0];
 
 
 /*
@@ -98,15 +71,17 @@ SQL;
 $result = mysql_query($sql);
 
 if($result){
-echo "ok";
+	    echo '<H2>ようこそ、' ."$username_". 'さん</H2>';
+	   echo 'これからもバリアフリーマップ検索をお楽しみください!<BR>';
 }
 else{
-echo "no";
+	   echo '<H2>登録できませんでした</H2>';
 }
-//$db->execute($sql);
 
-
+}
 ?>
-
+<p><a href="/../html_test2/index.html?no=1">HOME</a></p>
+<A Href="javascript:history.go(-1)">1つ前に戻る</A>
+</DIV>
 </BODY>
 </HTML>

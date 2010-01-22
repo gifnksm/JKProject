@@ -45,6 +45,7 @@ function loginFormHtml($username = null, $password = null, $status = null)
 LOGINFORM;
 }
 
+
 $params = array(
         'cryptType'=>'none',
         'dsn'=>'mysql://jkp:jkproject@jkproject.localhost/login_db',
@@ -58,19 +59,6 @@ $auth->start();
 
 if ($auth->checkAuth()) 
 {
-
-//セッション開始
-session_start();
-
-if(isSet($_SESSION['visisted']))
-{
-	$visited = $_SESSION['visited'];
-}
-else
-{
-	echo "noda";
-}
-
     echo <<<LOGGEDIN
 <HTML>
 <HEAD>

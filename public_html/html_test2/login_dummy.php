@@ -1,16 +1,12 @@
 <?
-if (rand(0, 1) == 0) {
-  echo <<< END
+session_start();
+$login = ($_SESSION['n'] != "" || $_SESSION['p'] != "");
+$data = array("login" => $login);
+
+if($login )
 {
-  "login": true,
-  "name": "namae"
+ $data["name"] = $_SESSION["n"];
 }
-END;
-} else {
-  echo <<< END
-{
-  "login": false
-}
-END;
-}
+
+echo json_encode($data);
 ?>
