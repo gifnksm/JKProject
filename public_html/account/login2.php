@@ -24,8 +24,8 @@ exit;
 //********************************************
 //ログインできた時
 //********************************************
-require_once "Auth.php";
-
+/* require_once "Auth.php"; */
+require_once "DB.php";
 
 function loginFormHtml($username = null, $status = null)
 {
@@ -62,14 +62,25 @@ $params = array(
         'passwordcol'=>'password'
     );
 
-$auth = new Auth("DB", $params, "loginFormHtml");
-$auth->start();
-if($auth->checkAuth())
+$db = DB::connect("mysql://jkp:jkproject@jkproject.localhost/login_db");
+$db->query("SET NAMES 'utf-8'");
+
+if (DB::isError($db)) {
+  $row = array();
+} else {
+  $st =$db->prepare("SELECT * FROM credentials where username=? and password=?");
+  $rs = $db->execute($st, array($namae, $pass));
+  $row = $rs->fetchRow(DB_FETCHMODE_ASSOC);
+}
+
+/* ログイン成功 */
+if (count($row) > 1)
 {
-session_start();
-$_SESSION['n'] = $namae;
-$_SESSION['p'] = $pass;
-    echo <<<LOGGEDIN
+  session_start();
+  $_SESSION['n'] = $namae;
+  $_SESSION['p'] = $pass;
+  $_SESSION['i'] = $row["id"];
+  echo <<<LOGGEDIN
 <HTML>
 <HEAD>
 <TITLE>確認</TITLE>
@@ -85,7 +96,7 @@ $_SESSION['p'] = $pass;
 </HTML>
 LOGGEDIN;
 }
-else{
-echo "ユーザーが登録されていないか、入力情報に不正があります。";
+else {
+  echo "ユーザーが登録されていないか、入力情報に不正があります。";
 }
 ?>
