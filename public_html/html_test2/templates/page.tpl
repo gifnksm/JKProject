@@ -16,7 +16,7 @@
             </a>
           </span>
           -
-          <a href="javascript: showDetail({$T.item.id});">詳細&raquo;</a>
+          <a href="javascript: GMap.detailMode({$T.item.id});">詳細&raquo;</a>
         </div>
         {#if $T.item.images }
           <div>

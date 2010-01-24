@@ -36,7 +36,8 @@ var Layout = {
       onclose: function() { Layout.westOpener.show(); }
     },
     center: {
-      onresize_end: function() { GMap.resize(); }
+      onresize_end: function() { GMap.resize(); },
+      minSize: 0
     }
   }
 };
@@ -60,7 +61,7 @@ var List = {
   updatePage: function(page) {
     var items = List._pager.currentItems();
     List._list.html(List._pageTmpl.get(items));
-    GMap.setMarker(items);
+    GMap.setMarker(items, true);
   }
 };
 
@@ -68,6 +69,7 @@ var GMap = {
   defaultLatLng: new google.maps.LatLng(35.60709019396141,139.6853256225586),
   map: null,
   canvas: null,
+  _detailMode: false,
   _mapBounds: null,
   _canvasSize: [],
   _canvasOffset: [],
@@ -97,7 +99,7 @@ var GMap = {
     '/resource/image/pin/shadow.png',
     new google.maps.Size(37, 34),   // icon size
     new google.maps.Point(0, 0),    // origin of clickable region
-    new google.maps.Point(10, 34) // anchor point
+    new google.maps.Point(10, 34)   // anchor point
   ),
   createIcon: function(color, alphabet) {
     if (alphabet === undefined)
@@ -134,14 +136,14 @@ var GMap = {
     };
   },
   resize: function() {
-    var pgRatio = GMap._mapBounds.toSpan().lng() / GMap._canvasSize.width,
-        dx = (GMap.canvas.offset().left - GMap._canvasOffset.left) * pgRatio,
-        dy = (GMap.canvas.offset().top  - GMap._canvasOffset.top ) * pgRatio,
-        dw = (GMap.canvas.width()       - GMap._canvasSize.width ) * pgRatio,
-        dh = (GMap.canvas.height()      - GMap._canvasSize.height) * pgRatio,
-        oldCenter = GMap._mapBounds.getCenter(),
-        center = new google.maps.LatLng(oldCenter.lat() + dy + dh / 2,
-                                        oldCenter.lng() + dx + dw / 2);
+      var pgRatio = GMap._mapBounds.toSpan().lng() / GMap._canvasSize.width,
+      dx = (GMap.canvas.offset().left - GMap._canvasOffset.left) * pgRatio,
+      dy = (GMap.canvas.offset().top  - GMap._canvasOffset.top ) * pgRatio,
+      dw = (GMap.canvas.width()       - GMap._canvasSize.width ) * pgRatio,
+      dh = (GMap.canvas.height()      - GMap._canvasSize.height) * pgRatio,
+      oldCenter = GMap._mapBounds.getCenter(),
+      center = new google.maps.LatLng(oldCenter.lat() + dy + dh / 2,
+                                      oldCenter.lng() + dx + dw / 2);
 
     if (dx == 0 && dy == 0) {
       google.maps.event.trigger(GMap.map, 'resize');
@@ -153,6 +155,7 @@ var GMap = {
     setTimeout(function() { GMap.map.setCenter(center); }, 0);
   },
   _allIDs: [],
+  _data: {},
   _markers: {},
   _dots: {},
   _tooltips: {},
@@ -177,6 +180,7 @@ var GMap = {
              GMap._infoWindows[id].close();
            });
 
+    GMap._data = {};
     GMap._markers = {};
     GMap._dots = {};
     GMap._tooltips = {};
@@ -185,6 +189,7 @@ var GMap = {
     GMap._infoWindowTmpl.setParam('category', data.category);
     $.each(data.result, function(i, d) {
              var gm = google.maps;
+             GMap._data[d.id] = d;
              GMap._allIDs.push(d.id);
              var dot = GMap._dots[d.id] = new gm.Marker(
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
@@ -198,20 +203,22 @@ var GMap = {
              GMap._addEvents(dot, d.id);
            });
   },
-  setMarker: function(data) {
+  setMarker: function(data, alpha) {
     $.each(GMap._allIDs, function(i, id) {
              if (id in GMap._markers)
                GMap._markers[id].setMap(null);
            });
     GMap._markers = {};
     GMap.showInfoWindow(null);
+    var l = data.length;
     $.each(data, function(i, d) {
              var gm = google.maps;
              var marker = GMap._markers[d.id] = new gm.Marker(
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
                           map: GMap.map,
                           zIndex: 100
-                        }, GMap.createIcon(d.score.color, num2alph(i))));
+                        }, GMap.createIcon(d.score.color,
+                                           alpha ? num2alph(i) : 'dot')));
              GMap._addEvents(marker, d.id);
            });
   },
@@ -233,6 +240,20 @@ var GMap = {
     $.each(GMap._infoWindows, function(i, w) { w.close(); });
     if (id in GMap._infoWindows)
       GMap._infoWindows[id].open(GMap.map, GMap._markers[id] || GMap._dots[id]);
+  },
+  detailMode: function(id) {
+    if (!(id in GMap._data))
+      return;
+
+    GMap._detailMode = true;
+    var d = GMap._data[id], map = GMap.map;
+    GMap.map.setOptions({ disableDefaultUI: true });
+    GMap.canvas.animate({ width: 300, height: 200 },
+                        'fast', function() {
+                          google.maps.event.trigger(GMap.map, 'resize');
+                          GMap.map.setCenter(new google.maps.LatLng(d.lat, d.lng));
+                          GMap.setMarker([d], false);
+                        });
   }
 };
 

@@ -56,7 +56,9 @@
                           name="search-condition-name">
                   </select>
                 </label>
-                <a href="javascript: void(0);" id="search-condition-link">その他の検索条件</a>
+                <a href="javascript: void(0);" id="search-condition-link">
+                  その他の検索条件
+                </a>
               </div>
             </td><td>
               <input type="submit" id="search-button" value="検索"/>
@@ -76,7 +78,11 @@
           <input type="submit" id="location-button" value="移動"/>
         </form>
       </div>
-      <div id="map" class="ui-layout-content"></div>
+      <div class="ui-layout-content">
+        <div id="detail">
+          <div id="map"></div>
+        </div>
+      </div>
       <div class="footer"></div>
     </div>
     <div id="search-condition">
