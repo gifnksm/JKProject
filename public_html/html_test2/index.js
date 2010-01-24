@@ -101,7 +101,7 @@ var GMap = {
     new google.maps.Point(0, 0),    // origin of clickable region
     new google.maps.Point(10, 34)   // anchor point
   ),
-  createIcon: function(color, alphabet) {
+  _createIcon: function(color, alphabet) {
     if (alphabet === undefined)
       alphabet = '';
     if (color === undefined)
@@ -120,7 +120,7 @@ var GMap = {
     };
   },
   _dotCache: {},
-  createDot: function(color) {
+  _createDot: function(color) {
     if (color === undefined)
       color = 'red';
     var key = color;
@@ -195,7 +195,7 @@ var GMap = {
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
                           map: GMap.map,
                           zIndex: 0
-                        }, GMap.createDot(d.score.color)));
+                        }, GMap._createDot(d.score.color)));
              GMap._tooltips[d.id]
                = new Tooltip(dot, GMap._tooltipTmpl.get(d), 5, GMap.map);
              GMap._infoWindows[d.id] =
@@ -217,8 +217,8 @@ var GMap = {
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
                           map: GMap.map,
                           zIndex: 100
-                        }, GMap.createIcon(d.score.color,
-                                           alpha ? num2alph(i) : 'dot')));
+                        }, GMap._createIcon(d.score.color,
+                                            alpha ? num2alph(i) : 'dot')));
              GMap._addEvents(marker, d.id);
            });
   },
@@ -289,12 +289,11 @@ TextBox.prototype = {
 
 var ConditionForm = function(id) {
   this.id = id;
-  this._tmpl = $.createTemplateURL('templates/' + id + '-form.tpl');
   this._condURL = id + '-type.json';
 };
+ConditionForm.tmpl =  $.createTemplateURL('templates/condition-form.tpl');
 ConditionForm.prototype = {
   form: null,
-  _tmpl: null,
   _condURL: null,
   created: false,
   init: function() {
@@ -302,40 +301,32 @@ ConditionForm.prototype = {
   },
   _createContent: function(data) {
     this.created = true;
-    this.form.html(this._tmpl.get(data));
+    this.form.html(ConditionForm.tmpl.get(data, {type: this.id}));
     $('input.spin', this.form).spin();
-    var dl = this.form.children('dl');
-    $('dd:not(:first)', dl).hide();
-    $('dt a', dl).click(function() {
-                          var e = $(this).parent().next();
-                          if (e.is(':visible')) {
-                            e.slideUp('fast');
-                          } else {
-                            $('dd', dl).slideUp('fast');
-                            e.slideDown('fast');
-                          }
-                          return false;
-                        });
-    // $('dt a', dl).click(function() {
-    //                       var e = $(this).parent().next();
-    //                       if (e.is(':hidden'))
-    //                         e.slideDown('fast');
-    //                       else
-    //                         e.slideUp('fast');
-    //                       return false;
-    //                     });
-    this.show();
+    if (this._setData)
+      this.setValue(this._setData);
+    if (typeof this.afterCreation == 'function')
+      this.afterCreation();
   },
-  show: function() {
+  loadData: function(callback) {
+    var self = this;
+    JSONLoader.addHandler(this._condURL, function(data) {
+                            self._createContent(data);
+                            setTimeout(callback, 0);
+                          });
+  },
+  show: function(callback) {
     if (!this.created) {
       var self = this;
-      JSONLoader.addHandler(this._condURL, function(data) {
-                              self._createContent(data);
-                            });
+      this.loadData(function() { self.show(callback); });
+      this.form.show();
+      return;
     }
     if (this._setData)
       this.setValue(this._setData);
     this.form.show();
+    if (typeof callback == 'function')
+      callback();
   },
   hide: function() { this.form.hide(); },
   setValue: function(data) {
@@ -351,19 +342,36 @@ ConditionForm.prototype = {
 
 var SearchForm = {
   searchBox: new TextBox('search'),
-  dcf: new ConditionForm('detail-condition'),
   acf: new ConditionForm('additional-condition'),
-  init: function(personalData) {
+  dcf: $.extend(new ConditionForm('detail-condition'),
+                {afterCreation: function() {
+                   var dl = this.form.children('dl');
+                   $('dd:not(:first)', dl).hide();
+                   $('dt a', dl).click(
+                     function() {
+                       var dd = $(this).parent().next();
+                       if (dd.is(':visible')) {
+                         dd.slideUp('fast');
+                       } else {
+                         $('dd', dl).slideUp('fast'); // コメントアウトで動作変更
+                         dd.slideDown('fast');
+                       }
+                       return false;
+                     });
+                 }}),
+  init: function(personalData, conditionMap) {
     this._personalData = personalData;
+    this._conditionMap = conditionMap;
+    console.log(conditionMap);
     var pdHash = this._phHash = {};
     $(this._personalData).each(function (i, d) { pdHash[d.name] = d.values; });
     this.searchBox.init();
     this.searchBox.submit = function(term) { self.submit(term); };
-    this.dcf.init();
     this.acf.init();
+    this.dcf.init();
 
     var self = this;
-    var scn = $('#search-condition-name').append(
+    this.scn = $('#search-condition-name').append(
       $.map(this._personalData, function(d) {
             return new Option(d.title, d.name);
             })).change(
@@ -372,18 +380,22 @@ var SearchForm = {
                 if ($$.val() in pdHash) {
                   self.acf.setValue(pdHash[$$.val()]);
                 }
+                if (self.dcf.created)
+                  self.setDetail();
               }).change();
+
     $([this.dcf.form[0], this.acf.form[0]]).change(
       function() {
         var $$ = $(this);
         if (!(custom_name in pdHash)) {
-          scn.append(new Option('カスタム', custom_name));
+          self.scn.append(new Option('カスタム', custom_name));
         }
-        scn.val([custom_name]);
+        self.scn.val([custom_name]);
         pdHash[custom_name] = {};
-        $($$.serializeArray()).each(function(i, o) {
-                                 pdHash[custom_name][o.name] = o.value;
-                               });
+        $($$.serializeArray()).each(
+          function(i, o) {
+            pdHash[custom_name][o.name] = o.value;
+          });
       });
     this._sc = $('#search-condition');
     this._scl = $('#search-condition-link')
@@ -407,11 +419,11 @@ var SearchForm = {
         self._scl.click();
         return false;
       });
-    var detailFlag = false;
+    this.detailFlag = false;
     $('#search-condition-detail-button').click(
       function() {
         var $$ = $(this);
-        if (detailFlag) {
+        if (self.detailFlag) {
           if (!confirm('簡易設定モードに移行すると，詳細設定で設定した内容が消えてしまいます。\n簡易設定モードに移行しますか？'))
             return false;
           self.acf.show();
@@ -420,11 +432,11 @@ var SearchForm = {
           $('#search-status').text('(簡易検索)');
         } else {
           self.acf.hide();
-          self.dcf.show();
+          self.dcf.show(function() { self.setDetail(); });
           $$.text('簡易条件指定に切り替える');
           $('#search-status').text('(詳細検索)');
         }
-        detailFlag = !detailFlag;
+        self.detailFlag = !self.detailFlag;
         return false;
       }
     );
@@ -440,32 +452,97 @@ var SearchForm = {
       - 20;
     $('#search-condition-forms').css({ maxHeight: mh });
   },
+  setDetail: function() {
+    var acf = this.acf.form;
+    var dcf = this.dcf.form;
+    var origData = acf.serializeArray();
+    function getVal(key) {
+      var objs = $.map(origData, function(i) {
+                         return i.name == key ? i : [];
+                       });
+      if (objs.length == 0)
+        return undefined;
+      return objs[0].value;
+    }
+    function setVal(key, val) {
+      $('input[name="'+key+'"]', dcf).val([val]);
+    }
+    $.each(
+      this._conditionMap,
+      function(i, a) {
+        if (!$.isArray(a)) {
+          // same name, same value
+          setVal(a, getVal(a));
+          return;
+        }
+        var key = a[0], val, sets = a[1];
+        if ($.isArray(key)) {
+          if (getVal(key[0]) != key[1]) {
+            return;
+          }
+          val = key[1];
+          key = key[0];
+        } else {
+          val = getVal(key);
+        }
+        $.each(sets, function(i, s) {
+                 if ($.isArray(s)) {
+                   setVal(s[0], s[1]);
+                 } else {
+                   setVal(s, val);
+                 }
+               });
+      });
+  },
   submit: function(term) {
     if (term == '')
       return;
     var center = GMap.map.getCenter();
+    var self = this;
     this.disable();
     if (this._sc !== null && this._sc.is(':not(:hidden)'))
       this._sc.slideUp('fast');
 
-    var self = this;
-    $.ajax({ type: 'post',
-             url: 'response.php',
-             dataType: 'json',
-             cache: true,
-             data: ['searchTerm=' + encodeURIComponent(term),
-                    'lat=' + encodeURIComponent(center.lat()),
-                    'lng=' + encodeURIComponent(center.lng()),
-                    this.dcf.serialize()
-                   ].join('&'),
-             success: function(data) {
-               Layout.layout.open('west');
-               GMap.setData(data);
-               List.setData(data);
-               self.enable();
-             },
-             error: function() { self.enable(); }
-           });
+    if (this.dcf.created) {
+      if (!this.detailFlag)
+        this.setDetail();
+      sendData();
+      return;
+    }
+
+    if (this.acf.created) {
+      createDCF();
+      return;
+    }
+
+    this.acf.loadData(createDCF);
+
+    function createDCF() {
+      self.dcf.loadData(function() {
+                          self.setDetail();
+                          sendData();
+                        });
+    }
+
+    function sendData() {
+      $.ajax({ type: 'post',
+               url: 'response.php',
+               dataType: 'json',
+               cache: true,
+               data: ['searchTerm=' + encodeURIComponent(term),
+                      'lat=' + encodeURIComponent(center.lat()),
+                      'lng=' + encodeURIComponent(center.lng()),
+                      self.dcf.form.serialize()
+                     ].join('&'),
+               success: function(data) {
+                 Layout.layout.open('west');
+                 GMap.setData(data);
+                 List.setData(data);
+                 self.enable();
+               },
+               error: function() { self.enable(); }
+             });
+    }
   },
   enable: function() { this.searchBox.enable(); },
   disable: function() { this.searchBox.disable(); }
@@ -494,13 +571,17 @@ var LoginMessage = {
   }
 };
 
-JSONLoader.preload('login_dummy.php', '/account/personal.php');
+JSONLoader.preload('login_dummy.php',
+                   '/account/personal.php',
+                   'condition-map.json');
 
 $(function() {
     Layout.init();
     List.init();
-    JSONLoader.addHandler('/account/personal.php', function(data) {
-                            SearchForm.init(data);
+    JSONLoader.addHandler(['/account/personal.php',
+                           'condition-map.json'],
+                          function(personal, conditionMap) {
+                            SearchForm.init(personal, conditionMap);
                           });
     LocationBox.init();
     GMap.init($('#map'));

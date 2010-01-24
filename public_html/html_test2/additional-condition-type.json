@@ -2,23 +2,31 @@
    {"title": "幅",
     "icon": "/resource/image/icon/width.png",
     "items": [
-      {"type": "number",
-       "name": "width",
-       "message": "自分の通行可能幅 (車椅子含む)を考慮する：",
-       "unit": "cm",
+      {"type": "checkbox",
+       "name": "width-check",
        "checked": false,
-       "defaultValue": 80
+       "title": [
+         "自分の通行可能幅 (車椅子含む)を考慮する：",
+         {"type": "number",
+          "name": "width",
+          "unit": "cm",
+          "defaultValue": 80}
+       ]
       }
     ]},
   {"title": "段差",
    "icon": "/resource/image/icon/bump.png",
    "items": [
-     {"type": "number",
-      "name": "bump",
-      "message": "越えられる段差の高さを考慮する：",
-      "unit": "cm",
+     {"type": "checkbox",
+      "name": "bump-check",
       "checked": false,
-      "defaultValue": 2
+      "title": [
+        "越えられる段差の高さを考慮する：",
+        {"type": "number",
+         "name": "bump",
+         "unit": "cm",
+         "defaultValue": 2}
+      ]
      }
    ]
   },

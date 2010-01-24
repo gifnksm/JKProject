@@ -25,7 +25,7 @@
     </th>
     <td>
     {#foreach $T.c.items as i}
-      {#include input root=$T.i}
+      <div>{#include input root=$T.i}</div>
     {#/for}
     </td>
     </tr>
@@ -43,7 +43,7 @@
     </a></dt>
     <dd>
     {#foreach $T.c.items as i}
-      {#include input root=$T.i}
+      <div>{#include input root=$T.i}</div>
     {#/for}
     </dd>
   {#/for}
@@ -53,34 +53,39 @@
 
 {#template input}
   {#if $T.type == 'radio'}
-    <div>
     {#foreach $T.selections as s}
       {#if $T.s$index != 0 && !$T.notBreak}<br/>{#/if}
       <label>
         <input type="radio" name="{$T.name}" value="{$T.s.value}"
                {$T.defaultValue == $T.s.value ? 'checked="checked"' : '""'}/>
-        {$T.s.title}
+        {#include title root=$T.s}
       </label>
     {#/for}
-    </div>
   {#elseif $T.type == 'checkbox'}
-    <div><label>
+    <label>
     <input type="checkbox" name="{$T.name}" value="true"
            {$T.checked ? 'checked="checked"' : '""'}/>
-    {$T.title}
-    </label></div>
-  {#elseif $T.type == 'check-number'}
-    <div>
-      <label>
-        <input type="checkbox" name="{$T.name + '-check'}" value="true"
-                {$T.checked ? 'checked="checked"' : '""'}/>
-        {$T.message}
-      </label>
-      <label>
-        <input class="spin" name="{$T.name}"
-               value="{$T.defaultValue}" size="3" />
-        [{$T.unit}]
-      </label>
-    </div>
+    {#include title root=$T}
+    </label>
+  {#elseif $T.type == 'number'}
+    <label>
+      <input class="spin" name="{$T.name}"
+             value="{$T.defaultValue}" size="3" />
+      [{$T.unit}]
+    </label>
   {#/if}
 {#/template input}
+
+{#template title}
+  {#if typeof $T.title == "string" || $T.title instanceof String}
+    {$T.title}
+  {#elseif $.isArray($T.title)}
+    {#foreach $T.title as t}
+      {#if typeof $T.t == "string" || $T.t instanceof String}
+         {$T.t}
+      {#else}
+         {#include input root=$T.t}
+      {#/if}
+    {#/for}
+  {#/if}
+{#/template title}
