@@ -188,7 +188,7 @@ input.empty:focus {
     text-align: left;
     background-color: #e8ecf9;
 }
-#list-container .footer {
+#list-container .footer { 
     text-align: center;
     background-color: #e8ecf9;
 }
@@ -243,6 +243,19 @@ input.empty:focus {
 }
 #list .item .category-icons {
    clear: left;
+}
+
+#map {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   right: 0;
+   top: 0;
+}
+#detail {
+   width: 100%;
+   height: 100%;
+   position: absolute;
 }
 
 /*

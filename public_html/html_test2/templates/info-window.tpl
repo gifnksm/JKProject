@@ -3,7 +3,7 @@
    <h2>
      <span class="name">{ $T.name }</span>
      -
-     <a href="javascript: showDetail({$T.id});">詳細&raquo;</a>
+     <a href="javascript: GMap.detailMode({$T.id});">詳細&raquo;</a>
    </h2>
    <table><tr><td>
    {#if $T.addr || $T.tel || $T.url}
