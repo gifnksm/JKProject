@@ -13,6 +13,12 @@
 
 
 <DIV align="center">
+<DIV align="left">
+               <A Href="/../html_test2/index.html" Target="_blank"> 
+               <h1><img src="/resource/image/logo_small.png" Border="0" with="200" height="50"
+                        alt="バリアフリーマップ検索" /></h1>
+                </td><td style="text-align: right;">
+</DIV>
 <?php
 
 require_once 'HTML/QuickForm.php';
