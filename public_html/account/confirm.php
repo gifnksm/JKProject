@@ -97,6 +97,7 @@ $form->addRule('password', 'パスワードを入力してください', 'requir
 $form->addRule('email', '正しいメールアドレスを入力してください', 'required');
 $form->addRule('email_2', '正しいメールアドレスを入力してください', 'required');
 $form->addRule(array('email', 'email_2'), 'メールアドレスが一致しません', 'compare', '==');
+$form->addRule(array('mobilemail', 'mobilemail_2'), '携帯のメールアドレスが一致しません', 'compare', '==');
 
 $form->setRequiredNote('<span style="color: #ff0000;">*</span>は必須項目です');
 
