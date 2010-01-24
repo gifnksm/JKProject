@@ -76,6 +76,7 @@ session_start();
 $_SESSION['n'] = $username_;
 $_SESSION['p'] = $password_;
 $_SESSION['i'] = $id_;
+
 	    echo '<H2>ようこそ、' ."$username_". 'さん</H2>';
 	   echo 'これからもバリアフリーマップ検索をお楽しみください!<BR>';
 }

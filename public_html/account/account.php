@@ -109,7 +109,7 @@ else
 }
 ?>
 <!--HOME link-->
-<p><a href="/../html_test2/index.html?no=1">HOME</a></p>
+<p><a href="/../html_test2/index.html?no=1">ホーム</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A> 
 
 </DIV>

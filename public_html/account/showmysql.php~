@@ -1,7 +1,7 @@
 <HTML>
 <HEAD><TITLE>ShowMysqlTable</TITLE></HEAD>
 <BODY>
-<H2>登録者一覧</H2>
+
 <?php
 
 $conn = mysql_connect("jkproject.localhost", "jkp", "jkproject");
