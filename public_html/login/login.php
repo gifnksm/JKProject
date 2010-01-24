@@ -1,4 +1,4 @@
-<?php
+<!--
 /*
 *******************************************************
 **	ログイン画面＋新規アカウント登録画面
@@ -6,15 +6,7 @@
 **					by ohno
 **					2010/01/20
 *******************************************************
-*/
-require_once "Auth.php";
-require_once 'HTML/QuickForm.php';
-
-//$form = new HTML_QuickForm('myForm','POST','confirm.php');
-
-function loginFormHtml($username = null, $password = null, $status = null)
-{
-    echo <<<LOGINFORM
+-->
 <HTML>
 <HEAD><TITLE>ログイン</TITLE></HEAD>
 <BODY>
@@ -39,41 +31,10 @@ function loginFormHtml($username = null, $password = null, $status = null)
 <A Href="javascript:history.go(-1)">1つ前に戻る</A> 
 
 </DIV>
+<table><tr><td style="width: 12em;">
+               <h1><img src="/resource/image/car.png" with="300" height="225"
+                        alt="車いす" /></h1>
+                </td><td style="text-align: right;">
 
 </BODY>
 </HTML>
-LOGINFORM;
-}
-
-
-$params = array(
-        'cryptType'=>'none',
-        'dsn'=>'mysql://jkp:jkproject@jkproject.localhost/login_db',
-        'table'=>'credentials',
-        'usernamecol'=>'username',
-        'passwordcol'=>'password'
-    );
-
-$auth = new Auth("DB", $params, "loginFormHtml");
-$auth->start();
-
-if ($auth->checkAuth()) 
-{
-    echo <<<LOGGEDIN
-<HTML>
-<HEAD>
-<TITLE>確認</TITLE>
-</HEAD>
-<BODY>
-
-<H3>ログイン成功</H3>
-<BR>
-
-<p><a href="/../html_test2/index.html">HOME</a></p>
-<A Href="javascript:history.go(-1)">1つ前に戻る</A> 
-
-</BODY>
-</HTML>
-LOGGEDIN;
-}
-?>

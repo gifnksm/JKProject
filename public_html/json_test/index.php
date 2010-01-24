@@ -1,4 +1,64 @@
 <?php
+require 'DB.php';
+
+$sql = <<<SQL
+    SELECT c.id,c.name,c.age,g.name,c.prefecture,c.telephone,c.company 
+    FROM main_customer AS c,gender AS g 
+    WHERE c.gender=g.id 
+        AND c.age BETWEEN ? AND ?
+SQL;
+
+$name_j = $_SESSION['n'];
+$pass_j = $_SESSION['p'];
+$id_j = $_SESSION['i'];
+
+$db = DB::connect("mysql://jkp:jkproject@jkproject.localhost/login_db");
+$db->query("SET NAMES 'uft-8'");
+
+if (DB::isError($db))
+{
+    echo "データベースに接続できませんでした";
+}
+else
+{
+    $stmt = $db->prepare($sql);
+
+    $rs = $db->execute($stmt, array($name_x, $pass_x,id_x));
+    while ($row = $rs->fetchRow())
+    {
+        echo    'id: ' . $row[0] . 
+                ' name: ' . $row[1] . 
+                ' age: ' . $row[2] . 
+                ' gender: ' . $row[3] . 
+                ' pref: ' . $row[4] . 
+                ' tel: ' . $row[5] . 
+                ' company: ' . $row[6] . 
+                "<BR/>\n";
+    }
+}
+
+?>
+
+
+
+
+
+header('Content-type: text/plain; charset-utf-8');
+session_start();
+$login = ($_SESSION['n'] != "" || $_SESSION['p'] != "");
+$data = array("login" => $login);
+
+if($login )
+{
+ $data["name"] = $_SESSION["n"];
+}
+
+echo json_encode($data);
+
+
+
+
+
 header("Content-type: text/plain; charset-utf-8");
 $val = array(
              array(
