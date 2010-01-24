@@ -34,9 +34,28 @@
 </DIV>
 <DIV align="right">
 <table><tr><td style="width: 12em;">
-               <h1><img src="/resource/image/car.png" with="300" height="225"
+               <h1><img src="./image/car_1.png" with="300" height="225"
                         alt="車いす" /></h1>
                 </td><td style="text-align: right;">
 </DIV>
+
+<SCRIPT type="text/JavaScript">
+<!--
+var pic = new Array();
+pic[0] = new Image();
+pic[1] = new Image();
+pic[0].src = "./image/login_2.png";
+pic[1].src = "./image/login_1.png";
+function setRollOverImg(index, obj){
+obj.src = pic[index].src;
+}
+//-->
+</SCRIPT>
+<IMG src="./image/login_1.png" onMouseOver="setRollOverImg(0, this)" onMouseOut="setRollOverImg(1, this)">
+
+
+
+
+
 </BODY>
 </HTML>
