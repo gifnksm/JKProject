@@ -12,6 +12,12 @@
 </HEAD>
 <BODY>
 <DIV align="center">
+<DIV align="left">
+               <h1><img src="/resource/image/logo_small.png" Border="0" with="200" height="50"
+                        alt="バリアフリーマップ検索" /></h1>
+                </td><td style="text-align: right;">
+</DIV>
+
 <?php
 require 'DB.php';
 
@@ -33,6 +39,7 @@ else
 ** confirm.phpから値を読み取り変数に代入
 ***************************************************
 */
+
 $username_ = $_POST['username'];
 $password_ = $_POST['password_x'];
 $email_ = $_POST['email'];
@@ -56,6 +63,9 @@ $toilet_ = $_POST["toilet"][0];
 $baby_ = $_POST["baby"][0];
 
 
+if($usernamae_ != "" || $password_ != "")
+{
+
 /*
 ***************************************************
 ** MySQL に書き込む
@@ -78,15 +88,22 @@ $_SESSION['p'] = $password_;
 $_SESSION['i'] = $id_;
 	    echo '<H2>ようこそ、' ."$username_". 'さん</H2>';
 	   echo 'これからもバリアフリーマップ検索をお楽しみください!<BR>';
+echo '<H2>自動的にトップページに移動します</H2>';
+echo '<meta http-equiv="Refresh" content="3; URL=/../html_test2/index.html">';
+
 }
 else{
 	   echo '<H2>登録できませんでした</H2>';
 }
-
+}
+else{
+echo '<H2>登録できませんでした</H2>';
+echo '<H2>もう一度始めからやり直してください</H2>';
+echo '<H2>自動的にログインページに移動します</H2>';
+echo '<meta http-equiv="Refresh" content="3; URL=/./account/login.php">';
+}
 }
 ?>
-<H2>自動的にトップページに移動します</H2>
-<meta http-equiv="Refresh" content="3; URL=/../html_test2/index.html">
 <p><a href="/../html_test2/index.html?no=1">ホーム</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A>
 </DIV>

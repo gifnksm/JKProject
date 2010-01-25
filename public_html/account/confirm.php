@@ -13,6 +13,12 @@
 
 
 <DIV align="center">
+<DIV align="left">
+               <A Href="/../html_test2/index.html" Target="_blank"> 
+               <h1><img src="/resource/image/logo_small.png" Border="0" with="200" height="50"
+                        alt="バリアフリーマップ検索" /></h1>
+                </td><td style="text-align: right;">
+</DIV>
 <?php
 
 require_once 'HTML/QuickForm.php';
@@ -91,6 +97,7 @@ $form->addRule('password', 'パスワードを入力してください', 'requir
 $form->addRule('email', '正しいメールアドレスを入力してください', 'required');
 $form->addRule('email_2', '正しいメールアドレスを入力してください', 'required');
 $form->addRule(array('email', 'email_2'), 'メールアドレスが一致しません', 'compare', '==');
+$form->addRule(array('mobilemail', 'mobilemail_2'), '携帯のメールアドレスが一致しません', 'compare', '==');
 
 $form->setRequiredNote('<span style="color: #ff0000;">*</span>は必須項目です');
 
