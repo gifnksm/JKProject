@@ -1,3 +1,4 @@
+// 無計画にコード足してったらスパゲティーになっちまったぜー
 $.spin.imageBasePath = '/resource/image/spin1/';
 
 function num2alph(num) {
@@ -61,7 +62,7 @@ var List = {
   updatePage: function(page) {
     var items = List._pager.currentItems();
     List._list.html(List._pageTmpl.get(items));
-    GMap.setMarker(items, true);
+    GMap.setPageMarker(items);
   }
 };
 
@@ -203,6 +204,13 @@ var GMap = {
              GMap._addEvents(dot, d.id);
            });
   },
+  _pageItems: null,
+  setPageMarker: function(items) {
+    this._pageItems = items;
+    if (GMap._detailMode)
+      return;
+    GMap.setMarker(items, true);
+  },
   setMarker: function(data, alpha) {
     $.each(GMap._allIDs, function(i, id) {
              if (id in GMap._markers)
@@ -210,8 +218,8 @@ var GMap = {
            });
     GMap._markers = {};
     GMap.showInfoWindow(null);
-    var l = data.length;
-    $.each(data, function(i, d) {
+    $.each(data.sort(function(d1, d2) { return d2.lat - d1.lat; }),
+           function(i, d) {
              var gm = google.maps;
              var marker = GMap._markers[d.id] = new gm.Marker(
                $.extend({ position: new gm.LatLng(d.lat, d.lng),
@@ -237,21 +245,36 @@ var GMap = {
       });
   },
   showInfoWindow: function(id) {
+    if (GMap._detailMode) {
+      GMap.detailMode(id);
+      return;
+    }
     $.each(GMap._infoWindows, function(i, w) { w.close(); });
     if (id in GMap._infoWindows)
       GMap._infoWindows[id].open(GMap.map, GMap._markers[id] || GMap._dots[id]);
+  },
+  searchMode: function() {
+    GMap._detailMode = false;
+    GMap.map.setOptions({ disableDefaultUI: false });
+    GMap.canvas.animate({ width: '100%', height: '100%' },
+                        'fast', function() {
+                          google.maps.event.trigger(GMap.map, 'resize');
+                        });
+    if (this._pageItems)
+      GMap.setMarker(this._pageItems, true);
   },
   detailMode: function(id) {
     if (!(id in GMap._data))
       return;
 
     GMap._detailMode = true;
+    $.each(GMap._infoWindows, function(i, w) { w.close(); });
     var d = GMap._data[id], map = GMap.map;
-    GMap.map.setOptions({ disableDefaultUI: true });
+    map.setOptions({ disableDefaultUI: true });
     GMap.canvas.animate({ width: 300, height: 200 },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
-                          GMap.map.setCenter(new google.maps.LatLng(d.lat, d.lng));
+                          map.setCenter(new google.maps.LatLng(d.lat, d.lng));
                           GMap.setMarker([d], false);
                         });
   }
@@ -271,6 +294,7 @@ TextBox.prototype = {
     this._allElems = $('#%%, #%%-button, #%%-form'.replace(/%%/g, this.id));
     var self = this;
     this.form.submit(function() {
+                       GMap.searchMode();
                        self.submit(self.val());
                        return false;
                      });
@@ -362,7 +386,6 @@ var SearchForm = {
   init: function(personalData, conditionMap) {
     this._personalData = personalData;
     this._conditionMap = conditionMap;
-    console.log(conditionMap);
     var pdHash = this._phHash = {};
     $(this._personalData).each(function (i, d) { pdHash[d.name] = d.values; });
     this.searchBox.init();
