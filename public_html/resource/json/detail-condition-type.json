@@ -60,10 +60,6 @@
     {"type": "checkbox",
      "title": "開き戸が開けられる",
      "name": "double-door",
-     "checked": false},
-    {"type": "checkbox",
-     "title": "自動ドア",
-     "name": "auto-door",
      "checked": false}
   ]
  },
@@ -86,7 +82,7 @@
      "name": "parking-to-entrance-bump-check",
      "checked": false,
      "title": [
-       "<em>(障害者用)駐車場</em>から施設の出入口まで",
+       "<em>（障害者用）駐車場</em>から施設の出入口まで",
        {"type": "number",
         "name": "parking-to-entrance-bump",
         "unit": "cm",
@@ -100,7 +96,7 @@
   ]
  },
  {"title": "建物内の移動",
-  "icon": "",
+  "icon": "/resource/image/icon/mobility.png",
   "items": [
     {"type": "checkbox",
      "name": "route-width-check",
@@ -158,7 +154,9 @@
        {"title": "障害者用トイレ（男女共用）がある",
         "value": "disabled-toilet-unisexed"},
        {"title": "トイレの種類にはこだわらない",
-        "value": "normal-toilet"}
+        "value": "normal-toilet"},
+       {"title": "トイレの有無にはこだわらない",
+        "value": "without-toilet"}
      ]
     },
     {"type": "checkbox",
@@ -280,12 +278,12 @@
     },
     {"type": "checkbox",
      "title": "障害者向け自動販売機（ジュース等）がある",
-     "name": "celler-machine-for-disabled",
+     "name": "vending-machine-for-disabled",
      "checked": false
     },
     {"type": "checkbox",
      "title": "自動販売機（ジュース等）に点字の表示がある",
-     "name": "celler-machine-with-braille",
+     "name": "vending-machine-with-braille",
      "checked": false
     }
   ]

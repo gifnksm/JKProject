@@ -9,6 +9,7 @@ var Layout = {
   westOpener: null,
   westCloser: null,
   layout: null,
+  _detailMode: false,
   init: function() {
     Layout.westOpener = $('<a id="west-opener" href="javascript: void(0);"></a>')
       .prependTo($('#map-container .header'));
@@ -16,6 +17,7 @@ var Layout = {
       .prependTo('#list-container .header');
 
     Layout.layout = $('body').layout(Layout.options);
+    var self = this;
     Layout.layout.addOpenBtn(Layout.westOpener, 'west');
     Layout.layout.addCloseBtn(Layout.westCloser, 'west');
     Layout.westOpener.hide();
@@ -33,6 +35,7 @@ var Layout = {
       spacing_closed: 0,
       resizable: false,
       initClosed: true,
+      slideTrigger_open: 'mouseover',
       onopen: function() { Layout.westOpener.hide(); },
       onclose: function() { Layout.westOpener.show(); }
     },
@@ -63,6 +66,83 @@ var List = {
     var items = List._pager.currentItems();
     List._list.html(List._pageTmpl.get(items));
     GMap.setPageMarker(items);
+  }
+};
+
+var Detail = {
+  element: null,
+  map: null,
+  _tmpl: $.createTemplateURL('templates/detail.tpl'),
+  init: function(map) {
+    this.element = $('#detail-content');
+    this.map = map;
+  },
+  show: function(id) {
+    var self = this;
+    this.hide();
+    $.ajax({ type: 'post',
+             url: 'detail.php',
+             dataType: 'json',
+             cache: true,
+             data: ['id=' + id,
+                    SearchForm.sendData
+                   ].join('&'),
+             success: function(data) {
+               self.element.html(self._tmpl.get(data));
+             },
+             error: function() { alert('詳細情報の読み込みに失敗しました'); }
+           });
+  },
+  hide: function() {
+    this.element.html('読み込み中…');
+  },
+  parseOpen: function(text) {
+    var groups = text.split(/\|(?=<)/);
+    if (groups.length == 1)
+      return groups[0];
+    return '<dl>' +
+      $.map(groups, function(g) {
+              var first = true;
+              return g.replace(/<(.+?)>/g, function(_, s) {
+                                 if (first) {
+                                   first = false;
+                                   return "<dt>" + s + "</dt>";
+                                 }
+                                 return "<dd>" + s + "</dd>";
+                               });
+            }).join('') + '</dl>';
+  },
+  parseBarrier: function(category) {
+    function getMessage(arr, value) {
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].length == 1)
+          return arr[i][0];
+        if (arr[i][0] === value)
+          return arr[i][1];
+      }
+      return undefined;
+    }
+
+    var map = this.map;
+    var dds = $.map(category.items,
+                    function(item) {
+                      var arrs = map[item.name];
+                      var message = getMessage(arrs[0], item.value);
+                      if (item.color && message === undefined)
+                        message = getMessage(arrs[1], item.value);
+                      if (message === undefined)
+                        return undefined;
+                      message = message.replace(/%d/g, item.value);
+                      return '<dd' + (
+                        item.color ? ' class="' + item.color + '"' : ''
+                      ) + '>' + message + '</dd>';
+                    });
+    if (dds.length == 0)
+      return '';
+    var dt = '<dt>'
+      + '<img src="' + category.icon + '" alt="" />'
+      + category.title + '</dt>';
+    return dt + dds.join('');
   }
 };
 
@@ -253,12 +333,15 @@ var GMap = {
     if (id in GMap._infoWindows)
       GMap._infoWindows[id].open(GMap.map, GMap._markers[id] || GMap._dots[id]);
   },
-  searchMode: function() {
+  searchMode: function(id) {
     GMap._detailMode = false;
     GMap.map.setOptions({ disableDefaultUI: false });
+    Detail.hide();
+    var c = GMap.map.getCenter();
     GMap.canvas.animate({ width: '100%', height: '100%' },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
+                          GMap.map.setCenter(c);
                         });
     if (this._pageItems)
       GMap.setMarker(this._pageItems, true);
@@ -271,6 +354,7 @@ var GMap = {
     $.each(GMap._infoWindows, function(i, w) { w.close(); });
     var d = GMap._data[id], map = GMap.map;
     map.setOptions({ disableDefaultUI: true });
+    Detail.show(id);
     GMap.canvas.animate({ width: 300, height: 200 },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
@@ -548,6 +632,7 @@ var SearchForm = {
     }
 
     function sendData() {
+      self.sendData = self.dcf.form.serialize();
       $.ajax({ type: 'post',
                url: 'response.php',
                dataType: 'json',
@@ -555,7 +640,7 @@ var SearchForm = {
                data: ['searchTerm=' + encodeURIComponent(term),
                       'lat=' + encodeURIComponent(center.lat()),
                       'lng=' + encodeURIComponent(center.lng()),
-                      self.dcf.form.serialize()
+                      self.sendData
                      ].join('&'),
                success: function(data) {
                  Layout.layout.open('west');
@@ -596,7 +681,8 @@ var LoginMessage = {
 
 JSONLoader.preload('login_dummy.php',
                    '/account/personal.php',
-                   '/resource/json/condition-map.json');
+                   '/resource/json/condition-map.json',
+                   '/resource/json/message-map.json');
 
 $(function() {
     Layout.init();
@@ -607,6 +693,8 @@ $(function() {
                             SearchForm.init(personal, conditionMap);
                           });
     LocationBox.init();
+    JSONLoader.addHandler('/resource/json/message-map.json',
+                         function(data) { Detail.init(data); });
     GMap.init($('#map'));
     JSONLoader.addHandler('login_dummy.php', function(data) {
                             LoginMessage.init(data); });
