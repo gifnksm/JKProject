@@ -80,8 +80,14 @@
       <div class="ui-layout-content">
         <div id="detail">
           <div id="map"></div>
-          <div style="width: 300px; float: right; padding-top: 200px;">
-            <div><a href="javascript: GMap.searchMode();">詳細画面を閉じる</a></div>
+          <div id="map-command">
+            <div id="map-command-content">
+              <a href="javascript: GMap.searchMode();">詳細画面を閉じる</a> |
+              <a href="javascript: void(0);">印刷用表示</a>
+            </div>
+          </div>
+          <div id="detail-content">
+            読み込み中
           </div>
         </div>
       </div>

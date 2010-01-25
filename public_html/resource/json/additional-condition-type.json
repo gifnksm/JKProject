@@ -90,8 +90,10 @@
           "value": "disabled-toilet-separate"},
          {"title": "障害者用トイレ（男女共用）がある",
           "value": "disabled-toilet-unisexed"},
-         {"title": "トイレの種類にはこだわらない",
-          "value": "normal-toilet"}
+         {"title": "トイレがあればよい",
+          "value": "normal-toilet"},
+         {"title": "トイレの有無にはこだわらない",
+          "value": "without-toilet"}
        ]
       }
    ]

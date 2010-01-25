@@ -1,0 +1,149 @@
+{"parking": [
+   [["over-350cm", "幅350cm以上の障がい者用駐車場がある"],
+    ["under-350cm", "障がい者用駐車場がある"],
+    ["for-normal", "駐車場がある"],
+    ["non-parking", "駐車場がない"],
+    [null, "駐車場の有無不明"]]
+ ],
+ "parking-carport": [
+   [[true, "雨天設備がある"]],
+   [[false, "雨天設備がない"],
+    [null, "雨天設備の有無不明"]]
+ ],
+ "entrance-bump": [
+   [[0, "出入り口に段差が無い"]],
+   [[null, "出入り口の段差の高さが不明"],
+    ["出入り口の段差の高さが %d cm"]]
+ ],
+ "slide-door": [
+   [[true, "引き戸の出入り口がある"]]
+ ],
+ "double-door": [
+   [[true, "開き戸の出入り口がある"]]
+ ],
+ "auto-door": [
+   [[true, "自動ドアの出入り口がある"]]
+ ],
+ "road-to-entrance-bump": [
+   [[0, "歩道から施設の出入り口までに段差がない"]],
+   [["歩道から施設の出入り口まで %d cm の段差がある"]]
+ ],
+ "parking-to-entrance-bump": [
+   [[0, "（障がい者用）駐車場から施設の出入り口までに段差がない"]],
+   [["（障がい者用）駐車場から施設の出入り口まで %d cm の段差がある"]]
+ ],
+ "road-to-entrance-with-block": [
+   [[true, "歩道から施設の出入り口までに点字ブロックがある"]],
+   [[false, "歩道から施設の出入り口までに点字ブロックがない"]]
+ ],
+ "route-width": [
+   [],
+   ["店内通路の幅が %d cm"]
+ ],
+ "with-barrier": [
+   [[true, "店内通路に障害物がある"]],
+   [[false, "店内通路に障害物はない"],
+    [null, "店内通路の障害物の有無は不明"]]
+ ],
+ "slipper-floor": [
+   [[true, "床が滑りやすい"]],
+   [[false, "床は滑りやすくない"],
+    [null, "床の滑りやすさが不明"]]
+ ],
+ "help": [
+   [[true, "店員が補助できる"]],
+   [[false, "店員が補助できない"],
+    [null, "店員の補助の有無が不明"]]
+ ],
+ "with-audio-assist": [
+   [[true, "音声案内がある"]],
+   [[false, "音声案内がない"],
+    [null, "音声案内の有無が不明"]]
+ ],
+ "with-braille-assist": [
+   [[true, "点字による案内表示がある"]],
+   [[false, "点字による案内表示がない"],
+    [null, "点字による案内表示の有無が不明"]]
+ ],
+ "guidemap": [
+   [[true, "建築見取り図に配慮がされている"]],
+   [[false, "建築見取り図に配慮がされていない"],
+    [null, "建築見取り図の有無が不明"]]
+ ],
+ "toilet-type": [
+   [["disabled-toilet-separate", "障がい者用トイレ（男女別）がある"],
+    ["disabled-toilet-unisexed", "障がい者用トイレ（男女共用）がある"]],
+   [["normal-toilet", "普通のトイレがある"],
+    ["without-toilet", "トイレが無い"]]
+ ],
+ "toilet-with-ostomate": [
+   [[true, "トイレがオストメイト対応になっている"]],
+   [[false, "トイレがオストメイト対応になっていない"]]
+ ],
+ "toilet-with-baby-bed": [
+   [[true, "トイレ内にベビーベッドがある"]],
+   [[false, "トイレ内にベビーベッドがない"]]
+ ],
+ "toilet-with-omutsu": [
+   [[true, "トイレ内におむつ交換シートがある"]],
+   [[false, "トイレ内におむつ交換シートがない"]]
+ ],
+ "toilet-with-audio-assist": [
+   [[true, "トイレ内の場所を知らせる音声誘導装置がある"]],
+   [[false, "トイレ内の場所を知らせる音声誘導装置がない"]]
+ ],
+ "stair-with-banister": [
+   [],
+   [[true, "階段に手すりがついている"],
+    [false, "階段に手すりがついていない"]]
+ ],
+ "elevator": [
+   [["with-large-elevator", "車椅子対応エレベータがある"],
+    ["with-normal-elevator", "車椅子非対応エレベータがある"]],
+   [["without-elevator", "エレベータがない"]]
+ ],
+ "omutsu-koukan": [
+   [[true, "おむつ交換場所がある"]],
+   [[false, "おむつ交換場所がない"]]
+ ],
+ "hot-water": [
+   [[true, "温水湯沸かし器又はポットが置いてある"]],
+   [[false, "温水湯沸かし器もポットも置いてない"]]
+ ],
+ "kurumaisu-room": [
+   [[true, "車椅子対応客室がある"]],
+   [[false, "車椅子対応客室がない"]]
+ ],
+ "kurumaisu-daiyokujo": [
+   [[true, "車椅子で大浴場まで乗り入れ可能である"]],
+   [[false, "車椅子で大浴場まで乗り入れできない"]]
+ ],
+ "kurumaisu-kanranseki": [
+   [[true, "車椅子用観覧席がある"]],
+   [[false, "車椅子用観覧席がない"]]
+ ],
+ "kurumaisu-restaurant": [
+   [[true, "レストランまで車椅子で行って食事ができる"]],
+   [[false, "レストランまで車椅子で行って食事ができない"]]
+ ],
+ "kurumaisu-phone": [
+   [[true, "車椅子用（高さ70cm程度）の公衆電話がある"]],
+   [[false, "車椅子用（高さ70cm程度）の公衆電話がない"]]
+ ],
+ "nancho-phone": [
+   [[true, "難聴用公衆電話（音声調節装置のあるもの）がある"]],
+   [[false, "難聴用公衆電話（音声調節装置のあるもの）がない"]]
+ ],
+ "braille-menu": [
+   [[true, "飲食施設で点字のメニューがある"]],
+   [[false, "飲食施設で点字のメニューがない"]]
+ ],
+ "vending-machine-for-disabled": [
+   [[true, "障がい者向け自動販売機（ジュース等）がある"]],
+   [[false, "障がい者向け自動販売機（ジュース等）がない"]]
+ ],
+ "vending-machine-with-braille": [
+   [[true, "自動販売機（ジュース等）に点字の表示がある"]],
+   [[false, "自動販売機（ジュース等）に点字の表示がある"]]
+ ]
+}

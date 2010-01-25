@@ -15,5 +15,7 @@
  "toilet-type",
  [["baby-type", "with-baby"],
   [["omutsu-koukan", "true"], ["hot-water", "true"]]],
+ [["baby-type", "without-baby"],
+  [["omutsu-koukan", ""], ["hot-water", ""]]],
  "parking"
 ]

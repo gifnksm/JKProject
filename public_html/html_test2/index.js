@@ -66,6 +66,81 @@ var List = {
   }
 };
 
+var Detail = {
+  element: null,
+  map: null,
+  _tmpl: $.createTemplateURL('templates/detail.tpl'),
+  init: function(map) {
+    this.element = $('#detail-content');
+    this.map = map;
+  },
+  show: function(id) {
+    var self = this;
+    this.element.html('読み込み中…');
+    $.ajax({ type: 'post',
+             url: 'detail.php',
+             dataType: 'json',
+             cache: true,
+             data: ['id=' + id,
+                    SearchForm.sendData
+                   ].join('&'),
+             success: function(data) {
+               self.element.html(self._tmpl.get(data));
+             },
+             error: function() { alert('詳細情報の読み込みに失敗しました'); }
+           });
+  },
+  parseOpen: function(text) {
+    var groups = text.split(/\|(?=<)/);
+    if (groups.length == 1)
+      return groups[0];
+    return '<dl>' +
+      $.map(groups, function(g) {
+              var first = true;
+              return g.replace(/<(.+?)>/g, function(_, s) {
+                                 if (first) {
+                                   first = false;
+                                   return "<dt>" + s + "</dt>";
+                                 }
+                                 return "<dd>" + s + "</dd>";
+                               });
+            }).join('') + '</dl>';
+  },
+  parseBarrier: function(category) {
+    function getMessage(arr, value) {
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].length == 1)
+          return arr[i][0];
+        if (arr[i][0] === value)
+          return arr[i][1];
+      }
+      return undefined;
+    }
+
+    var map = this.map;
+    var dds = $.map(category.items,
+                    function(item) {
+                      var arrs = map[item.name];
+                      var message = getMessage(arrs[0], item.value);
+                      if (item.color && message === undefined)
+                        message = getMessage(arrs[1], item.value);
+                      if (message === undefined)
+                        return undefined;
+                      message = message.replace(/%d/g, item.value);
+                      return '<dd' + (
+                        item.color ? ' class="' + item.color + '"' : ''
+                      ) + '>' + message + '</dd>';
+                    });
+    if (dds.length == 0)
+      return '';
+    var dt = '<dt>'
+      + '<a href="javascript: void(0);">'
+      + '<img src="' + category.icon + '" alt="" />'
+      + category.title + '</a></dt>';
+    return dt + dds.join('');
+  }
+};
+
 var GMap = {
   defaultLatLng: new google.maps.LatLng(35.60709019396141,139.6853256225586),
   map: null,
@@ -271,6 +346,7 @@ var GMap = {
     $.each(GMap._infoWindows, function(i, w) { w.close(); });
     var d = GMap._data[id], map = GMap.map;
     map.setOptions({ disableDefaultUI: true });
+    Detail.show(id);
     GMap.canvas.animate({ width: 300, height: 200 },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
@@ -548,6 +624,7 @@ var SearchForm = {
     }
 
     function sendData() {
+      self.sendData = self.dcf.form.serialize();
       $.ajax({ type: 'post',
                url: 'response.php',
                dataType: 'json',
@@ -555,7 +632,7 @@ var SearchForm = {
                data: ['searchTerm=' + encodeURIComponent(term),
                       'lat=' + encodeURIComponent(center.lat()),
                       'lng=' + encodeURIComponent(center.lng()),
-                      self.dcf.form.serialize()
+                      self.sendData
                      ].join('&'),
                success: function(data) {
                  Layout.layout.open('west');
@@ -596,7 +673,8 @@ var LoginMessage = {
 
 JSONLoader.preload('login_dummy.php',
                    '/account/personal.php',
-                   '/resource/json/condition-map.json');
+                   '/resource/json/condition-map.json',
+                   '/resource/json/message-map.json');
 
 $(function() {
     Layout.init();
@@ -607,6 +685,8 @@ $(function() {
                             SearchForm.init(personal, conditionMap);
                           });
     LocationBox.init();
+    JSONLoader.addHandler('/resource/json/message-map.json',
+                         function(data) { Detail.init(data); });
     GMap.init($('#map'));
     JSONLoader.addHandler('login_dummy.php', function(data) {
                             LoginMessage.init(data); });
