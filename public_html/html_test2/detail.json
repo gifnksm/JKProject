@@ -149,7 +149,7 @@
     "items": [
       {"name": "elevator",
        "value": "without-elevator",
-       "color": "red"
+       "color": "yellow"
       }
     ]
    },

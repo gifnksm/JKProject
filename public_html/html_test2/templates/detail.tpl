@@ -9,7 +9,7 @@
 <h2>{$T.info.name}</h2>
 <div class="score">
 <span class="numer">{$T.scoreValue}</span>
-/
+／
 <span class="denom">{$T.scoreMax}</span>
 </div>
 <div class="category-icons">
