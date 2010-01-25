@@ -602,8 +602,8 @@ var SearchForm = {
       });
   },
   submit: function(term) {
-    if (term == '')
-      return;
+    // if (term == '')
+    //   return;
     var center = GMap.map.getCenter();
     var self = this;
     this.disable();
