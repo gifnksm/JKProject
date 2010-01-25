@@ -313,7 +313,7 @@ TextBox.prototype = {
 
 var ConditionForm = function(id) {
   this.id = id;
-  this._condURL = id + '-type.json';
+  this._condURL = '/resource/json/' + id + '-type.json';
 };
 ConditionForm.tmpl =  $.createTemplateURL('templates/condition-form.tpl');
 ConditionForm.prototype = {
@@ -596,13 +596,13 @@ var LoginMessage = {
 
 JSONLoader.preload('login_dummy.php',
                    '/account/personal.php',
-                   'condition-map.json');
+                   '/resource/json/condition-map.json');
 
 $(function() {
     Layout.init();
     List.init();
     JSONLoader.addHandler(['/account/personal.php',
-                           'condition-map.json'],
+                           '/resource/json/condition-map.json'],
                           function(personal, conditionMap) {
                             SearchForm.init(personal, conditionMap);
                           });
