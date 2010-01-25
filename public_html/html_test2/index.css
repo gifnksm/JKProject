@@ -277,7 +277,134 @@ input.empty:focus {
 }
 #detail-content {
    padding: 5px;
+   text-align: center;
 }
+
+#detail-content > * {
+   text-align: left;
+}
+
+#detail-content .title {
+   text-align: center;
+   display: inline-block;
+   min-height: 200px;
+   margin-bottom: 1em;
+   border: 1px solid #eee;
+   -moz-border-radius: 10px;
+   padding: 0 0 5px;
+}
+#detail-content h2 {
+   text-align: center;
+   font-size: 2em;
+   margin: 10px 0 0;
+}
+
+#detail-content h3 {
+   font-size: 1.2em;
+   padding: 5px 0.5em;
+   margin: 2em 0.5em 1em;
+   background-color: #fcc;
+}
+#detail-content h4 {
+   font-size: 1em;
+   padding: 5px 0.5em;
+   margin: 1em;
+   background-image: url('/resource/image/title_bg.gif');
+}
+#detail-content .score {
+   display: inline-block;
+   color: red;
+   text-align: center;
+   font-size: 3em;
+}
+#detail-content .score .numer {
+   vertical-align: super;
+}
+#detail-content .score .denom {
+   vertical-align: sub;
+}
+
+#detail-content .category-icons {
+   background-color: #ddd;
+   padding: 5px;
+   margin: 5px 1em;
+   width: 260px;
+   text-align: center;
+   -moz-border-radius: 4px;
+}
+#detail-content .category-icons img {
+   vertical-align: middle;
+}
+#detail-content .info {
+   clear: right;
+   margin: 10px 0;
+}
+#detail-content .info > dl {
+   margin: 0 2em 2em;;
+}
+
+#detail-content .info > dl > dt {
+   width: 4em;
+   float: left;
+   clear: both;
+   text-align: right;
+}
+#detail-content .info > dl > dd::before {
+   content: "■";
+   width: 2em;
+   text-align: center;
+   display: inline-block;
+   margin-left: -2em;
+   color: #ffcc66;
+}
+
+#detail-content .info > dl > dd {
+   float: left;
+   margin: 0 0 0 2em;
+}
+#detail-content .info > dl > dd > dl {
+   display: inline-block;
+   vertical-align: top;
+}
+#detail-content h3, #detail-content h4 {
+   clear: left;
+}
+
+#detail-content .comment {
+   clear: left;
+   border-top: 1px solid white;
+}
+#detail-content .comment p {
+   margin: 0 4em;
+}
+
+
+#detail-content .bfinfo dt {
+   margin: 5px 10px 0;
+   font-size: 1em;
+}
+
+#detail-content .bfinfo dt img {
+   vertical-align: middle;
+   margin: 5px;
+   font-wreght: bolder;
+}
+#detail-content .bfinfo dd {
+   margin: 0 0 0 50px;
+   padding: 0;
+   display: list-item;
+   list-style: disc;
+}
+#detail-content .bfinfo dd.red {
+   color: red;
+}
+#detail-content .bfinfo dd.blue {
+   color: blue;
+}
+#detail-content .bfinfo dd.yellow {
+   color: orange;
+}
+
 
 /*
  * LAYOUT RESIZERS & TOGGLERS

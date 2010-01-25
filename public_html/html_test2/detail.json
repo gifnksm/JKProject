@@ -1,4 +1,26 @@
-{"info":
+{"category": {
+   "ids": [
+     "width",
+     "bump",
+     "entrance",
+     "elevator",
+     "stair",
+     "toilet",
+     "for-baby",
+     "parking"
+   ],
+   "names": {
+     "width": "幅",
+     "bump": "段差",
+     "entrance": "出入り口",
+     "elevator": "エレベーター",
+     "stair": "階段",
+     "toilet": "トイレ",
+     "for-baby": "ベビー",
+     "parking": "駐車場"
+   }
+ },
+ "info":
  {"name": "四川屋台",
   "access": "大岡山駅正面口を出て左へ、東京工業大学正面、マクドナルド隣",
   "tel": "03-3726-4711",
@@ -9,6 +31,18 @@
   "comment": "おいしいよー",
   "url": "http://www.shisenyatai.com/",
   "date": "2009/11/24"
+ },
+ "scoreValue": 6,
+ "scoreMax": 8,
+ "score": {
+   "width": "red",
+   "bump": "yellow",
+   "entrance": "green",
+   "elevator": "blue",
+   "stair": "yellow",
+   "toilet": "blue",
+   "for-baby": "red",
+   "parking": "blue"
  },
  "bfinfo": [
    {"title": "駐車場",

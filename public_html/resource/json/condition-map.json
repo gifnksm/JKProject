@@ -8,7 +8,6 @@
   ["entrance-bump", "road-to-entrance-bump", "parking-to-entrance-bump"]],
  "slide-door",
  "double-door",
- "auto-door",
  [["stair", "with-banister"],
   [["stair-with-banister", "true"]]],
  "elevator",

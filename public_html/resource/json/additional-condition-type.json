@@ -40,10 +40,6 @@
      {"type": "checkbox",
       "title": "開き戸が開けられる",
       "name": "double-door",
-      "checked": false},
-     {"type": "checkbox",
-      "title": "自動ドア",
-      "name": "auto-door",
       "checked": false}
    ]
   },

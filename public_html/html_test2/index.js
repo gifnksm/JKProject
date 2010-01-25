@@ -9,6 +9,7 @@ var Layout = {
   westOpener: null,
   westCloser: null,
   layout: null,
+  _detailMode: false,
   init: function() {
     Layout.westOpener = $('<a id="west-opener" href="javascript: void(0);"></a>')
       .prependTo($('#map-container .header'));
@@ -16,6 +17,7 @@ var Layout = {
       .prependTo('#list-container .header');
 
     Layout.layout = $('body').layout(Layout.options);
+    var self = this;
     Layout.layout.addOpenBtn(Layout.westOpener, 'west');
     Layout.layout.addCloseBtn(Layout.westCloser, 'west');
     Layout.westOpener.hide();
@@ -33,6 +35,7 @@ var Layout = {
       spacing_closed: 0,
       resizable: false,
       initClosed: true,
+      slideTrigger_open: 'mouseover',
       onopen: function() { Layout.westOpener.hide(); },
       onclose: function() { Layout.westOpener.show(); }
     },
@@ -40,6 +43,10 @@ var Layout = {
       onresize_end: function() { GMap.resize(); },
       minSize: 0
     }
+  },
+  searchMode: function() {
+  },
+  detailMode: function() {
   }
 };
 
@@ -134,9 +141,8 @@ var Detail = {
     if (dds.length == 0)
       return '';
     var dt = '<dt>'
-      + '<a href="javascript: void(0);">'
       + '<img src="' + category.icon + '" alt="" />'
-      + category.title + '</a></dt>';
+      + category.title + '</dt>';
     return dt + dds.join('');
   }
 };
@@ -335,6 +341,7 @@ var GMap = {
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
                         });
+    Layout.searchMode();
     if (this._pageItems)
       GMap.setMarker(this._pageItems, true);
   },
@@ -347,6 +354,7 @@ var GMap = {
     var d = GMap._data[id], map = GMap.map;
     map.setOptions({ disableDefaultUI: true });
     Detail.show(id);
+    Layout.detailMode();
     GMap.canvas.animate({ width: 300, height: 200 },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
