@@ -19,7 +19,8 @@
 </tr>
 </table>
 <DIV align="center">
-<H3>ログイン</H3>
+<h1><img src="./image/login_3.png"
+                        alt="バリアフリーマップ検索" /></h1>
     <FORM method="post" action="login2.php">
         ユーザ名: <INPUT type="text" name="username"><BR>
         パスワード: <INPUT type="password" name="password"><BR>
