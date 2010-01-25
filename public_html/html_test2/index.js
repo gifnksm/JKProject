@@ -43,10 +43,6 @@ var Layout = {
       onresize_end: function() { GMap.resize(); },
       minSize: 0
     }
-  },
-  searchMode: function() {
-  },
-  detailMode: function() {
   }
 };
 
@@ -83,7 +79,7 @@ var Detail = {
   },
   show: function(id) {
     var self = this;
-    this.element.html('読み込み中…');
+    this.hide();
     $.ajax({ type: 'post',
              url: 'detail.php',
              dataType: 'json',
@@ -96,6 +92,9 @@ var Detail = {
              },
              error: function() { alert('詳細情報の読み込みに失敗しました'); }
            });
+  },
+  hide: function() {
+    this.element.html('読み込み中…');
   },
   parseOpen: function(text) {
     var groups = text.split(/\|(?=<)/);
@@ -334,14 +333,16 @@ var GMap = {
     if (id in GMap._infoWindows)
       GMap._infoWindows[id].open(GMap.map, GMap._markers[id] || GMap._dots[id]);
   },
-  searchMode: function() {
+  searchMode: function(id) {
     GMap._detailMode = false;
     GMap.map.setOptions({ disableDefaultUI: false });
+    Detail.hide();
+    var c = GMap.map.getCenter();
     GMap.canvas.animate({ width: '100%', height: '100%' },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');
+                          GMap.map.setCenter(c);
                         });
-    Layout.searchMode();
     if (this._pageItems)
       GMap.setMarker(this._pageItems, true);
   },
@@ -354,7 +355,6 @@ var GMap = {
     var d = GMap._data[id], map = GMap.map;
     map.setOptions({ disableDefaultUI: true });
     Detail.show(id);
-    Layout.detailMode();
     GMap.canvas.animate({ width: 300, height: 200 },
                         'fast', function() {
                           google.maps.event.trigger(GMap.map, 'resize');

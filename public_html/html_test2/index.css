@@ -382,12 +382,12 @@ input.empty:focus {
 #detail-content .bfinfo dt {
    margin: 5px 10px 0;
    font-size: 1em;
+   font-weight: bolder;
 }
 
 #detail-content .bfinfo dt img {
    vertical-align: middle;
    margin: 5px;
-   font-wreght: bolder;
 }
 #detail-content .bfinfo dd {
    margin: 0 0 0 50px;
