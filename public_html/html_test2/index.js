@@ -72,8 +72,10 @@ var Detail = {
   element: null,
   map: null,
   _tmpl: $.createTemplateURL('/resource/templates/detail.tpl'),
+  _bbsTmpl: $.createTemplateURL('/resource/templates/bbs.tpl'),
   init: function(map) {
     this.element = $('#detail-content');
+    this.bbs = $('#bbs');
     this.map = map;
   },
   show: function(id) {
@@ -90,6 +92,16 @@ var Detail = {
                self.element.html(self._tmpl.get(data));
              },
              error: function() { alert('詳細情報の読み込みに失敗しました'); }
+           });
+    $.ajax({ type: 'post',
+             url: 'bbs_get.php',
+             dataType: 'json',
+             cache: true,
+             data: id,
+             success: function(data) {
+               self.bbs.html(self._bbsTmpl.get(data));
+             },
+             error: function() { alert('掲示板の読み込みに失敗しました。'); }
            });
   },
   hide: function() {
@@ -637,7 +649,7 @@ var SearchForm = {
     function sendData() {
       self.sendData = self.dcf.form.serialize();
       $.ajax({ type: 'post',
-               url: 'search_kanni.php',
+               url: 'response.php',
                dataType: 'json',
                cache: true,
                data: ['searchTerm=' + encodeURIComponent(term),
@@ -682,7 +694,7 @@ var LoginMessage = {
   }
 };
 
-JSONLoader.preload('login_dummy.php',
+JSONLoader.preload('/account/info.php',
                    '/account/personal.php',
                    '/resource/json/condition-map.json',
                    '/resource/json/message-map.json');
@@ -699,7 +711,7 @@ $(function() {
     JSONLoader.addHandler('/resource/json/message-map.json',
                          function(data) { Detail.init(data); });
     GMap.init($('#map'));
-    JSONLoader.addHandler('login_dummy.php', function(data) {
+    JSONLoader.addHandler('/account/info.php', function(data) {
                             LoginMessage.init(data); });
   });
 
