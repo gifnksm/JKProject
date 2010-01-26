@@ -84,14 +84,43 @@ if (count($row) > 1)
 <HTML>
 <HEAD>
 <TITLE>確認</TITLE>
+<meta http-equiv="Refresh" content="2; URL=/../html_test2/index.html">
+<style type="text/css">
+#anime {
+  position: absolute;
+  bottom: 0; right: 0;
+  text-indent: 200px;
+  overflow: hidden;
+  width: 200px;
+}
+</style>
+<script>
+  var div = null;
+  var i = 0;
+  var speed = 20;
+  var l = 200 / speed;
+  function animate() {
+    if (i <= l) {
+      div.style.textIndent = (l - i) * speed + 'px';
+    } else {
+      div.style.right = (i - l) * speed + 'px';
+    }
+    i++;
+  }
+  function startAnimation() {
+    div = document.getElementById('anime');
+    setInterval(animate, 10);
+  }
+  setTimeout(startAnimation, 2000);
+</script>
 </HEAD>
 <BODY>
 <DIV align="center"> 
 <H3>ログインしました。</H3>
 <H2>自動的にトップページに戻ります</H2>
-<meta http-equiv="Refresh" content="2; URL=/../html_test2/index.html">
 <p><a href="/../html_test2/index.html">ホーム</a></p>
 </DIV>
+<div id="anime"><img src="image/car_anime.gif" width="200" height="200"/></div>
 </BODY>
 </HTML>
 LOGGEDIN;
