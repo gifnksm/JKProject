@@ -49,7 +49,7 @@ var Layout = {
 var List = {
   _pager: null,
   _data: null,
-  _pageTmpl: $.createTemplateURL('templates/page.tpl'),
+  _pageTmpl: $.createTemplateURL('/resource/templates/page.tpl'),
   _list: null,
   init: function() {
     List._pager = new Pager();
@@ -72,7 +72,7 @@ var List = {
 var Detail = {
   element: null,
   map: null,
-  _tmpl: $.createTemplateURL('templates/detail.tpl'),
+  _tmpl: $.createTemplateURL('/resource/templates/detail.tpl'),
   init: function(map) {
     this.element = $('#detail-content');
     this.map = map;
@@ -240,9 +240,9 @@ var GMap = {
   _markers: {},
   _dots: {},
   _tooltips: {},
-  _tooltipTmpl: $.createTemplateURL('templates/tooltip.tpl'),
+  _tooltipTmpl: $.createTemplateURL('/resource/templates/tooltip.tpl'),
   _infoWindows: {},
-  _infoWindowTmpl: $.createTemplateURL('templates/info-window.tpl'),
+  _infoWindowTmpl: $.createTemplateURL('/resource/templates/info-window.tpl'),
   _addEvents: function(overlay, id) {
     var gm = google.maps;
     var tooltip = GMap._tooltips[id];
@@ -399,7 +399,7 @@ var ConditionForm = function(id) {
   this.id = id;
   this._condURL = '/resource/json/' + id + '-type.json';
 };
-ConditionForm.tmpl =  $.createTemplateURL('templates/condition-form.tpl');
+ConditionForm.tmpl =  $.createTemplateURL('/resource/templates/condition-form.tpl');
 ConditionForm.prototype = {
   form: null,
   _condURL: null,
@@ -673,7 +673,7 @@ LocationBox.submit = function(val) {
 
 var LoginMessage = {
   _data: null,
-  _messageTmpl: $.createTemplateURL('templates/login-message.tpl'),
+  _messageTmpl: $.createTemplateURL('/resource/templates/login-message.tpl'),
   init: function(data) {
     $('#login-message').html(this._messageTmpl.get(this._data = data));
   }
