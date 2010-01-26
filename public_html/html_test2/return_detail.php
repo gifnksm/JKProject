@@ -58,7 +58,7 @@ $keyword = join(' AND ',
 
 /* キーワード検索　＞＞　店名，住所，（カテゴリー）*/
 /*店名・住所・カテゴリーでの検索（部分一致検索）*/
-$query = "SELECT * FROM store_info WHERE $keyword";
+$query = sprintf("SELECT * FROM store_info WHERE id = %d", $_POST['id']);
 
 /*クエリーを実行し．結果セットを取得*/
 $result = mysql_query($query, $conn);
@@ -164,10 +164,10 @@ while ($row = mysql_fetch_assoc($result)) {
 $scoreValue = 0;
 $scoreMax = 0;
 foreach ($detail as $value) {
-	$scoreMax ++;
-    if ($value == 'blue')
-      $scoreValue ++;
-  }
+  $scoreMax ++;
+  if ($value == 'blue')
+    $scoreValue ++;
+}
 
 
 /* ##########################################################
@@ -202,82 +202,87 @@ function store_color($a){
 /*######################################################################################*/
 
 /* 店舗情報 */
-$info_store = array( 'name'		=> $row['tenmei'],
-		//	'access'	=> $row[''],
-			'tel'		=> $row['tel'],
-			'fax'		=> $row['fax'],
-			'adress' 	=> $row['adress'],
-			'open' 	=> $row['open'],
-			'shop-holiday' => $row['shop-holiday'],
-			'comment' 	=> $row['comment'],
-		//	'url' 		=> $row['url'],
-			'date'		=> $row['date']
-		    );
+$info_store = array( 'name'             => $row['tenmei'],
+                     //      'access'        => $row[''],
+                     'tel'           => $row['tel'],
+                     'fax'           => $row['fax'],
+                     'adress'        => $row['adress'],
+                     'open'  => $row['open'],
+                     'shop-holiday' => $row['shop-holiday'],
+                     'comment'       => $row['comment'],
+                     //      'url'           => $row['url'],
+                     'date'          => $row['date']
+                     );
 
 /*  施設データを羅列　*/
 $bfinfo = array();
 
 
 /*############################################################
-	各項目の詳細情報表示関数　（TrueFalse），（Int）型
+  各項目の詳細情報表示関数　（TrueFalse），（Int）型
   ##########################################################*/
 
 /* item内小項目ごとの情報TF */
 function itemTF($a){
-	return $item_$a = array( "name" => $a,
-				    "value" => $row[$a],
-				    "color" => item_colorTF($a)
-				   );
+  return $item_a = array( "name" => $a,
+			  "value" => $row[$a],
+			  "color" => item_colorTF($a)
+			  );
 }
 /* item内,項目の色分け(True-False) */
 function item_colorTF($a){
-	if( $_POST['$a'] = null){
-		return "black";
-	}else{
-		if( $row[$a] == $_POST[$a]){
-			return "blue";
-		}else{
-			return "red";
-		}
-	}
+  if( $_POST['$a'] = null){
+    return "black";
+  }else{
+    if( $row[$a] == $_POST[$a]){
+      return "blue";
+    }else{
+      return "red";
+    }
+  }
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 function itemLINT($a){
-	return $itemLINT = array( "name"=>$a,
-				    "value"=>$row['$a'],
-				    "color"=>item_colorLINT($a)
-				   );
+  return $itemLINT = array( "name"=>$a,
+			    "value"=>$row['$a'],
+			    "color"=>item_colorLINT($a)
+			    );
 }
 
 
 /* INT Larger:データベース値が大きいと青*/
 function item_colorLINT($a){
-	if( $_POST[$a] = null){
-		return "black";
-	}else{
-		if( $row[$a] >= $_POST[$a]){
-			return "blue";
-		}else{
-			return "red";
-		}
+  if( $_POST[$a] = null){
+    return "black";
+  }else{
+    if( $row[$a] >= $_POST[$a]){
+      return "blue";
+    }else{
+      return "red";
+    }
+  }
+}
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 function itemSINT($a){
-	return $itemSINT = array( "name"=>$a,
-				    "value"=>$row[$a],
-				    "color"=>item_colorSINT($a)
-				   );
+  return $itemSINT = array( "name"=>$a,
+			    "value"=>$row[$a],
+			    "color"=>item_colorSINT($a)
+			    );
 }
 
 
 /* INT Smaller：データベース値が大きいと赤*/
 function item_colorSINT($a){
-	if( $_POST[$a] = null){
-		return "black";
-	}else{
-		if( $row[$a] <= $_POST[$a]){
-			return "blue";
-		}else{
-			return "red";
-		}
+  if( $_POST[$a] = null){
+    return "black";
+  }else{
+    if( $row[$a] <= $_POST[$a]){
+      return "blue";
+    }else{
+      return "red";
+    }
+  }
+}
 
 /*########################################################*/
 
@@ -286,138 +291,95 @@ $Inv_parking = array_flip($list_parking);
 
 //parking_value
 if( $row['parking'] != null){
-	$parking_value = $Inv_parking($_POST['parking']);
+  $parking_value = $Inv_parking($_POST['parking']);
 }else{
-	$parking_value = 'NULL';
+  $parking_value = null;
 }
 
 //parking_color
 if( $_POST[$a] = null){
-		$parking_color="black";
-	}else{
-		if( $row[$a] <= $_POST[$a]){
-			$parking_color="blue";
-		}else{
-			$parking_color="red";
-		}
-	     }
-	}
+  $parking_color="black";
+}else{
+  if( $row[$a] <= $_POST[$a]){
+    $parking_color="blue";
+  }else{
+    $parking_color="red";
+  }
 }
 
 
-$item_parking = array( "name" =>"parking",
-			"value"=>$parking_value;
-			"color"=>$parking_color);
-$item_parking-carport = itemTF(parking-carport);
-
 $bfinfo[ ] = array( "title"=>"駐車場",
-			"icon"=>"/resouce/image/icon/arking.png",
-			"item"=>array($item_parking,$item_parking-carport)
+		    "icon"=>"/resouce/image/icon/arking.png",
+		    "items"=>
+		    array(array( "name" =>"parking",
+				 "value"=>$parking_value,
+				 "color"=>$parking_color),
+			  itemTF("parking-carport"))
 		    );
 
 
 //建物の主な出入り口
-$item_entrance-bump = itemSINT(entrance-bump );
-$item_slider_door = itemTF('slider_door');
-$item_double_door = itemTF('double_door');
-$item_auto_door = itemTF('auto_door');
-$item_road-to-entrance-bump = itemSINT('road-to-entrance-bump');
-$item_parking-to-entrance-bump = itemSINT('parking-to-entrance-bump');
-$item_road-to-entrance-bump = itemTF('road-to-entrance-bump');
-
 $bfinfo[ ] = array( "title"=>"建物の主な出入り口",
-			"icon"=>"/resouce/image/icon/entrance.png",
-			"item"=>array($item_entrance-bump,
-					$item_slider_door,
-					$item_double_door,
-					$item_double_door,
-					$item_auto_door,
-					$item_road-to-entrance-bump,
-					$item_parking-to-entrance-bump,
-					$item_road-to-entrance-bump)
-		    );
+		    "icon"=>"/resouce/image/icon/entrance.png",
+		    "items"=>array(itemSINT('entrance-bump'),
+				   itemTF('slide-door'),
+				   itemTF('double-door'),
+				   itemTF('auto-door'),
+				   itemSINT('road-to-entrance-bump'),
+				   itemSINT('parking-to-entrance-bump'),
+				   itemTF('road-to-entrance-with-block')));
 
 
 //建物内の移動
-$item_routo-width = itemLINT(entrance-bump );
-$item_slipper-floor = itemTF('double_door');
-$item_auto_door = itemTF('auto_door');
-
 $bfinfo[ ] = array( "title"=>"建物内の移動",
-			"icon"=>"/resouce/image/icon/mobility.png",
-			"item"=>array($item_routo-width,
-					$item_slipper-floor,
-					$item_auto_door
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/mobility.png",
+		    "items"=>array(itemLINT('route-width'),
+				   itemTF('with-barrier'),
+				   itemTF('slipper-floor')));
 
 //建物の案内
-$item_help = itemTF(help);
-$item_with-audio-assist = itemTF('with-audio-assist');
-$item_with-braille-assist = itemTF('with-braille-assist');
-$item_guidemap = itemTF('guidemap');
-
 $bfinfo[ ] = array( "title"=>"建物の主な出入り口",
-			"icon"=>"/resouce/image/icon/assist.png",
-			"item"=>array($item_help ,
-					$item_with-audio-assist,
-					$item_with-braille-assist,
-					$item_double_door,
-					$item_guidemap
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/assist.png",
+		    "items"=>array(itemTF('help'),
+				   itemTF('with-audio-assist'),
+				   itemTF('with-braille-assist'),
+				   itemTF('guidemap')));
 
 
 //トイレ
-$Inv_toilet_type = array_flip($list_toilet_type);
+$Inv_toilet_type = array_flip($list_toilet);
 
 //toilet_value
 if( $row['toilet-type'] != null){
-	$toilt_value = $Inv_toilet_type($_POST['toilet-type']);
+  $toilt_value = $Inv_toilet_type[$_POST['toilet-type']];
 }else{
-	$toilet_value = 'NULL';
+  $toilet_value = null;
 }
 
 //toilet_color
-if( $_POST['toilet-type'] = null){
-		$toilet_color="black";
-	}else{
-		if( $row['toilet-type'] >= $_POST['toilet-type']){
-			$toilet_color="blue";
-		}else{
-			$toilet_color="red";
-		}
-	     }
-	}
+if( is_null($_POST['toilet-type'])){
+  $toilet_color = "black";
+} elseif ( $row['toilet-type'] >= $_POST['toilet-type']){
+  $toilet_color = "blue";
+} else {
+  $toilet_color = "red";
 }
 
-$item_toilet-type = array( "name" =>"toilet-type",
-			"value"=>$toilet_value,
-			"color"=>$toilet_color);
-$item_toilet-with-ostomate = itemTF('toilet-with-ostomate');
-$item_toilet-with-baby-bed = itemTF('toilet-with-baby-bed');
-$item_toilet-type-with-omutsu = itemTF('toilet-type-with-omutsu');
-$item_toilet-with-audio-assist = itemTF('toilet-with-audio-assist');
-
 $bfinfo[ ] = array( "title"=>"トイレ",
-			"icon"=>"/resouce/image/icon/toilet.png",
-			"item"=>array($item_help ,
-					$item_with-audio-assist,
-					$item_with-braille-assist,
-					$item_double_door,
-					$item_guidemap
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/toilet.png",
+		    "items"=>array(array( "name" =>"toilet-type",
+					  "value"=>$toilet_value,
+					  "color"=>$toilet_color),
+				   itemTF('toilet-with-ostomate'),
+				   itemTF('toilet-with-baby-bed'),
+				   itemTF('toilet-with-omutsu'),
+				   itemTF('toilet-with-audio-assist')));
 
 
 //階段
-$item_stair-with-banister = itemTF(stair-with-banister);
-
 $bfinfo[ ] = array( "title"=>"階段",
-			"icon"=>"/resouce/image/icon/stair.png",
-			"item"=>array($item_stair-with-banister
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/stair.png",
+		    "items"=>array(itemTF('stair-with-banister')));
 
 
 //エレベーター
@@ -425,105 +387,70 @@ $Inv_elevator = array_flip($list_elevator);
 
 //elevator_value
 if( $row['elevator'] != null){
-	$elevator_value = $Inv_elevator($_POST['elevator']);
+  $elevator_value = $Inv_elevator($_POST['elevator']);
 }else{
-	elevator_value = 'NULL';
+  $elevator_value = null;
 }
 
 //elevator_color
-if( $_POST['elevator'] = null){
-		$elevator_color="black";
-	}else{
-		if( $row['elevator'] >= $_POST['elevator']){
-			$elevator_color="blue";
-		}else{
-			$televator_color="red";
-		}
-	     }
-	}
+if ( is_null($_POST['elevator'])){
+  $elevator_color = "black";
+} elseif ( $row['elevator'] >= $_POST['elevator']){
+  $elevator_color = "blue";
+} else {
+  $elevator_color = "red";
 }
 
-$item_elevator = array( "name" =>"elevator",
-			"value"=>$elevator_value,
-			"color"=>$elevator_color);
-
 $bfinfo[ ] = array( "title"=>"エレベーター",
-			"icon"=>"/resouce/image/icon/elevator.png",
-			"item"=>array($item_elevator
-					)
-		    );
+                    "icon"=>"/resouce/image/icon/elevator.png",
+                    "items"=>array(array( "name" =>"elevator",
+					  "value"=>$elevator_value,
+					  "color"=>$elevator_color)));
 
 
 //授乳およびおむつ交換場所
-$item_omutsu-kokan = itemTF('omutsu-kokan');
-$item_hot-wator = itemTF('hot-wator');
-
 $bfinfo[ ] = array( "title"=>"授乳およびおむつ交換場所",
-			"icon"=>"/resouce/image/icon/baby.png",
-			"item"=>array($item_omutsu-kokan,
-					$item_hot-wator
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/baby.png",
+		    "items"=>array(itemTF('omutsu-koukan'),
+				   itemTF('hot-water')));
 
 
 //宿泊施設
-$item_kurumaisu-room = itemTF('kurumaisu-room');
-$item_kurumaisu-daiyokujo = itemTF('kurumaisu-daiyokujo');
-$item_kurumaisu-restaurant = itemTF('kurumaisu-restaurant');
-
 $bfinfo[ ] = array( "title"=>"宿泊施設",
-			"icon"=>"/resouce/image/icon/accommodation.png",
-			"item"=>array($item_kurumaisu-room,
-					$item_kurumaisu-daiyokujo,
-					$item_kurumaisu-restaurant
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/accommodation.png",
+		    "items"=>array(itemTF('kurumaisu-room'),
+				   itemTF('kurumaisu-daiyokujo'),
+				   itemTF('kurumaisu-restaurant')));
 
 //興行施設
-$item_kurumaisu-kanranseki = itemTF('kurumaisu-kanranseki');
-
 $bfinfo[ ] = array( "title"=>"興行施設",
-			"icon"=>"/resouce/image/icon/enterprise.png",
-			"item"=>array($item_kurumaisu-kanranseki
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/enterprise.png",
+		    "items"=>array(itemTF('kurumaisu-kanranseki')));
 
 //通信設備
-$item_kurumaisu-phone = itemTF('kurumaisu-phone');
-$item_nancho-phone = itemTF('nancho-phone');
-
 $bfinfo[ ] = array( "title"=>"通信設備",
-			"icon"=>"/resouce/image/icon/eommu-equip.png",
-			"item"=>array($item_kurumaisu-phone,
-					$item_nancho-phone
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/eommu-equip.png",
+		    "items"=>array(itemTF('kurumaisu-phone'),
+				   itemTF('nancho-phone')));
 
 //その他
-$item_braille_menu = itemTF('braille_menu');
-$item_vending-machine-for-disabled = itemTF('vending-machine-for-disabled');
-$item_vending-machine-with-brille = itemTF('vending-machine-with-brille');
-
-
 $bfinfo[ ] = array( "title"=>"その他",
-			"icon"=>"/resouce/image/icon/others.png",
-			"item"=>array($item_braille_menu,
-					$item_vending-machine-for-disabled,
-					$item_vending-machine-with-brille
-					)
-		    );
+		    "icon"=>"/resouce/image/icon/others.png",
+		    "items"=>array(itemTF('braille-menu'),
+				   itemTF('vending-machine-for-disabled'),
+				   itemTF('vending-machine-with-braille')));
 
 
 /*%%%%%%%%%%%%%%%%%%%%%%%%
-	結果表示
+        結果表示
 %%%%%%%%%%%%%%%%%%%%%%%*/
 $result_data =
   array("category" => array("ids" => $cat_ids,
                             "names" => array_combine($cat_ids, $cat_names)),
-        "info" => $info_store),
+        "info" => $info_store,
 	"scoreValue" => $scoreValue,
 	"scoreMax" => $scoreMax,
-	"score"=>$detail,
+        "score"=>$detail,
 	"bfinfo"=>$bfinfo
 	);
 

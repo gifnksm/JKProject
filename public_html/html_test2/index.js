@@ -141,7 +141,7 @@ var Detail = {
     var self = this;
     this.hide();
     $.ajax({ type: 'post',
-             url: 'detail.php',
+             url: 'return_detail.php',
              dataType: 'json',
              cache: true,
              data: ['id=' + id,
@@ -175,6 +175,8 @@ var Detail = {
   },
   parseBarrier: function(category) {
     function getMessage(arr, value) {
+      if (arr === undefined)
+        return undefined;
       for (var i = 0; i < arr.length; i++) {
         if (arr[i].length == 1)
           return arr[i][0];
