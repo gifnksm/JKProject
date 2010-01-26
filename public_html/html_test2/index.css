@@ -299,13 +299,13 @@ input.empty:focus {
    margin: 10px 0 0;
 }
 
-#detail-content h3 {
+#detail-content h3, #bbs h3 {
    font-size: 1.2em;
    padding: 5px 0.5em;
    margin: 2em 0.5em 1em;
    background-color: #fcc;
 }
-#detail-content h4 {
+#detail-content h4, #bbs h4 {
    font-size: 1em;
    padding: 5px 0.5em;
    margin: 1em;
@@ -403,6 +403,34 @@ input.empty:focus {
 }
 #detail-content .bfinfo dd.yellow {
    color: orange;
+}
+
+#bbs .comment {
+   margin: 1em 3em 0;
+}
+
+#bbs .data em {
+   font-style: normal;
+   font-weight: bolder;
+}
+
+#bbs .submit p {
+   margin: 1em 3em 0;
+}
+#bbs-comment {
+   margin: 1em 3em;
+}
+#bbs-comment table {
+   border-collapse: collapse;
+}
+#bbs-comment th {
+   background-image: url('/resource/image/title_bg.gif');
+   paddng: 3px;
+   border: 1px solid black;
+}
+#bbs-comment td {
+   paddng: 3px;
+   border: 1px solid black;
 }
 
 

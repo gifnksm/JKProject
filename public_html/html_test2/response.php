@@ -122,8 +122,6 @@ function trueCount($row, $names) {
 /* 出力データ編集 */
 while ($row = mysql_fetch_assoc($result)) {
   $detail = array();
-  $score = 0;
-
   /* 幅 */
   $detail['width'] =
     getBiasColor($row, array('route-width', 'entrance-width'), 20);
@@ -146,11 +144,10 @@ while ($row = mysql_fetch_assoc($result)) {
   /* トイレ */
   $detail['toilet'] = getColor($row, array('toilet'), false);
   /* ベビー */
-  $baby_count =
-    trueCount($row, array('toilet-with-baby-bed',
-                          'toilet-with-omutsu-koukan',
-                          'omutsu-koukan',
-                          'hot-water'));
+  $baby_count = trueCount($row, array('toilet-with-baby-bed',
+                                      'toilet-with-omutsu-koukan',
+                                      'omutsu-koukan',
+                                      'hot-water'));
   if ($baby_count >= 3)
     $detail['for-baby'] = 'blue';
   elseif ($baby_count >= 2)
@@ -162,18 +159,10 @@ while ($row = mysql_fetch_assoc($result)) {
     getColor($row, array('parking', 'parking-to-entrancet-bump'), false);
 
   /* toilet-with-audio-assist, toilet-with-ostomate */
-  $score += color_score($detail['width']);
-  $score += color_score($detail['bump']);
-  $score += color_score($detail['entrance']);
-  $score += color_score($detail['elevator']);
-  $score += color_score($detail['stair']);
-  $score += color_score($detail['toilet']);
-  $score += color_score($detail['for-baby']);
-  $score += color_score($detail['parking']);
-
-  $store_score = array('color' => store_color($score) ,
-                       'value' => $score,
-                       'detail' => $detail);
+  /* スコアの合計を出す */
+  $score = 0;
+  foreach ($cat_ids as $cat)
+    $score += color_score($detail[$cat]);
 
   /*店のカラー，スコア，青マークの数，ディテールを格納*/
   $store_data[] =
@@ -182,8 +171,11 @@ while ($row = mysql_fetch_assoc($result)) {
           'lat' => $row['gps_ns'],
           'lng' => $row['gps_ew'],
           'addr' => $row['address'],
+          'url' => $row['url'],
           'tel' => $row['tel'],
-          'score' => $store_score);
+          'score' => array('color' => store_color($score) ,
+                           'value' => $score,
+                           'detail' => $detail));
 }
 
 
@@ -198,11 +190,11 @@ function store_cmp($a, $b) {
 /* スコア順にソート */
 usort($store_data, "store_cmp");
 
-$result_data = array('searchTerm' => $_POST['searchTerm'],
-                     'category' =>
-                     array('ids' => $cat_ids,
-                           'names' => array_combine($cat_ids, $cat_names)),
-                           'result' => $store_data);
+$result_data =
+  array('searchTerm' => $_POST['searchTerm'],
+        'category' => array('ids' => $cat_ids,
+                            'names' => array_combine($cat_ids, $cat_names)),
+        'result' => $store_data);
 
 
 

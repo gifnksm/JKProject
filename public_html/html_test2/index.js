@@ -68,11 +68,70 @@ var List = {
   }
 };
 
+var BBS = {
+  _tmpl: $.createTemplateURL('/resource/templates/bbs.tpl'),
+  init: function(elem, id) {
+    this.element = elem;
+    this.id = id;
+    this.submitButton = null;
+    this.load();
+  },
+  load: function() {
+    this.element.html('this._tmpl.get(data)');
+    var self = this;
+    $.ajax({ type: 'post',
+             url: 'bbs_get.php',
+             dataType: 'json',
+             cache: true,
+             data: this.id,
+             success: function(data) {
+               self.element.html(self._tmpl.get(data));
+               self.form = $('#bbs-comment');
+               self.submitButton = $('#bbs-comment input[type="submit"]');
+               $('#bbs-comment').submit(
+                 function() {
+                   self.submit();
+                   return false;
+                 }
+               );
+             },
+             error: function() { alert('掲示板の読み込みに失敗しました。'); }
+           });
+  },
+  submit: function() {
+    this.disable();
+    var self = this;
+    $.ajax({ type: 'post',
+             url: 'bbs_put.php',
+             dataType: 'json',
+             cache: true,
+             data: this.form.serialize(),
+             success: function(data) {
+               if (data.result == 'ok') {
+                 self.load();
+                 return;
+               }
+               alert('書き込みに失敗しました。\n' + data.message);
+               self.enable();
+             },
+             error: function() {
+               alert('書き込みに失敗しました。');
+               self.enable();
+             }
+           });
+  },
+  enable: function() {
+    this.submitButton.removeAttr('disabled', 'disabled');
+  },
+  disable: function() {
+    this.submitButton.attr('disabled', 'disabled');
+  }
+};
+
 var Detail = {
   element: null,
   map: null,
   _tmpl: $.createTemplateURL('/resource/templates/detail.tpl'),
-  _bbsTmpl: $.createTemplateURL('/resource/templates/bbs.tpl'),
   init: function(map) {
     this.element = $('#detail-content');
     this.bbs = $('#bbs');
@@ -93,16 +152,7 @@ var Detail = {
              },
              error: function() { alert('詳細情報の読み込みに失敗しました'); }
            });
-    $.ajax({ type: 'post',
-             url: 'bbs_get.php',
-             dataType: 'json',
-             cache: true,
-             data: id,
-             success: function(data) {
-               self.bbs.html(self._bbsTmpl.get(data));
-             },
-             error: function() { alert('掲示板の読み込みに失敗しました。'); }
-           });
+    BBS.init(this.bbs, id);
   },
   hide: function() {
     this.element.html('読み込み中…');
