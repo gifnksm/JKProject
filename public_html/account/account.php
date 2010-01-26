@@ -59,32 +59,32 @@ $form->addElement('select', 'prefecture','都道府県',$pref);
 //障害情報//
 ////////////
 $form->addElement('header', null, '障害情報');
-$form->addElement('text', 'width', '通れる幅','cm','size=15');
-$form->addElement('text', 'rank1', '乗り越えられる段差','size=15');
-$form->addElement('text','rank2', '乗り越えられる段差(付き添いあり)','size=15');
+$form->addElement('text', 'width', '通れる幅[cm]','cm','size=15');
+$form->addElement('text', 'rank1', '乗り越えられる段差[cm]','size=15');
+$form->addElement('text','rank2', '乗り越えられる段差[cm](※付き添いあり)','size=15');
 
 $group[] =& HTML_QuickForm::createElement('checkbox',"0",NULL,"引き戸");
 $group[] =& HTML_QuickForm::createElement('checkbox',"1",NULL,"開き戸");
 $group[] =& HTML_QuickForm::createElement('checkbox',"2",NULL,"自動ドア");
-$form->addGroup($group, 'door', 'ドア:', ',&nbsp;');
+$form->addGroup($group, 'door', '自力で開けられるドア:', ',&nbsp;');
 
 $group1[] =& HTML_QuickForm::createElement('radio',"0",NULL,"障害者用エレベーター","large-ev");
 $group1[] =& HTML_QuickForm::createElement('radio',"0",NULL,"エレベーター","normal-ev");
 $group1[] =& HTML_QuickForm::createElement('radio',"0",NULL,"なし","without-ev");
-$form->addGroup($group1, 'elevator', 'エレベーター:', ',&nbsp;');
+$form->addGroup($group1, 'elevator', 'エレベーターの有無:', ',&nbsp;');
 
 $group2[] =& HTML_QuickForm::createElement('radio',"0",NULL,"手摺あれば上れる","with-banister");
 $group2[] =& HTML_QuickForm::createElement('radio',"0",NULL,"上れない","cannot-climb");
-$form->addGroup($group2, 'step', '階段:', ',&nbsp;');
+$form->addGroup($group2, 'step', '階段を上れるか:', ',&nbsp;');
 
-$group3[] =& HTML_QuickForm::createElement('radio',"0",NULL,"障害者用トイレあり","disabled-toilet");
-$group3[] =& HTML_QuickForm::createElement('radio',"0",NULL,"トイレあり","normal-toilet");
-$group3[] =& HTML_QuickForm::createElement('radio',"0",NULL,"なし","without-toilet");
-$form->addGroup($group3, 'toilet', 'トイレ:', ',&nbsp;');
+$group3[] =& HTML_QuickForm::createElement('radio',"0",NULL,"障害者用トイレが必要","disabled-toilet");
+$group3[] =& HTML_QuickForm::createElement('radio',"0",NULL,"トイレがあればよい","normal-toilet");
+$group3[] =& HTML_QuickForm::createElement('radio',"0",NULL,"なくてもよい","without-toilet");
+$form->addGroup($group3, 'toilet', 'トイレの有無:', ',&nbsp;');
 
-$group4[] =& HTML_QuickForm::createElement('radio',"0",NULL,"あり","with-baby");
-$group4[] =& HTML_QuickForm::createElement('radio',"0",NULL,"なし","without-baby");
-$form->addGroup($group4, 'baby', 'ベビー関係:', ',&nbsp;');
+$group4[] =& HTML_QuickForm::createElement('radio',"0",NULL,"はい","with-baby");
+$group4[] =& HTML_QuickForm::createElement('radio',"0",NULL,"いいえ","without-baby");
+$form->addGroup($group4, 'baby', '普段赤ちゃんをつれて外出するか:', ',&nbsp;');
 
 $form->addElement('submit', null, '送信');
 
