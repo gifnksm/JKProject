@@ -49,7 +49,6 @@ $sc_road_to_entrancet_bump =  $_POST['road-to-entrancet-bump'];
 $sc_parking_to_entrancet_bump =  $_POST['parking-to-entrancet-bump'];
 
 
-/* Edit Suda 15:40  mysql設定はまだ！！！！！！！！！！！！！！！ */
 
 /* MySQLに接続 : @mysql_connect()とすると表示されるPHPもエラーメッセージを非表示にできる */
 $conn = mysql_connect("jkproject.localhost", "jkp", "jkproject");
@@ -158,7 +157,7 @@ $store_data = array();
 function biasGtColor($row, $names, $bias) {
   $cleared = true;
   foreach($names as $n) {
-    if (!($_POST[$n] + $bias >= $row[$n])) {
+    if (!($_POST[$n] - $bias >= $row[$n])) {
       $cleared = false;
       break;
     }
@@ -244,14 +243,14 @@ while ($row = mysql_fetch_assoc($result)) {
     $door_color = 'red';
   if($door_color == 'blue') $blue_cnt ++;
   $detail['entrance'] = $door_color;
-  $score += $door_score;
+  $score += $door_score($door_color);
 
   /* エレベータ */
   $_POST['elevator'] = $list_elevator[sc_elevator];
   $elv_color = biasLtColor($row, array('elevator'), 0);
   if($elv_color == 'blue') $blue_cnt ++;
   $detail['elevator'] = $elv_color;
-  $score += $elv_score;
+  $score += $elv_score($elv_color);
 
 
   /* 階段 */
@@ -263,7 +262,7 @@ while ($row = mysql_fetch_assoc($result)) {
   if ($stair_color == 'blue') $blue_cnt ++;
   $stair_score = color_score($stair_color);
   $detail['stair'] = $stair_color;
-  $score += $stair_score;
+  $score += $stair_score($stair_color);
 
 
   /* トイレ */
@@ -288,13 +287,13 @@ while ($row = mysql_fetch_assoc($result)) {
     $baby_color = 'red';
   if($baby_color == 'blue') $blue_cnt ++;
   $detail['for-baby'] = $baby_color;
-  $score += $baby_score;
+  $score += $baby_score($baby_color);
 
   /* 駐車場 */
   $parking_color = biasLtColor($row, array('parking', 'parking-to-entrancet-bump'), 0);
   if ($parking_color == 'blue') $blue_cnt ++;
   $detail['parking'] = $parking_color;
-  $score += $parking_score;
+  $score += $parking_score($parking_color);
 
   $store_score = array('color' => store_color($score) ,
                        'value' => $score,
@@ -359,9 +358,9 @@ function color_score($a){
   $a:スコア
 */
 function store_color($a){
-  if( $a >= 18){
+  if( $a >= 15){
     return 'blue';
-  }elseif( $a >= 10){
+  }elseif( $a >= 8){
     return 'yellow';
   }else {
     return 'red';
