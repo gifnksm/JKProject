@@ -9,7 +9,6 @@ var Layout = {
   westOpener: null,
   westCloser: null,
   layout: null,
-  _detailMode: false,
   init: function() {
     Layout.westOpener = $('<a id="west-opener" href="javascript: void(0);"></a>')
       .prependTo($('#map-container .header'));
@@ -634,7 +633,7 @@ var SearchForm = {
     function sendData() {
       self.sendData = self.dcf.form.serialize();
       $.ajax({ type: 'post',
-               url: 'response.php',
+               url: 'search_kanni.php',
                dataType: 'json',
                cache: true,
                data: ['searchTerm=' + encodeURIComponent(term),

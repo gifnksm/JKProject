@@ -37,7 +37,7 @@
  "score": {
    "width": "red",
    "bump": "yellow",
-   "entrance": "green",
+   "entrance": "yellow",
    "elevator": "blue",
    "stair": "yellow",
    "toilet": "blue",
