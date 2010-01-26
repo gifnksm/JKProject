@@ -51,9 +51,9 @@
       "defaultValue": "without-ev",
       "selections": [
         {"title": "車いす対応エレベーターがある",
-         "value": "large-ev"},
+         "value": "with-large-ev"},
         {"title": "エレベーターがある",
-         "value": "normal-ev"},
+         "value": "with-normal-ev"},
         {"title": "エレベーターの有無にはこだわらない",
          "value": "without-ev"}
       ]
@@ -79,7 +79,7 @@
    "icon": "/resource/image/icon/toilet.png",
    "items": [
       {"type": "radio",
-       "name": "toilet-type",
+       "name": "toilet",
        "defaultValue": "normal-toilet",
        "selections": [
          {"title": "障害者用トイレ（男女別）がある",

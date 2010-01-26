@@ -297,17 +297,21 @@ var GMap = {
            });
     GMap._markers = {};
     GMap.showInfoWindow(null);
-    $.each(data.sort(function(d1, d2) { return d2.lat - d1.lat; }),
-           function(i, d) {
-             var gm = google.maps;
-             var marker = GMap._markers[d.id] = new gm.Marker(
-               $.extend({ position: new gm.LatLng(d.lat, d.lng),
-                          map: GMap.map,
-                          zIndex: 100
-                        }, GMap._createIcon(d.score.color,
-                                            alpha ? num2alph(i) : 'dot')));
-             GMap._addEvents(marker, d.id);
-           });
+
+    $.each(
+      $.map(data, function(d, i) { return { idx: i, data: d }; })
+        .sort(function(d1, d2) { return d2.data.lat - d1.data.lat; }),
+      function(_, v) {
+        var i = v.idx, d = v.data;
+        var gm = google.maps;
+        var marker = GMap._markers[d.id] = new gm.Marker(
+          $.extend({ position: new gm.LatLng(d.lat, d.lng),
+                     map: GMap.map,
+                     zIndex: 100
+                   }, GMap._createIcon(d.score.color,
+                                       alpha ? num2alph(i) : 'dot')));
+        GMap._addEvents(marker, d.id);
+      });
   },
   _geocoder: new google.maps.Geocoder(),
   goToAddr: function(address, callback) {

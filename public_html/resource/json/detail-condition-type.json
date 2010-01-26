@@ -146,7 +146,7 @@
   "icon": "/resource/image/icon/toilet.png",
   "items": [
     {"type": "radio",
-     "name": "toilet-type",
+     "name": "toilet",
      "defaultValue": "normal-toilet",
      "selections": [
        {"title": "障害者用トイレ（男女別）がある",
@@ -199,11 +199,11 @@
      "defaultValue": "without-elevator",
      "selections": [
        {"title": "車いす対応エレベーターがある<br /><span class=\"weak\">（出入口幅80cm以上、制御装置高1メートル程度、定員11人乗り程度以上）</span>",
-        "value": "with-large-elevator"},
+        "value": "with-large-ev"},
        {"title": "エレベーターがある",
-        "value": "with-normal-elevator"},
+        "value": "with-normal-ev"},
        {"title": "エレベーターの有無にはこだわらない",
-        "value": "without-elevator"}
+        "value": "without-ev"}
      ]
     }
   ]
