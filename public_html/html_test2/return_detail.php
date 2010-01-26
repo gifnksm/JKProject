@@ -222,6 +222,17 @@ $bfinfo = array();
   各項目の詳細情報表示関数　（TrueFalse），（Int）型
   ##########################################################*/
 
+/* item内,項目の色分け(True-False) */
+function item_colorTF($a){
+  if( $_POST['$a'] == 'true'){
+    if($row[$a] == 'true'){
+        return 'blue';
+    } else { 
+        return 'red'
+  } else {
+   return "black";
+  }
+  
 /* item内小項目ごとの情報TF */
 function itemTF($a){
   return $item_a = array( "name" => $a,
@@ -229,26 +240,8 @@ function itemTF($a){
 			  "color" => item_colorTF($a)
 			  );
 }
-/* item内,項目の色分け(True-False) */
-function item_colorTF($a){
-  if( $_POST['$a'] = null){
-    return "black";
-  }else{
-    if( $row[$a] == $_POST[$a]){
-      return "blue";
-    }else{
-      return "red";
-    }
-  }
-}
+  
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-function itemLINT($a){
-  return $itemLINT = array( "name"=>$a,
-			    "value"=>$row['$a'],
-			    "color"=>item_colorLINT($a)
-			    );
-}
-
 
 /* INT Larger:データベース値が大きいと青*/
 function item_colorLINT($a){
@@ -262,14 +255,15 @@ function item_colorLINT($a){
     }
   }
 }
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-function itemSINT($a){
-  return $itemSINT = array( "name"=>$a,
-			    "value"=>$row[$a],
-			    "color"=>item_colorSINT($a)
+
+function itemLINT($a){
+  return $itemLINT = array( "name"=>$a,
+			    "value"=>$row['$a'],
+			    "color"=>item_colorLINT($a)
 			    );
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 /* INT Smaller：データベース値が大きいと赤*/
 function item_colorSINT($a){
@@ -283,6 +277,14 @@ function item_colorSINT($a){
     }
   }
 }
+
+function itemSINT($a){
+  return $itemSINT = array( "name"=>$a,
+			    "value"=>$row[$a],
+			    "color"=>item_colorSINT($a)
+			    );
+}
+
 
 /*########################################################*/
 
