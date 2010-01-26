@@ -111,7 +111,7 @@ if (count($row) > 1)
     div = document.getElementById('anime');
     setInterval(animate, 10);
   }
-  setTimeout(startAnimation, 2000);
+  setTimeout(startAnimation, 1400);
 </script>
 </HEAD>
 <BODY>
