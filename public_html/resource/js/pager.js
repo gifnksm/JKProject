@@ -9,6 +9,7 @@ var Pager = function(items) {
 
 Pager.prototype = {
   itemsPerPage: 5,
+  maxShowNeighborPage: 3,
   _current: 0,
   updateItems: function(items) {
     this._items = items;
@@ -41,7 +42,14 @@ Pager.prototype = {
 
     this._nextLink = $('<a href="javascript: void(0);">').append('&raquo;');
     this._nextLink.click(function() { self.next(); });
+
+    this.element.append(' ');
     this.element.append(this._nextLink);
+
+    this._prevDots = $('<span>').append('...')
+      .insertAfter(this._links[0]).hide();
+    this._nextDots = $('<span>').append('...')
+      .insertBefore(this._links[plen-1]).hide();
     this.goTo(0);
   },
   _callbacks: null,
@@ -54,16 +62,33 @@ Pager.prototype = {
   prev: function() { this.goTo(this._current - 1); },
   next: function() { this.goTo(this._current + 1); },
   goTo: function(page) {
+    var lst = this._pages.length - 1;
     page >>= 0;
     if (page < 0) {
       page = 0;
-    } else if (page >= this._pages.length) {
-      page = this._pages.length - 1;
+    } else if (page > lst) {
+      page = lst;
     }
     this._current = page;
+    var minIdx = this._current - this.maxShowNeighborPage,
+        maxIdx = this._current + this.maxShowNeighborPage;
+
+    function setVisible(elem, flag) {
+      if (flag)
+        elem.css({ display: 'inline' });
+      else
+        elem.hide();
+    }
+
+    setVisible(this._prevDots, minIdx > 1);
+    setVisible(this._nextDots, maxIdx < lst);
     this._prevLink.toggleClass('disabled', page == 0);
-    $.each(this._links, function(i, l) { l.toggleClass('highlight', i == page); });
-    this._nextLink.toggleClass('disabled', page == this._pages.length - 1);
+    $.each(this._links, function(i, l) {
+             l.toggleClass('highlight', i == page);
+             setVisible(l, i == 0 || i == lst
+                        || (minIdx <= i && i <= maxIdx));
+           });
+    this._nextLink.toggleClass('disabled', page == lst);
     $.each(this._callbacks, function(i, f) { f(page); });
   }
 };
