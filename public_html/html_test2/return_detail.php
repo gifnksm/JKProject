@@ -120,46 +120,46 @@ function trueCount($row, $names) {
 }
 
 /* 出力データ編集 */
-while ($row = mysql_fetch_assoc($result)) {
-  $detail = array();
-  /* 幅 */
-  $detail['width'] =
-    getBiasColor($row, array('route-width', 'entrance-width'), 20);
-  /* 段差 */
-  $detail['bump'] =
-    getBiasColor($row, array('entrance-bump', 'road-to-entrance-bump'), -3);
-  /* 出入口 */
-  if (trueCount($row, array('auto-door', 'slide-door', 'double-door')) >= 1)
-    $detail['entrance'] = 'blue';
-  else
-    $detail['entrance'] = 'red';
-  /* エレベータ */
-  $detail['elevator'] = getColor($row, array('elevator'), false);
-  /* 階段 */
-  if ($_POST['stair-with-banister'] == 'true' &&
-      $row['stair-with-banister'] == 'true')
-    $detail['stair'] = 'blue';
-  else
-    $detail['stair'] = 'red';
-  /* トイレ */
-  $detail['toilet'] = getColor($row, array('toilet'), false);
-  /* ベビー */
-  $baby_count = trueCount($row, array('toilet-with-baby-bed',
-                                      'toilet-with-omutsu-koukan',
-                                      'omutsu-koukan',
-                                      'hot-water'));
-  if ($baby_count >= 3)
-    $detail['for-baby'] = 'blue';
-  elseif ($baby_count >= 2)
-    $detail['for-baby'] = 'yellow';
-  else
-    $detail['for-baby'] = 'red';
-  /* 駐車場 */
-  $detail['parking'] =
-    getColor($row, array('parking', 'parking-to-entrancet-bump'), false);
+$row = mysql_fetch_assoc($result);
+$detail = array();
+/* 幅 */
+$detail['width'] =
+  getBiasColor($row, array('route-width', 'entrance-width'), 20);
+/* 段差 */
+$detail['bump'] =
+  getBiasColor($row, array('entrance-bump', 'road-to-entrance-bump'), -3);
+/* 出入口 */
+if (trueCount($row, array('auto-door', 'slide-door', 'double-door')) >= 1)
+  $detail['entrance'] = 'blue';
+else
+  $detail['entrance'] = 'red';
+/* エレベータ */
+$detail['elevator'] = getColor($row, array('elevator'), false);
+/* 階段 */
+if ($_POST['stair-with-banister'] == 'true' &&
+    $row['stair-with-banister'] == 'true')
+  $detail['stair'] = 'blue';
+else
+  $detail['stair'] = 'red';
+/* トイレ */
+$detail['toilet'] = getColor($row, array('toilet'), false);
+/* ベビー */
+$baby_count = trueCount($row, array('toilet-with-baby-bed',
+				    'toilet-with-omutsu-koukan',
+				    'omutsu-koukan',
+				    'hot-water'));
+if ($baby_count >= 3)
+  $detail['for-baby'] = 'blue';
+elseif ($baby_count >= 2)
+  $detail['for-baby'] = 'yellow';
+else
+  $detail['for-baby'] = 'red';
+/* 駐車場 */
+$detail['parking'] =
+  getColor($row, array('parking', 'parking-to-entrancet-bump'), false);
 
-  /* toilet-with-audio-assist, toilet-with-ostomate */
-}
+/* toilet-with-audio-assist, toilet-with-ostomate */
+
 
 $scoreValue = 0;
 $scoreMax = 0;
@@ -291,7 +291,7 @@ $Inv_parking = array_flip($list_parking);
 
 //parking_value
 if( $row['parking'] != null){
-  $parking_value = $Inv_parking($_POST['parking']);
+  $parking_value = $Inv_parking[$_POST['parking']];
 }else{
   $parking_value = null;
 }
@@ -387,7 +387,7 @@ $Inv_elevator = array_flip($list_elevator);
 
 //elevator_value
 if( $row['elevator'] != null){
-  $elevator_value = $Inv_elevator($_POST['elevator']);
+  $elevator_value = $Inv_elevator[$_POST['elevator']];
 }else{
   $elevator_value = null;
 }

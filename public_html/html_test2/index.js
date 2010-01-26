@@ -148,6 +148,7 @@ var Detail = {
                     SearchForm.sendData
                    ].join('&'),
              success: function(data) {
+               console.log(data);
                self.element.html(self._tmpl.get(data));
              },
              error: function() { alert('詳細情報の読み込みに失敗しました'); }
@@ -191,7 +192,10 @@ var Detail = {
                     function(item) {
                       var arrs = map[item.name];
                       var message = getMessage(arrs[0], item.value);
-                      if (item.color && message === undefined)
+                      if ((item.color == 'red'
+                           || item.color == 'yellow'
+                           || item.color == 'blue')
+                          && message === undefined)
                         message = getMessage(arrs[1], item.value);
                       if (message === undefined)
                         return undefined;
