@@ -303,7 +303,6 @@ var GMap = {
         .sort(function(d1, d2) { return d2.data.lat - d1.data.lat; }),
       function(_, v) {
         var i = v.idx, d = v.data;
-        console.log(_, v, v.data.name, num2alph(i));
         var gm = google.maps;
         var marker = GMap._markers[d.id] = new gm.Marker(
           $.extend({ position: new gm.LatLng(d.lat, d.lng),
