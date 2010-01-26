@@ -52,7 +52,9 @@ $gender[] =& $form->createElement("radio", "0", NULL, "男性",   "M");
 $gender[] =& $form->createElement("radio", "0", NULL, "女性",   "F");
 $form->addGroup($gender,"gender","性別：");
 
-$form->addElement('date', 'date', '日付', 'size=25');
+
+$form->addElement('date', 'date' ,'生年月日', array('language' => 'en', 'minYear' => 1920, 'maxYear' => 2007, 'format' => 'Y m d'));
+
 $form->addElement('select', 'prefecture','都道府県',$pref);
 
 ////////////

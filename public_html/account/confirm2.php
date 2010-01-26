@@ -45,8 +45,11 @@ $password_ = $_POST['password_x'];
 $email_ = $_POST['email'];
 $mobilemail_ = $_POST['mobilemail'];
 $gender_ = $_POST["gender"][0];
+if($gender_ == ""){
+$gender_ = "N";
+}
 $birthdate_y = $_POST["date"][Y];
-$birthdate_m = $_POST["date"][M];
+$birthdate_m = $_POST["date"][m];
 $birthdate_d = $_POST["date"][d];
 $birthdate_ = "$birthdate_y"."/" ."$birthdate_m". "/"."$birthdate_d";
 $prefecture_ = $_POST['prefecture'];
