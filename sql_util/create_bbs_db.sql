@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS comments;
+
+CREATE TABLE comments (
+  `comment_id`		INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+  ,`user_id`		INT UNSIGNED NOT NULL
+  ,`facility_id`	INT UNSIGNED NOT NULL
+  ,`date`		DATETIME NOT NULL
+  ,`ip`			INT UNSIGNED NOT NULL
+  ,`host`		VARCHAR(100)
+  ,`text`		TEXT NOT NULL
+); 
+
+
+  
