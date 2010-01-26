@@ -34,9 +34,9 @@ function setRollOverImg(index){
         <FORM method="post" action="login2.php">
           ユーザ名: <INPUT type="text" name="username"><BR>
           パスワード: <INPUT type="password" name="password"><BR>
-          <INPUT type="submit">
+          <INPUT type="submit" value="送信">
         </FORM>
-        <p><a href="account.php">アカウント新規登録</a></p>
+        <p style="margin-top: 5em;"><a href="account.php">アカウント新規登録</a></p>
         <p><a href="/../html_test2/index.html">ホーム</a></p>
       </td>
       <td width="370" valign="bottom" align="right">
