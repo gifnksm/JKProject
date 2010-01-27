@@ -152,7 +152,6 @@ var Detail = {
                     SearchForm.sendData
                    ].join('&'),
              success: function(data) {
-               console.log(data);
                self.element.html(self._tmpl.get(data));
                $('input[name="showall"]', self.element).change(
                  function() {
@@ -190,7 +189,6 @@ var Detail = {
             }).join('') + '</dl>';
   },
   parseBarrier: function(category, showall) {
-    console.log(category, showall);
     function getMessage(arr, value) {
       if (arr === undefined)
         return undefined;
@@ -207,9 +205,7 @@ var Detail = {
     var dds = $.map(category.items,
                     function(item) {
                       var arrs = map[item.name];
-                      console.log(item.name, item.value);
                       var message = getMessage(arrs[0], item.value);
-                      console.log('1', message);
                       if (message === undefined
                           && (showall
                               || (item.color == 'red'
@@ -217,7 +213,6 @@ var Detail = {
                                   || item.color == 'blue'))
                          ) {
                         message = getMessage(arrs[1], item.value);
-                        console.log('2', message);
                       }
                       if (message === undefined)
                         return undefined;

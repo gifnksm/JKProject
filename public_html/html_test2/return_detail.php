@@ -226,7 +226,7 @@ function item_colorTF($row, $a) {
 /* item内小項目ごとの情報TF */
 function itemTF($row, $a) {
   return array( "name" => $a,
-		"value" => is_null($row[$a]) ? null : (bool) $row[$a],
+		"value" => strtolower($row[$a]) == 'true' ? true : false,
 		"color" => item_colorTF($row, $a));
 }
 
