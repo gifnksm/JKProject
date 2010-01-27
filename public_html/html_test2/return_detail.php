@@ -42,22 +42,12 @@ if ($_POST['parking-to-entrance-bump-check'] != 'true')
   $_POST['parking-to-entrancet-bump'] = 100;
 
 
-/* MySQLに接続 : @mysql_connect()とすると表示されるPHPもエラーメッセージを非表示にできる */
+/* MySQLに接続 */
 $conn = mysql_connect("jkproject.localhost", "jkp", "jkproject");
 mysql_query("SET NAMES 'utf-8'", $conn);
 mysql_select_db("store_db", $conn);
 
-/* 以下でクエリーの作成 */
-function createQuery($term) {
-  return "(tenmei LIKE \"%$term%\" OR address LIKE \"%$term%\" OR category LIKE \"%$term%\")";
-}
-$keyword = join(' AND ',
-                array_map('createQuery',
-                          preg_split('/[\s,　]+/', $_POST['searchTerm'])));
-
-
-/* キーワード検索　＞＞　店名，住所，（カテゴリー）*/
-/*店名・住所・カテゴリーでの検索（部分一致検索）*/
+/* 取得したID検索 */
 $query = sprintf("SELECT * FROM store_info WHERE id = %d", $_POST['id']);
 
 /*クエリーを実行し．結果セットを取得*/
@@ -169,10 +159,6 @@ foreach ($detail as $value) {
     $scoreValue ++;
 }
 
-
-/* ##########################################################
-   関数の定義
-   ########################################################## */
 /*
   アイコン色とスコアを対応付ける関数（項目）
   $a:アイコン色
@@ -224,14 +210,17 @@ $bfinfo = array();
 
 /* item内,項目の色分け(True-False) */
 function item_colorTF($a){
-  if( $_POST['$a'] == 'true'){
-    if($row[$a] == 'true'){
+  if( $_POST[$a] == 'true'){
+        if($row[$a] == 'true'){
+            return 'blue';
+        } else { 
+            return 'red';
+        }
+    } elseif ($row[$a] == 'true') {
         return 'blue';
-    } else { 
-        return 'red'
-  } else {
-   return "black";
-  }
+    } else {
+        return "black";
+    }
   
 /* item内小項目ごとの情報TF */
 function itemTF($a){
@@ -243,45 +232,49 @@ function itemTF($a){
   
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-/* INT Larger:データベース値が大きいと青*/
-function item_colorLINT($a){
+/* INT Larger:データベース値が大きいと青,$b:バイアス*/
+function item_color($a,$b){
   if( $_POST[$a] = null){
-    return "black";
-  }else{
-    if( $row[$a] >= $_POST[$a]){
-      return "blue";
-    }else{
-      return "red";
-    }
+    if( $row[$a] >= $_POST[$a] + $b){
+        return "blue";
+    } elseif( $row[$a] >= $_POST[$a] ){
+        return "yellow";
+    } else {
+        retrun 'red';
+    }    
+  } else {
+      return 'black';
   }
 }
 
-function itemLINT($a){
+function item($a,$b){
   return $itemLINT = array( "name"=>$a,
 			    "value"=>$row['$a'],
-			    "color"=>item_colorLINT($a)
+			    "color"=>item_colorLINT($a,$b)
 			    );
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 /* INT Smaller：データベース値が大きいと赤*/
-function item_colorSINT($a){
-  if( $_POST[$a] = null){
-    return "black";
-  }else{
-    if( $row[$a] <= $_POST[$a]){
-      return "blue";
-    }else{
-      return "red";
+function item_colorSINT($a,$b){
+  if( $_POST[$a] != null){
+    if( $row[$a]+ $b >= $_POST[$a]){
+        return 'blue';
+    } elseif ($row[$a] >= $_POST[$a]){
+        retuen 'yellow';
+    } else {
+        retuen 'red';
     }
-  }
+   }else{
+    return 'black';
+   }
 }
 
-function itemSINT($a){
+function itemSINT($a,$b){
   return $itemSINT = array( "name"=>$a,
 			    "value"=>$row[$a],
-			    "color"=>item_colorSINT($a)
+			    "color"=>item_colorSINT($a,$b)
 			    );
 }
 
@@ -311,7 +304,7 @@ if( $_POST[$a] = null){
 
 
 $bfinfo[ ] = array( "title"=>"駐車場",
-		    "icon"=>"/resouce/image/icon/arking.png",
+		    "icon"=>"/resouce/image/icon/parking.png",
 		    "items"=>
 		    array(array( "name" =>"parking",
 				 "value"=>$parking_value,
@@ -323,19 +316,19 @@ $bfinfo[ ] = array( "title"=>"駐車場",
 //建物の主な出入り口
 $bfinfo[ ] = array( "title"=>"建物の主な出入り口",
 		    "icon"=>"/resouce/image/icon/entrance.png",
-		    "items"=>array(itemSINT('entrance-bump'),
+		    "items"=>array(itemSINT('entrance-bump',3),
 				   itemTF('slide-door'),
 				   itemTF('double-door'),
 				   itemTF('auto-door'),
-				   itemSINT('road-to-entrance-bump'),
-				   itemSINT('parking-to-entrance-bump'),
+				   itemSINT('road-to-entrance-bump',3),
+				   itemSINT('parking-to-entrance-bump',3),
 				   itemTF('road-to-entrance-with-block')));
 
 
 //建物内の移動
 $bfinfo[ ] = array( "title"=>"建物内の移動",
 		    "icon"=>"/resouce/image/icon/mobility.png",
-		    "items"=>array(itemLINT('route-width'),
+		    "items"=>array(itemLINT('route-width',20),
 				   itemTF('with-barrier'),
 				   itemTF('slipper-floor')));
 
