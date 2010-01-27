@@ -56,8 +56,7 @@ $result = mysql_query($query, $conn);
 /* 検索結果の格納場所 */
 $store_data = array();
 
-function getBiasColor($row, $names, $bias) {
-  if ($bias > 0) {
+function getBiasColor($row, $names, $bias) { if ($bias > 0) {
     // greater is better
     foreach ($names as $n) {
       if ($row[$n] < $_POST[$n])
