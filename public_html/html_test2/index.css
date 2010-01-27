@@ -340,7 +340,7 @@ input.empty:focus {
    margin: 10px 0;
 }
 #detail-content .info > dl {
-   margin: 0 2em 2em;;
+   margin: 0 2em 2em;
 }
 
 #detail-content .info > dl > dt {
@@ -379,6 +379,10 @@ input.empty:focus {
 }
 
 
+#detail-content .bfinfo p {
+   margin: 0 2em 1em;
+   text-align: right;
+}
 #detail-content .bfinfo dt {
    margin: 5px 10px 0;
    font-size: 1em;
@@ -406,6 +410,9 @@ input.empty:focus {
 }
 
 #bbs .comment {
+   margin: 1em 3em 0;
+}
+#bbs p {
    margin: 1em 3em 0;
 }
 

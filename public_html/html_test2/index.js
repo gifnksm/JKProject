@@ -77,13 +77,13 @@ var BBS = {
     this.load();
   },
   load: function() {
-    this.element.html('this._tmpl.get(data)');
+    this.element.html('');
     var self = this;
     $.ajax({ type: 'post',
              url: 'bbs_get.php',
              dataType: 'json',
              cache: true,
-             data: this.id,
+             data: 'id=' + this.id,
              success: function(data) {
                self.element.html(self._tmpl.get(data));
                self.form = $('#bbs-comment');
@@ -120,6 +120,10 @@ var BBS = {
              }
            });
   },
+  hide: function() {
+    if (this.element)
+      this.element.html('');
+  },
   enable: function() {
     this.submitButton.removeAttr('disabled', 'disabled');
   },
@@ -150,6 +154,16 @@ var Detail = {
              success: function(data) {
                console.log(data);
                self.element.html(self._tmpl.get(data));
+               $('input[name="showall"]', self.element).change(
+                 function() {
+                   var showall = this.checked;
+                   $('#bfdl').html(
+                     $.map(data.bfinfo,
+                           function(d) {
+                             return Detail.parseBarrier(d, showall);
+                           }).join(''));
+                 }
+               );
              },
              error: function() { alert('詳細情報の読み込みに失敗しました'); }
            });
@@ -157,6 +171,7 @@ var Detail = {
   },
   hide: function() {
     this.element.html('読み込み中…');
+    BBS.hide();
   },
   parseOpen: function(text) {
     var groups = text.split(/\|(?=<)/);
@@ -174,7 +189,8 @@ var Detail = {
                                });
             }).join('') + '</dl>';
   },
-  parseBarrier: function(category) {
+  parseBarrier: function(category, showall) {
+    console.log(category, showall);
     function getMessage(arr, value) {
       if (arr === undefined)
         return undefined;
@@ -191,12 +207,18 @@ var Detail = {
     var dds = $.map(category.items,
                     function(item) {
                       var arrs = map[item.name];
+                      console.log(item.name, item.value);
                       var message = getMessage(arrs[0], item.value);
-                      if ((item.color == 'red'
-                           || item.color == 'yellow'
-                           || item.color == 'blue')
-                          && message === undefined)
+                      console.log('1', message);
+                      if (message === undefined
+                          && (showall
+                              || (item.color == 'red'
+                                  || item.color == 'yellow'
+                                  || item.color == 'blue'))
+                         ) {
                         message = getMessage(arrs[1], item.value);
+                        console.log('2', message);
+                      }
                       if (message === undefined)
                         return undefined;
                       message = message.replace(/%d/g, item.value);
@@ -747,6 +769,8 @@ var LoginMessage = {
   _messageTmpl: $.createTemplateURL('/resource/templates/login-message.tpl'),
   init: function(data) {
     $('#login-message').html(this._messageTmpl.get(this._data = data));
+    if (!data.login)
+      $('#search-condition-name-label').hide();
   }
 };
 

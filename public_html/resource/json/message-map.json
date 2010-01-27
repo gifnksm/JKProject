@@ -1,8 +1,8 @@
 {"parking": [
    [["over-350cm", "幅350cm以上の障がい者用駐車場がある"],
     ["under-350cm", "障がい者用駐車場がある"],
-    ["for-normal", "駐車場がある"],
-    ["non-parking", "駐車場がない"],
+    ["for-normal", "駐車場がある"]],
+   [["non-parking", "駐車場がない"],
     [null, "駐車場の有無不明"]]
  ],
  "parking-carport": [
@@ -37,8 +37,7 @@
    [[false, "歩道から施設の出入り口までに点字ブロックがない"]]
  ],
  "route-width": [
-   [],
-   ["店内通路の幅が %d cm"]
+   [["店内通路の幅が %d cm"]]
  ],
  "with-barrier": [
    [[true, "店内通路に障害物がある"]],
@@ -70,7 +69,7 @@
    [[false, "建築見取り図に配慮がされていない"],
     [null, "建築見取り図の有無が不明"]]
  ],
- "toilet-type": [
+ "toilet": [
    [["disabled-toilet-separate", "障がい者用トイレ（男女別）がある"],
     ["disabled-toilet-unisexed", "障がい者用トイレ（男女共用）がある"]],
    [["normal-toilet", "普通のトイレがある"],
@@ -98,9 +97,9 @@
     [false, "階段に手すりがついていない"]]
  ],
  "elevator": [
-   [["with-large-elevator", "車椅子対応エレベータがある"],
-    ["with-normal-elevator", "車椅子非対応エレベータがある"]],
-   [["without-elevator", "エレベータがない"]]
+   [["with-large-ev", "車椅子対応エレベータがある"],
+    ["with-normal-ev", "車椅子非対応エレベータがある"]],
+   [["without-ev", "エレベータがない"]]
  ],
  "omutsu-koukan": [
    [[true, "おむつ交換場所がある"]],

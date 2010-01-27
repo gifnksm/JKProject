@@ -59,9 +59,10 @@
 {#template bfinfo}
 <div class="bfinfo">
 <h3>バリアフリー情報</h3>
-<dl>
+<p><label><input type="checkbox" name="showall"/> すべての項目を表示する</label></p>
+<dl id="bfdl">
 {#foreach $T as c}
-  {Detail.parseBarrier($T.c)}
+  {Detail.parseBarrier($T.c, false)}
 {#/for}
 </dl>
 </div>

@@ -5,7 +5,7 @@ $conn = mysql_connect("jkproject.localhost", "jkp", "jkproject");
 mysql_query("SET NAMES 'utf-8'", $conn);
 mysql_select_db("bbs_db", $conn);
 
-$facility_id = 2;
+$facility_id = (int) $_POST['id'];
 $query = 'select username, date, text from comments'
   . ' left join login_db.credentials on'
   . ' comments.user_id = login_db.credentials.id'
