@@ -54,14 +54,14 @@ var List = {
     List._pager = new Pager();
     $('#list-container .footer').append(List._pager.element);
     List._list = $('#list');
-    List._pager.addCallback(function(page) { List.updatePage(page); });
+    List._pager.addCallback(function(page) { List.refresh(); });
   },
   setData: function(data) {
     List._data = data;
     List._pageTmpl.setParam('category', data.category);
     List._pager.updateItems(data.result);
   },
-  updatePage: function(page) {
+  refresh: function() {
     var items = List._pager.currentItems();
     List._list.html(List._pageTmpl.get(items));
     GMap.setPageMarker(items);
