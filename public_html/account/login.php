@@ -16,7 +16,7 @@ function setRollOverImg(index){
 <BODY>
   <table width="100%" height="100%"><tr>
       <td width="370" valign="top">
-        <a Href="/../html_test2/index.html" Target="_blank">
+        <a Href="/index.html" Target="_blank">
           <img src="/resource/image/logo_small.png" Border="0" with="200" height="50" alt="バリアフリーマップ検索" />
         </a>
       </td>
@@ -28,7 +28,7 @@ function setRollOverImg(index){
           <INPUT type="submit" value="送信">
         </FORM>
         <p style="margin-top: 5em;"><a href="account.php">アカウント新規登録</a></p>
-        <p><a href="/../html_test2/index.html">ホーム</a></p>
+        <p><a href="/index.html">ホーム</a></p>
       </td>
       <td width="370" valign="bottom" align="right">
         <img src="./image/login_1.png" id="cat"
