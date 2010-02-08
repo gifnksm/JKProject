@@ -80,7 +80,7 @@ var BBS = {
     this.element.html('');
     var self = this;
     $.ajax({ type: 'post',
-             url: 'bbs_get.php',
+             url: '/bbs/get.php',
              dataType: 'json',
              cache: true,
              data: 'id=' + this.id,
@@ -102,7 +102,7 @@ var BBS = {
     this.disable();
     var self = this;
     $.ajax({ type: 'post',
-             url: 'bbs_put.php',
+             url: '/bbs/put.php',
              dataType: 'json',
              cache: true,
              data: this.form.serialize(),
@@ -145,7 +145,7 @@ var Detail = {
     var self = this;
     this.hide();
     $.ajax({ type: 'post',
-             url: 'return_detail.php',
+             url: '/search/detail.php',
              dataType: 'json',
              cache: true,
              data: ['id=' + id,
@@ -722,7 +722,7 @@ var SearchForm = {
     function sendData() {
       self.sendData = self.dcf.form.serialize();
       $.ajax({ type: 'post',
-               url: 'response.php',
+               url: '/search/search.php',
                dataType: 'json',
                cache: true,
                data: ['searchTerm=' + encodeURIComponent(term),
