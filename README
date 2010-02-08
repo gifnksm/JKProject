@@ -10,3 +10,7 @@ public_html以下にはなるべく余分なものを置かない！
 たとえば，他のファイルから呼び出されるだけで直接アクセスされないPHPファイルはpublic_html以下ではなく，
 php_lib以下に置き，phpのロードパスにphp_libを設定しておく
 
+* データベースのセットアップ方法
+/sql_util に移動し，以下のコマンドを実行すればOK
+
+mysql < init_db.sql -u root -p
