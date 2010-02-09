@@ -120,7 +120,7 @@ if (count($row) > 1)
 <H2>自動的にトップページに戻ります</H2>
 <p><a href="/index.html">ホーム</a></p>
 </DIV>
-<div id="anime"><img src="image/car_anime.gif" width="200" height="200"/></div>
+<div id="anime"><img src="/resource/image/account/car_anime.gif" width="200" height="200"/></div>
 </BODY>
 </HTML>
 LOGGEDIN;
