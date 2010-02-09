@@ -134,12 +134,12 @@ var BBS = {
 
 var Detail = {
   element: null,
-  map: null,
+  messageMap: null,
   _tmpl: $.createTemplateURL('/resource/templates/detail.tpl'),
   init: function(map) {
     this.element = $('#detail-content');
     this.bbs = $('#bbs');
-    this.map = map;
+    this.messageMap = map;
   },
   show: function(id) {
     var self = this;
@@ -201,7 +201,7 @@ var Detail = {
       return undefined;
     }
 
-    var map = this.map;
+    var map = this.messageMap;
     var dds = $.map(category.items,
                     function(item) {
                       var arrs = map[item.name];
