@@ -84,7 +84,7 @@ $_SESSION['i'] = $id_;
 	    echo '<H2>ようこそ、' ."$username_". 'さん</H2>';
 	   echo 'これからもバリアフリーマップ検索をお楽しみください!<BR>';
 echo '<H2>自動的にトップページに移動します</H2>';
-echo '<meta http-equiv="Refresh" content="3; URL=/../html_test2/index.html">';
+echo '<meta http-equiv="Refresh" content="3; URL=/index.html">';
 
 }
 else{
@@ -95,11 +95,11 @@ else{
 echo '<H2>登録できませんでした</H2>';
 echo '<H2>もう一度始めからやり直してください</H2>';
 echo '<H2>自動的にログインページに移動します</H2>';
-echo '<meta http-equiv="Refresh" content="3; URL=/./account/login.php">';
+echo '<meta http-equiv="Refresh" content="3; URL=/account/login.php">';
 }
 }
 ?>
-<p><a href="/../html_test2/index.html?no=1">ホーム</a></p>
+<p><a href="/index.html">ホーム</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A>
 </DIV>
 </BODY>

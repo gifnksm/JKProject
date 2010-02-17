@@ -54,14 +54,14 @@ var List = {
     List._pager = new Pager();
     $('#list-container .footer').append(List._pager.element);
     List._list = $('#list');
-    List._pager.addCallback(function(page) { List.updatePage(page); });
+    List._pager.addCallback(function(page) { List.refresh(); });
   },
   setData: function(data) {
     List._data = data;
     List._pageTmpl.setParam('category', data.category);
     List._pager.updateItems(data.result);
   },
-  updatePage: function(page) {
+  refresh: function() {
     var items = List._pager.currentItems();
     List._list.html(List._pageTmpl.get(items));
     GMap.setPageMarker(items);
@@ -80,7 +80,7 @@ var BBS = {
     this.element.html('');
     var self = this;
     $.ajax({ type: 'post',
-             url: 'bbs_get.php',
+             url: '/bbs/get.php',
              dataType: 'json',
              cache: true,
              data: 'id=' + this.id,
@@ -102,7 +102,7 @@ var BBS = {
     this.disable();
     var self = this;
     $.ajax({ type: 'post',
-             url: 'bbs_put.php',
+             url: '/bbs/put.php',
              dataType: 'json',
              cache: true,
              data: this.form.serialize(),
@@ -134,18 +134,18 @@ var BBS = {
 
 var Detail = {
   element: null,
-  map: null,
+  messageMap: null,
   _tmpl: $.createTemplateURL('/resource/templates/detail.tpl'),
   init: function(map) {
     this.element = $('#detail-content');
     this.bbs = $('#bbs');
-    this.map = map;
+    this.messageMap = map;
   },
   show: function(id) {
     var self = this;
     this.hide();
     $.ajax({ type: 'post',
-             url: 'return_detail.php',
+             url: '/search/detail.php',
              dataType: 'json',
              cache: true,
              data: ['id=' + id,
@@ -201,7 +201,7 @@ var Detail = {
       return undefined;
     }
 
-    var map = this.map;
+    var map = this.messageMap;
     var dds = $.map(category.items,
                     function(item) {
                       var arrs = map[item.name];
@@ -722,7 +722,7 @@ var SearchForm = {
     function sendData() {
       self.sendData = self.dcf.form.serialize();
       $.ajax({ type: 'post',
-               url: 'response.php',
+               url: '/search/search.php',
                dataType: 'json',
                cache: true,
                data: ['searchTerm=' + encodeURIComponent(term),

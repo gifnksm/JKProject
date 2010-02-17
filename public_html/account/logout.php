@@ -25,9 +25,9 @@ else
 }
 ?>
 <H2>自動的にトップページに戻ります</H2>
-<h1><img src="./image/neko3.png" alt="" /></h1>
-<p><a href="/../html_test2/index.html">HOME</a></p>
-<meta http-equiv="Refresh" content="2; URL=/../html_test2/index.html">
+<h1><img src="/resource/image/account/neko3.png" alt="" /></h1>
+<p><a href="/index.html">HOME</a></p>
+<meta http-equiv="Refresh" content="2; URL=/index.html">
 
 </DIV>
 </BODY>

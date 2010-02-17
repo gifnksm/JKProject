@@ -14,8 +14,8 @@
 echo "$_POST[num]";
 $conn = mysql_connect("jkproject.localhost", "jkp", "jkproject");
 mysql_query("SET NAMES 'utf-8'", $conn);
-mysql_select_db("login_db", $conn);
-$sql = "SELECT * FROM credentials";
+mysql_select_db("store_db", $conn);
+$sql = "SELECT * FROM store_info";
 $rs = mysql_query($sql, $conn);
 echo "<TABLE border=1>";
 
@@ -33,19 +33,19 @@ while ($row = mysql_fetch_assoc($rs))
 echo "</TABLE>";
 
 
-$del = "DELETE FROM credentials WHERE id=$_POST[num]";
+$del = "DELETE FROM store_info WHERE id=$_POST[num]";
 $act = mysql_query($del, $conn);
 
 if($_POST[num] == "jkproject")
 {
-$alldel = "DELETE FROM credentials";
+$alldel = "DELETE FROM store_info";
 $action = mysql_query($alldel, $conn);
 }
 
 mysql_close($conn);
 if($act || $action)
 {
-echo '<meta http-equiv="Refresh" content="0; URL=/./account/showmysql.php">';
+echo '<meta http-equiv="Refresh" content="0; URL=/account/show_store.php">';
 }
 ?>
 </BODY>

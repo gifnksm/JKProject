@@ -3,7 +3,7 @@
 <BODY>
 <DIV align="center">
 <DIV align="left">
-               <A Href="/../html_test2/index.html" Target="_blank">
+               <A Href="/index.html" Target="_blank">
                <h1><img src="/resource/image/logo_small.png" Border="0" with="200" height="50"
                         alt="バリアフリーマップ検索" /></h1>
                 </td><td style="text-align: right;">
@@ -106,7 +106,7 @@ else
 }
 ?>
 <!--HOME link-->
-<p><a href="/../html_test2/index.html?no=1">ホーム</a></p>
+<p><a href="/index.html">ホーム</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A> 
 
 </DIV>

@@ -14,7 +14,7 @@ echo <<<EOT
 <body>
 <DIV align="center">
 ユーザー名もしくはパスワードが正しくありません。
-<p><a href="/../html_test2/index.html">ホーム</a></p>
+<p><a href="/index.html">ホーム</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A>
 </DIV>
 EOT;
@@ -46,7 +46,7 @@ function loginFormHtml($username = null, $status = null)
     </FORM>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <p><a href="account.php">new account</a></p>
-<p><a href="/../html_test2/index.html">HOME</a></p>
+<p><a href="/index.html">HOME</a></p>
 <A Href="javascript:history.go(-1)">1つ前に戻る</A>
 </DIV>
 </BODY>
@@ -84,7 +84,7 @@ if (count($row) > 1)
 <HTML>
 <HEAD>
 <TITLE>確認</TITLE>
-<meta http-equiv="Refresh" content="2; URL=/../html_test2/index.html">
+<meta http-equiv="Refresh" content="2; URL=/index.html">
 <style type="text/css">
 #anime {
   position: absolute;
@@ -118,9 +118,9 @@ if (count($row) > 1)
 <DIV align="center"> 
 <H3>ログインしました。</H3>
 <H2>自動的にトップページに戻ります</H2>
-<p><a href="/../html_test2/index.html">ホーム</a></p>
+<p><a href="/index.html">ホーム</a></p>
 </DIV>
-<div id="anime"><img src="image/car_anime.gif" width="200" height="200"/></div>
+<div id="anime"><img src="/resource/image/account/car_anime.gif" width="200" height="200"/></div>
 </BODY>
 </HTML>
 LOGGEDIN;
